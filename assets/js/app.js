@@ -23,10 +23,59 @@ import {Socket} from "phoenix"
 import {LiveSocket} from "phoenix_live_view"
 import topbar from "../vendor/topbar"
 
+let Hooks = {}
+
+Hooks.KatexRenderer = {
+  mounted() {
+    console.log("[KatexRenderer] mounted hook вызван")
+    this.renderKatex()
+  },
+  update() {
+    console.log("[KatexRenderer] updated hook вызван")
+    this.renderKatex()
+  },
+  renderKatex() {
+    console.log("[KatexRenderer] Запуск renderKatex renderKatex()")
+
+    if (typeof renderMathInElement !== "function") {
+      console.warn("[KatexRenderer] renderMathInElement НЕ найден. Возможно, auto-render.min.js не загружен.")
+      return
+    }
+
+    const container = document.getElementById("katex-container")
+
+    if (!container) {
+      console.warn("[KatexRenderer] Контейнер #katex-container НЕ найден на странице")
+      return
+    }
+
+    console.log("[KatexRenderer] Найден контейнер:", container)
+
+    // // Очистка старых .katex элементов, чтобы избежать дублирования
+    // const existing = container.querySelectorAll(".katex")
+    // console.log(`[KatexRenderer] Удалено ${existing.length} старых .katex элементов`)
+    // existing.forEach(el => el.remove())
+
+    // // Рендер формул
+    // try {
+    //   renderMathInElement(container, {
+    //     delimiters: [
+    //       { left: "$$", right: "$$", display: true },
+    //       { left: "$", right: "$", display: false }
+    //     ]
+    //   })
+    //   console.log("[KatexRenderer] Формулы успешно перерисованы")
+    // } catch (e) {
+    //   console.error("[KatexRenderer] Ошибка при рендере формул:", e)
+    // }
+  }
+}
+
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 let liveSocket = new LiveSocket("/live", Socket, {
   longPollFallbackMs: 2500,
-  params: {_csrf_token: csrfToken}
+  params: {_csrf_token: csrfToken},
+  hooks: Hooks
 })
 
 // Show progress bar on live navigation and form submits

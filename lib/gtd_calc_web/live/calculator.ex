@@ -2,27 +2,43 @@ defmodule GtdCalcWeb.Calculator do
   use GtdCalcWeb, :live_view
 
   def mount(_params, _session, socket) do
-    {:ok,
-      assign(socket,
-        r_os: 101325,
-        t_os: 288.15,
-        k: 1.4,
-        rb: 287.1,
-        m: 0.0,
-        result: nil,
-        math_content:  "Когда \\(a \\ne 0\\), решения квадратного уравнения \\(ax^2 + bx + c = 0\\): \\[ x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}. \\]"
-      )}
+    assigns = %{
+      r_os: 101325,
+      t_os: 288.15,
+      k: 1.4,
+      rb: 287.1,
+      m: 0.0,
+      t_v: nil,
+      formula1: ""
+    }
+
+    socket = assign(socket, Map.new(assigns))
+
+    {:ok, refresh_formula(socket)}
   end
 
-  def handle_event("calculate", _, socket) do
-    result = 123
-    {:noreply,
-      assign(socket,
-        result: result
-      )}
+  def handle_event("calculate", %{"calc" => params}, socket) do
+    assigns = %{
+      r_os: Utils.to_float(params["r_os"]),
+      t_os: Utils.to_float(params["t_os"]),
+      k: Utils.to_float(params["k"]),
+      rb: Utils.to_float(params["rb"]),
+      m: Utils.to_float(params["m"])
+    }
+
+    socket = assign(socket, assigns)
+    socket = refresh_formula(socket)
+
+    {:noreply, socket}
   end
 
   def render(assigns) do
+    t_v = assigns.t_os * (1 + (((assigns.k - 1)/(assigns.k))*(assigns.m*assigns.m)))
+
+    formula1 = "\\[ T_{\\text{в}} = T_{\\text{ос}} \\cdot \\left( 1 + \\frac{k - 1}{k} \\cdot M^2 \\right) = #{t_v} \\]"
+
+    assigns = assign(assigns, :formula1, formula1)
+
     ~H"""
     <div class="max-w-md mx-auto mt-10 p-6 bg-white shadow rounded">
       <h1 class="text-2xl font-bold mb-4">Расчет камеры сгорания МГТД</h1>
@@ -30,7 +46,6 @@ defmodule GtdCalcWeb.Calculator do
       <br>
       <h1>Необходимые данные</h1>
       <br>
-
       <b>Параметры окружающей среды</b>
       <br>
       <form phx-submit="calculate" class="space-y-4">
@@ -59,21 +74,39 @@ defmodule GtdCalcWeb.Calculator do
           Рассчитать
         </button>
       </form>
-
-          <div id="formula-container">
-            <%= raw(@math_content) %>
-          </div>
-
-      <%= if @result do %>
-        <div class="mt-6 p-4 bg-green-50 text-green-800 rounded">
+        <br><br><h1>Расчет</h1><br>
           <p>Температура на входе в двигатель<br>
-          <div id="formula-container" phx-hook="KatexRenderer">
-            <%= raw(@math_content) %>
+
+          <div id="katex-container" phx-hook="KatexRenderer" phx-update="ignore">
+            {@formula1}
           </div>
-          <strong><%= @result %> </strong></p>
-        </div>
-      <% end %>
+          </p>
+
+
     </div>
     """
   end
+
+  defp refresh_formula(socket) do
+    t_v = calculate_t_v(socket.assigns)
+
+    formula1 = "\\[ T_{\\text{в}} = T_{\\text{ос}} \\cdot \\left( 1 + \\frac{k - 1}{k} \\cdot M^2 \\right) = #{t_v} \\]"
+
+    assign(socket, t_v: t_v, formula1: formula1)
+  end
+
+  defp calculate_t_v(assigns) do
+    assigns.t_os * (1 + (((assigns.k - 1)/(assigns.k))*(assigns.m*assigns.m)))
+  end
+end
+
+defmodule Utils do
+  def to_float(str) when is_binary(str) do
+    case Float.parse(str) do
+      {num, _rest} -> num
+      :error -> raise "Invalid float string: #{str}"
+    end
+  end
+
+  def to_float(num) when is_number(num), do: num * 1.0
 end
