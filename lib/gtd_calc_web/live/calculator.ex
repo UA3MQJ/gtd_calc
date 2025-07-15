@@ -33,12 +33,6 @@ defmodule GtdCalcWeb.Calculator do
   end
 
   def render(assigns) do
-    t_v = assigns.t_os * (1 + (((assigns.k - 1)/(assigns.k))*(assigns.m*assigns.m)))
-
-    formula1 = "\\[ T_{\\text{в}} = T_{\\text{ос}} \\cdot \\left( 1 + \\frac{k - 1}{k} \\cdot M^2 \\right) = #{t_v} \\]"
-
-    assigns = assign(assigns, :formula1, formula1)
-
     ~H"""
     <div class="max-w-md mx-auto mt-10 p-6 bg-white shadow rounded">
       <h1 class="text-2xl font-bold mb-4">Расчет камеры сгорания МГТД</h1>

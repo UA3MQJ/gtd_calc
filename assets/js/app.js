@@ -30,7 +30,7 @@ Hooks.KatexRenderer = {
     console.log("[KatexRenderer] mounted hook вызван")
     this.renderKatex()
   },
-  update() {
+  updated() {
     console.log("[KatexRenderer] updated hook вызван")
     this.renderKatex()
   },
