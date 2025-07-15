@@ -77,7 +77,7 @@ defmodule GtdCalcWeb.Calculator do
         <br><br><h1>Расчет</h1><br>
           <p>Температура на входе в двигатель<br>
 
-          <div id="katex-container" phx-hook="KatexRenderer" phx-update="ignore">
+          <div id="katex-container" phx-hook="KatexRenderer" phx-update="replace">
             {@formula1}
           </div>
           </p>

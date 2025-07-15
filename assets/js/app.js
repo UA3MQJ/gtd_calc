@@ -51,23 +51,25 @@ Hooks.KatexRenderer = {
 
     console.log("[KatexRenderer] Найден контейнер:", container)
 
-    // // Очистка старых .katex элементов, чтобы избежать дублирования
-    // const existing = container.querySelectorAll(".katex")
-    // console.log(`[KatexRenderer] Удалено ${existing.length} старых .katex элементов`)
-    // existing.forEach(el => el.remove())
+    // Очистка старых .katex элементов, чтобы избежать дублирования
+    const existing = container.querySelectorAll(".katex")
+    console.log(`[KatexRenderer] Удалено ${existing.length} старых .katex элементов`)
+    existing.forEach(el => el.remove())
 
-    // // Рендер формул
-    // try {
-    //   renderMathInElement(container, {
-    //     delimiters: [
-    //       { left: "$$", right: "$$", display: true },
-    //       { left: "$", right: "$", display: false }
-    //     ]
-    //   })
-    //   console.log("[KatexRenderer] Формулы успешно перерисованы")
-    // } catch (e) {
-    //   console.error("[KatexRenderer] Ошибка при рендере формул:", e)
-    // }
+    // Рендер формул
+    try {
+      renderMathInElement(container, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true },
+          {left: "$", right: "$", display: false },
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      })
+      console.log("[KatexRenderer] Формулы успешно перерисованы")
+    } catch (e) {
+      console.error("[KatexRenderer] Ошибка при рендере формул:", e)
+    }
   }
 }
 
@@ -86,17 +88,6 @@ window.addEventListener("phx:page-loading-stop", _info => topbar.hide())
 // connect if there are any LiveViews on the page
 liveSocket.connect()
 
-// Add hook to re-render KaTeX after LiveView updates
-window.addEventListener("phx:update", () => {
-  if (typeof renderMathInElement === "function") {
-    renderMathInElement(document.body, {
-      delimiters: [
-        { left: "$$", right: "$$", display: true },
-        { left: "$", right: "$", display: false }
-      ]
-    });
-  }
-});
 
 // expose liveSocket on window for web console debug logs and latency simulation:
 // >> liveSocket.enableDebug()
