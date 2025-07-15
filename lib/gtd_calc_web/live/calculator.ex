@@ -29,11 +29,17 @@ defmodule GtdCalcWeb.Calculator do
       rt: 800,
       vr: 2.5e-6,
       tt: 300,
+      # полнота сгорания
+      kv: 0.22,
       # результаты
       t_v: nil,
       t_k: nil,
+      n_g: nil,
       formula1: "",
       formula2: "",
+      formula3: "",
+      formula4: "",
+      formula5: "",
     }
 
     socket = assign(socket, Map.new(assigns))
@@ -64,6 +70,7 @@ defmodule GtdCalcWeb.Calculator do
       rt: Utils.to_float(params["rt"]),
       vr: Utils.to_float(params["vr"]),
       tt: Utils.to_float(params["tt"]),
+      kv: Utils.to_float(params["kv"]),
     }
 
     socket = assign(socket, assigns)
@@ -178,16 +185,26 @@ defmodule GtdCalcWeb.Calculator do
         <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">
           Рассчитать
         </button>
-      </form>
+
         <br><br><h1>Расчет</h1><br>
 
 
           <div id="katex-container" phx-hook="KatexRenderer" phx-update="replace">
             Температура на входе в двигатель<br>{@formula1}
             Температура за компрессором<br>{@formula2}
+            Скорость за компрессором<br>{@formula3}
+            Давление за компрессором<br>{@formula4}
+            Полнота сгорания<br>
+            <div>
+              <label class="block text-sm font-medium">Kv:</label>
+              <input type="number" name="calc[kv]" value={@kv} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+
+            {@formula5}
           </div>
 
 
+      </form>
 
     </div>
     """
@@ -205,8 +222,14 @@ defmodule GtdCalcWeb.Calculator do
     formula2 = "\\[ T_{\\text{к}} = T_{\\text{в}} \\cdot \\left( 1 + \\frac{Пк^\\frac{k-1}{k}}{ηкомп} \\right) = #{t_k} \\]"
 
 
+    n_g = calculate_n_g(socket.assigns)
+    socket = assign(socket, n_g: n_g)
+
+    formula5 = "\\[ ηг = 1 - 0.8 \\cdot Kv^2 = #{n_g} \\]"
+
     assign(socket, formula1: formula1,
-                   formula2: formula2
+                   formula2: formula2,
+                   formula5: formula5,
     )
   end
 
@@ -216,6 +239,10 @@ defmodule GtdCalcWeb.Calculator do
 
   defp calculate_t_k(assigns) do
     assigns.t_v * (1 + (((:math.pow(assigns.pk, ((assigns.k - 1)/(assigns.k))))-1)/(assigns.ncomp)))
+  end
+
+  defp calculate_n_g(assigns) do
+    1 - (0.8 * (:math.pow(assigns.kv, 2)))
   end
 end
 
