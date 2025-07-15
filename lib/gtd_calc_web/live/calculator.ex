@@ -3,13 +3,37 @@ defmodule GtdCalcWeb.Calculator do
 
   def mount(_params, _session, socket) do
     assigns = %{
+      # параметры окружающей среды
       r_os: 101325,
       t_os: 288.15,
       k: 1.4,
       rb: 287.1,
       m: 0.0,
+      # параметры компрессора
+      gv: 1.42,
+      pk: 4.75,
+      dkn: 0.230,
+      dkvn: 0.215,
+      ncomp: 0.77,
+      yk: 0.22,
+      # параметры КС
+      votb: 0,
+      tg: 1170,
+      # параметры турбины
+      dtn: 0.128,
+      dtvn: 0.088,
+      # параметры топлива
+      gt: 0.026,
+      hu: 42915,
+      l0: 14.7,
+      rt: 800,
+      vr: 2.5e-6,
+      tt: 300,
+      # результаты
       t_v: nil,
-      formula1: ""
+      t_k: nil,
+      formula1: "",
+      formula2: "",
     }
 
     socket = assign(socket, Map.new(assigns))
@@ -23,7 +47,23 @@ defmodule GtdCalcWeb.Calculator do
       t_os: Utils.to_float(params["t_os"]),
       k: Utils.to_float(params["k"]),
       rb: Utils.to_float(params["rb"]),
-      m: Utils.to_float(params["m"])
+      m: Utils.to_float(params["m"]),
+      gv: Utils.to_float(params["gv"]),
+      pk: Utils.to_float(params["pk"]),
+      dkn: Utils.to_float(params["dkn"]),
+      dkvn: Utils.to_float(params["dkvn"]),
+      ncomp: Utils.to_float(params["ncomp"]),
+      yk: Utils.to_float(params["yk"]),
+      votb: Utils.to_float(params["votb"]),
+      tg: Utils.to_float(params["tg"]),
+      dtn: Utils.to_float(params["dtn"]),
+      dtvn: Utils.to_float(params["dtvn"]),
+      gt: Utils.to_float(params["gt"]),
+      hu: Utils.to_float(params["hu"]),
+      l0: Utils.to_float(params["l0"]),
+      rt: Utils.to_float(params["rt"]),
+      vr: Utils.to_float(params["vr"]),
+      tt: Utils.to_float(params["tt"]),
     }
 
     socket = assign(socket, assigns)
@@ -40,15 +80,16 @@ defmodule GtdCalcWeb.Calculator do
       <br>
       <h1>Необходимые данные</h1>
       <br>
-      <b>Параметры окружающей среды</b>
-      <br>
+
       <form phx-submit="calculate" class="space-y-4">
+        <b>Параметры окружающей среды</b>
+        <br>
         <div>
-          <label class="block text-sm font-medium">Rос:</label>
+          <label class="block text-sm font-medium">Rос (Па):</label>
           <input type="number" name="calc[r_os]" value={@r_os} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
         </div>
         <div>
-          <label class="block text-sm font-medium">Tос:</label>
+          <label class="block text-sm font-medium">Tос (К):</label>
           <input type="number" name="calc[t_os]" value={@t_os} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
         </div>
         <div>
@@ -63,18 +104,89 @@ defmodule GtdCalcWeb.Calculator do
           <label class="block text-sm font-medium">M:</label>
           <input type="number" name="calc[m]" value={@m} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
         </div>
+        <br>
+        <b>Параметры компрессора</b>
+        <br>
+        <div>
+          <label class="block text-sm font-medium">Gв (кг/c):</label>
+          <input type="number" name="calc[gv]" value={@gv} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Пк:</label>
+          <input type="number" name="calc[pk]" value={@pk} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Dкн (м):</label>
+          <input type="number" name="calc[dkn]" value={@dkn} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Dквн (м):</label>
+          <input type="number" name="calc[dkvn]" value={@dkvn} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">ηкомп:</label>
+          <input type="number" name="calc[ncomp]" value={@ncomp} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">λк:</label>
+          <input type="number" name="calc[yk]" value={@yk} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+        </div>
+        <br><b>Параметры КС</b><br>
+        <div>
+          <label class="block text-sm font-medium">βотб:</label>
+          <input type="number" name="calc[votb]" value={@votb} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Tг (K):</label>
+          <input type="number" name="calc[tg]" value={@tg} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+        </div>
+        <br><b>Параметры турбины</b><br>
+        <div>
+          <label class="block text-sm font-medium">Dтн (м):</label>
+          <input type="number" name="calc[dtn]" value={@dtn} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Dтвн (м):</label>
+          <input type="number" name="calc[dtvn]" value={@dtvn} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+        </div>
+        <br><b>Параметры топлива</b><br>
+        <div>
+          <label class="block text-sm font-medium">Gт (кг/с):</label>
+          <input type="number" name="calc[gt]" value={@gt} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Hu (кДж/кг):</label>
+          <input type="number" name="calc[hu]" value={@hu} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">L0:</label>
+          <input type="number" name="calc[l0]" value={@l0} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">ρт (кг/м<sup>3</sup>):</label>
+          <input type="number" name="calc[rt]" value={@rt} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">vт (м<sup>2</sup>/c):</label>
+          <input type="number" name="calc[vr]" value={@vr} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Tт:</label>
+          <input type="number" name="calc[tt]" value={@tt} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+        </div>
 
         <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">
           Рассчитать
         </button>
       </form>
         <br><br><h1>Расчет</h1><br>
-          <p>Температура на входе в двигатель<br>
+
 
           <div id="katex-container" phx-hook="KatexRenderer" phx-update="replace">
-            {@formula1}
+            Температура на входе в двигатель<br>{@formula1}
+            Температура за компрессором<br>{@formula2}
           </div>
-          </p>
+
 
 
     </div>
@@ -83,14 +195,27 @@ defmodule GtdCalcWeb.Calculator do
 
   defp refresh_formula(socket) do
     t_v = calculate_t_v(socket.assigns)
+    socket = assign(socket, t_v: t_v)
 
     formula1 = "\\[ T_{\\text{в}} = T_{\\text{ос}} \\cdot \\left( 1 + \\frac{k - 1}{k} \\cdot M^2 \\right) = #{t_v} \\]"
 
-    assign(socket, t_v: t_v, formula1: formula1)
+    t_k = calculate_t_k(socket.assigns)
+    socket = assign(socket, t_k: t_k)
+
+    formula2 = "\\[ T_{\\text{к}} = T_{\\text{в}} \\cdot \\left( 1 + \\frac{Пк^\\frac{k-1}{k}}{ηкомп} \\right) = #{t_k} \\]"
+
+
+    assign(socket, formula1: formula1,
+                   formula2: formula2
+    )
   end
 
   defp calculate_t_v(assigns) do
     assigns.t_os * (1 + (((assigns.k - 1)/(assigns.k))*(assigns.m*assigns.m)))
+  end
+
+  defp calculate_t_k(assigns) do
+    assigns.t_v * (1 + (((:math.pow(assigns.pk, ((assigns.k - 1)/(assigns.k))))-1)/(assigns.ncomp)))
   end
 end
 
