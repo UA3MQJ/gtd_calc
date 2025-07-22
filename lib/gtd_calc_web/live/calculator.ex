@@ -37,11 +37,21 @@ defmodule GtdCalcWeb.Calculator do
       n_g: nil,
       w_k: nil,
       p_k: nil,
+      srvtg: nil,
+      srvtk: nil,
+      ntg: nil,
+      nrb: nil,
+      qr: nil,
       formula1: "",
       formula2: "",
       formula3: "",
       formula4: "",
       formula5: "",
+      formula6: "",
+      formula7: "",
+      formula8: "",
+      formula9: "",
+      formula10: ""
     }
 
     socket = assign(socket, Map.new(assigns))
@@ -203,6 +213,13 @@ defmodule GtdCalcWeb.Calculator do
             </div>
 
             {@formula5}
+
+            Относительный расход топлива<br>
+            {@formula6}
+            {@formula7}
+            {@formula8}
+            {@formula9}
+            {@formula10}
           </div>
 
 
@@ -239,11 +256,33 @@ defmodule GtdCalcWeb.Calculator do
 
     formula4 = "\\[ Pк = Пк \\cdot Pос = #{p_k} \\]"
 
+    srvtg = calculate_srvtg(socket.assigns)
+    socket = assign(socket, srvtg: srvtg)
+    srvtk = calculate_srvtk(socket.assigns)
+    socket = assign(socket, srvtk: srvtk)
+    ntg = calculate_ntg(socket.assigns)
+    socket = assign(socket, ntg: ntg)
+    nrb = calculate_nrb(socket.assigns)
+    socket = assign(socket, nrb: nrb)
+    qr = calculate_qr(socket.assigns)
+    socket = assign(socket, qr: qr)
+
+    formula6 = "\\[ СрвTг = 4.187 \\cdot (-0.10353 \\cdot Tг^4 \\cdot 10^{-10}+0.35002 \\cdot Tг^3 \\cdot 10^{-7}-0.15931 \\cdot Tг^2 \\cdot 10^{-4}+0.24089 \\cdot Tг) = #{srvtg} \\]"
+    formula7 = "\\[ СрвTк = 4.187 \\cdot (-0.10353 \\cdot Tк^4 \\cdot 10^{-10}+0.35002 \\cdot Tк^3 \\cdot 10^{-7}-0.15931 \\cdot Tк^2 \\cdot 10^{-4}+0.24089 \\cdot Tк) = #{srvtk} \\]"
+    formula8 = "\\[ nTг = 4.187 \\cdot ( 0.25084 \\cdot Tг^2 \\cdot 10^{-3}+0.35186 \\cdot Tг-0.33025 \\cdot Tг^3 \\cdot 10^{-7}-17.533 ) = #{ntg} \\]"
+    formula9 = "\\[ nRв = 4.187 \\cdot ( 0.25084 \\cdot Rв^2 \\cdot 10^{-3}+0.35186 \\cdot Rв-0.33025 \\cdot Rв^3 \\cdot 10^{-7}-17.533 ) = #{nrb} \\]"
+    formula10 = "\\[ qт = \\frac{СрвTг - СрвTк}{Hu \\cdot ηг-nTг+nRв} = #{qr} \\]"
+
     assign(socket, formula1: formula1,
                    formula2: formula2,
                    formula3: formula3,
                    formula4: formula4,
-                   formula5: formula5
+                   formula5: formula5,
+                   formula6: formula6,
+                   formula7: formula7,
+                   formula8: formula8,
+                   formula9: formula9,
+                   formula10: formula10
     )
   end
 
@@ -267,6 +306,41 @@ defmodule GtdCalcWeb.Calculator do
     assigns.pk * assigns.r_os
   end
 
+  defp calculate_srvtg(a) do
+    4.187 * (
+      -0.10353 * :math.pow(a.tg, 4) * :math.pow(10, -10) +
+       0.35002 * :math.pow(a.tg, 3) * :math.pow(10, -7) +
+      -0.15931 * :math.pow(a.tg, 2) * :math.pow(10, -4) +
+       0.24089 * a.tg
+    )
+  end
+  defp calculate_srvtk(a) do
+    4.187 * (
+      -0.10353 * :math.pow(a.t_k, 4) * :math.pow(10, -10) +
+       0.35002 * :math.pow(a.t_k, 3) * :math.pow(10, -7) +
+      -0.15931 * :math.pow(a.t_k, 2) * :math.pow(10, -4) +
+       0.24089 * a.t_k
+    )
+  end
+  defp calculate_ntg(a) do
+    4.187 * (
+       0.25084 * :math.pow(a.tg, 2) * :math.pow(10, -3) +
+       0.35186 * a.tg +
+      -0.33025 * :math.pow(a.tg, 3) * :math.pow(10, -7) +
+       -17.533
+    )
+  end
+  defp calculate_nrb(a) do
+    4.187 * (
+       0.25084 * :math.pow(a.rb, 2) * :math.pow(10, -3) +
+       0.35186 * a.rb +
+      -0.33025 * :math.pow(a.rb, 3) * :math.pow(10, -7) +
+       -17.533
+    )
+  end
+  defp calculate_qr(a) do
+    (a.srvtg - a.srvtk) / (a.hu * a.n_g - a.ntg + a.nrb)
+  end
 end
 
 defmodule Utils do
