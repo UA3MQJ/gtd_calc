@@ -35,6 +35,7 @@ defmodule GtdCalcWeb.Calculator do
       t_v: nil,
       t_k: nil,
       n_g: nil,
+      w_k: nil,
       formula1: "",
       formula2: "",
       formula3: "",
@@ -227,9 +228,15 @@ defmodule GtdCalcWeb.Calculator do
 
     formula5 = "\\[ ηг = 1 - 0.8 \\cdot Kv^2 = #{n_g} \\]"
 
+    w_k = calculate_w_k(socket.assigns)
+    socket = assign(socket, w_k: w_k)
+
+    formula3 = "\\[ Wк = \\sqrt{ Rв \\cdot Tк \\cdot \\frac{2 \\cdot k}{k + 1} \\cdot λк} = #{w_k} \\]"
+
     assign(socket, formula1: formula1,
                    formula2: formula2,
-                   formula5: formula5,
+                   formula3: formula3,
+                   formula5: formula5
     )
   end
 
@@ -243,6 +250,10 @@ defmodule GtdCalcWeb.Calculator do
 
   defp calculate_n_g(assigns) do
     1 - (0.8 * (:math.pow(assigns.kv, 2)))
+  end
+
+  defp calculate_w_k(assigns) do
+    :math.sqrt(assigns.rb*assigns.t_k*(((2*assigns.k)/(assigns.k+1))))*assigns.yk
   end
 end
 
