@@ -1,6 +1,9 @@
 defmodule GtdCalcWeb.Calculator do
   use GtdCalcWeb, :live_view
 
+  @params [:r_os, :t_os, :k, :rb, :m, :gv, :pk, :dkn, :dkvn, :ncomp, :yk, :votb, :tg, :dtn, :dtvn, :gt, :hu, :l0, :rt, :vr, :tt, :kv, :c1, :c1]
+  @calcs  [:t_v, :t_k, :n_g, :w_k, :p_k, :srvtg, :srvtk, :ntg, :nrb, :qr, :ak1, :ak2, :ak, :gtc]
+
   def mount(_params, _session, socket) do
     assigns = %{
       # параметры окружающей среды
@@ -31,38 +34,7 @@ defmodule GtdCalcWeb.Calculator do
       tt: 300,
       # полнота сгорания
       kv: 0.22,
-      c1: 1.2 , c2: 1.164,
-      # результаты
-      t_v: nil,
-      t_k: nil,
-      n_g: nil,
-      w_k: nil,
-      p_k: nil,
-      srvtg: nil,
-      srvtk: nil,
-      ntg: nil,
-      nrb: nil,
-      qr: nil,
-      ak1: nil,
-      ak2: nil,
-      ak: nil,
-      gtc: nil,
-      formula1: "",
-      formula2: "",
-      formula3: "",
-      formula4: "",
-      formula5: "",
-      formula6: "",
-      formula7: "",
-      formula8: "",
-      formula9: "",
-      formula10: "",
-      formula11: "",
-      formula12: "",
-      formula13: "",
-      formula14: "",
-      formula15: "",
-      formula16: ""
+      c1: 1.2 , c2: 1.164
     }
 
     socket = assign(socket, Map.new(assigns))
@@ -71,32 +43,9 @@ defmodule GtdCalcWeb.Calculator do
   end
 
   def handle_event("calculate", %{"calc" => params}, socket) do
-    assigns = %{
-      r_os: Utils.to_float(params["r_os"]),
-      t_os: Utils.to_float(params["t_os"]),
-      k: Utils.to_float(params["k"]),
-      rb: Utils.to_float(params["rb"]),
-      m: Utils.to_float(params["m"]),
-      gv: Utils.to_float(params["gv"]),
-      pk: Utils.to_float(params["pk"]),
-      dkn: Utils.to_float(params["dkn"]),
-      dkvn: Utils.to_float(params["dkvn"]),
-      ncomp: Utils.to_float(params["ncomp"]),
-      yk: Utils.to_float(params["yk"]),
-      votb: Utils.to_float(params["votb"]),
-      tg: Utils.to_float(params["tg"]),
-      dtn: Utils.to_float(params["dtn"]),
-      dtvn: Utils.to_float(params["dtvn"]),
-      gt: Utils.to_float(params["gt"]),
-      hu: Utils.to_float(params["hu"]),
-      l0: Utils.to_float(params["l0"]),
-      rt: Utils.to_float(params["rt"]),
-      vr: Utils.to_float(params["vr"]),
-      tt: Utils.to_float(params["tt"]),
-      kv: Utils.to_float(params["kv"]),
-      c1: Utils.to_float(params["c1"]),
-      c2: Utils.to_float(params["c2"]),
-    }
+    assigns = @params
+      |> Enum.map(fn(k) -> {k, Utils.to_float(params["#{k}"])} end)
+      |> Enum.into(%{})
 
     socket = assign(socket, assigns)
     socket = refresh_formula(socket)
@@ -215,27 +164,28 @@ defmodule GtdCalcWeb.Calculator do
 
 
           <div id="katex-container" phx-hook="KatexRenderer" phx-update="replace">
-            Температура на входе в двигатель<br>{@formula1}
-            Температура за компрессором<br>{@formula2}
-            Скорость за компрессором<br>{@formula3}
-            Давление за компрессором<br>{@formula4}
+
+            Температура на входе в двигатель<br>{@formulas.t_v}
+            Температура за компрессором<br>{@formulas.t_k}
+            Скорость за компрессором<br>{@formulas.w_k}
+            Давление за компрессором<br>{@formulas.p_k}
             Полнота сгорания<br>
             <div>
               <label class="block text-sm font-medium">Kv:</label>
               <input type="number" name="calc[kv]" value={@kv} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
             </div>
 
-            {@formula5}
+            {@formulas.n_g}
 
             Относительный расход топлива<br>
-            {@formula6}
-            {@formula7}
-            {@formula8}
-            {@formula9}
-            {@formula10}
+            {@formulas.srvtg}
+            {@formulas.srvtk}
+            {@formulas.ntg}
+            {@formulas.nrb}
+            {@formulas.qr}
 
             <br>Коэффициент избытка воздуха в камере сгорания<br>
-            {@formula11}
+            {@formulas.ak1}
             <div>
               <label class="block text-sm font-medium">C1:</label>
               <input type="number" name="calc[c1]" value={@c1} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
@@ -245,11 +195,12 @@ defmodule GtdCalcWeb.Calculator do
               <input type="number" name="calc[c2]" value={@c2} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
             </div>
 
-            {@formula14}
-            {@formula15}
+            {@formulas.ak2}
+            {@formulas.ak}
 
             Часовой расход топлива<br>
-            {@formula16}
+            {@formulas.gtc}
+
           </div>
 
 
@@ -260,158 +211,20 @@ defmodule GtdCalcWeb.Calculator do
   end
 
   defp refresh_formula(socket) do
-    t_v = calculate_t_v(socket.assigns)
-    socket = assign(socket, t_v: t_v)
+    socket = Enum.reduce(@calcs, socket, fn key, socket->
+      calc(key, socket)
+    end)
 
-    formula1 = "\\[ T_{\\text{в}} = T_{\\text{ос}} \\cdot \\left( 1 + \\frac{k - 1}{k} \\cdot M^2 \\right) = #{t_v} \\]"
+    formulas = Enum.reduce(@calcs, %{}, fn key, formulas->
+      result = GtdCalcWeb.Formulas.get(key, socket.assigns)
+      Map.merge(formulas, %{key => result})
+    end)
 
-    t_k = calculate_t_k(socket.assigns)
-    socket = assign(socket, t_k: t_k)
-
-    formula2 = "\\[ T_{\\text{к}} = T_{\\text{в}} \\cdot \\left( 1 + \\frac{Пк^\\frac{k-1}{k}}{ηкомп} \\right) = #{t_k} \\]"
-
-
-    n_g = calculate_n_g(socket.assigns)
-    socket = assign(socket, n_g: n_g)
-
-    formula5 = "\\[ ηг = 1 - 0.8 \\cdot Kv^2 = #{n_g} \\]"
-
-    w_k = calculate_w_k(socket.assigns)
-    socket = assign(socket, w_k: w_k)
-
-    formula3 = "\\[ Wк = \\sqrt{ Rв \\cdot Tк \\cdot \\frac{2 \\cdot k}{k + 1} \\cdot λк} = #{w_k} \\]"
-
-    p_k = calculate_p_k(socket.assigns)
-    socket = assign(socket, p_k: p_k)
-
-    formula4 = "\\[ Pк = Пк \\cdot Pос = #{p_k} \\]"
-
-    srvtg = calculate_srvtg(socket.assigns)
-    socket = assign(socket, srvtg: srvtg)
-    srvtk = calculate_srvtk(socket.assigns)
-    socket = assign(socket, srvtk: srvtk)
-    ntg = calculate_ntg(socket.assigns)
-    socket = assign(socket, ntg: ntg)
-    nrb = calculate_nrb(socket.assigns)
-    socket = assign(socket, nrb: nrb)
-    qr = calculate_qr(socket.assigns)
-    socket = assign(socket, qr: qr)
-
-    formula6 = "\\[ СрвTг = 4.187 \\cdot (-0.10353 \\cdot Tг^4 \\cdot 10^{-10}+0.35002 \\cdot Tг^3 \\cdot 10^{-7}-0.15931 \\cdot Tг^2 \\cdot 10^{-4}+0.24089 \\cdot Tг) = #{srvtg} \\]"
-    formula7 = "\\[ СрвTк = 4.187 \\cdot (-0.10353 \\cdot Tк^4 \\cdot 10^{-10}+0.35002 \\cdot Tк^3 \\cdot 10^{-7}-0.15931 \\cdot Tк^2 \\cdot 10^{-4}+0.24089 \\cdot Tк) = #{srvtk} \\]"
-    formula8 = "\\[ nTг = 4.187 \\cdot ( 0.25084 \\cdot Tг^2 \\cdot 10^{-3}+0.35186 \\cdot Tг-0.33025 \\cdot Tг^3 \\cdot 10^{-7}-17.533 ) = #{ntg} \\]"
-    formula9 = "\\[ nRв = 4.187 \\cdot ( 0.25084 \\cdot Rв^2 \\cdot 10^{-3}+0.35186 \\cdot Rв-0.33025 \\cdot Rв^3 \\cdot 10^{-7}-17.533 ) = #{nrb} \\]"
-    formula10 = "\\[ qт = \\frac{СрвTг - СрвTк}{Hu \\cdot ηг-nTг+nRв} = #{qr} \\]"
-
-    ak1 = calculate_ak1(socket.assigns)
-    socket = assign(socket, ak1: ak1)
-    ak2 = calculate_ak2(socket.assigns)
-    socket = assign(socket, ak2: ak2)
-    ak = calculate_ak(socket.assigns)
-    socket = assign(socket, ak: ak)
-
-    formula11 = "\\[ αк1 = \\frac{1}{qт \\cdot L0}= #{ak1} \\]"
-    formula14 = "\\[ αк2 = \\frac{Hu \\cdot ηг-C2 \\cdot Tг}{L0(C2 \\cdot Tг-C1 \\cdot Tк)} = #{ak2} \\]"
-    formula15 = "\\[ αк = \\frac{Gв}{L0 \\cdot Gт}= #{ak} \\]"
-
-    gtc = calculate_gtc(socket.assigns)
-    socket = assign(socket, gtc: gtc)
-    formula16 = "\\[ GтЧ = Gт \\cdot 3600= #{gtc} \\]"
-
-    assign(socket, formula1: formula1,
-                   formula2: formula2,
-                   formula3: formula3,
-                   formula4: formula4,
-                   formula5: formula5,
-                   formula6: formula6,
-                   formula7: formula7,
-                   formula8: formula8,
-                   formula9: formula9,
-                   formula10: formula10,
-                   formula11: formula11,
-                   formula14: formula14,
-                   formula15: formula15,
-                   formula16: formula16
-    )
+    assign(socket, formulas: formulas)
   end
 
-  defp calculate_t_v(assigns) do
-    assigns.t_os * (1 + (((assigns.k - 1)/(assigns.k))*(assigns.m*assigns.m)))
+  def calc(key, socket) do
+    result = GtdCalcWeb.Calculates.calculate(key, socket.assigns)
+    assign(socket, %{key => result})
   end
-
-  defp calculate_t_k(assigns) do
-    assigns.t_v * (1 + (((:math.pow(assigns.pk, ((assigns.k - 1)/(assigns.k))))-1)/(assigns.ncomp)))
-  end
-
-  defp calculate_n_g(assigns) do
-    1 - (0.8 * (:math.pow(assigns.kv, 2)))
-  end
-
-  defp calculate_w_k(assigns) do
-    :math.sqrt(assigns.rb*assigns.t_k*(((2*assigns.k)/(assigns.k+1))))*assigns.yk
-  end
-
-  defp calculate_p_k(assigns) do
-    assigns.pk * assigns.r_os
-  end
-
-  defp calculate_srvtg(a) do
-    4.187 * (
-      -0.10353 * :math.pow(a.tg, 4) * :math.pow(10, -10) +
-       0.35002 * :math.pow(a.tg, 3) * :math.pow(10, -7) +
-      -0.15931 * :math.pow(a.tg, 2) * :math.pow(10, -4) +
-       0.24089 * a.tg
-    )
-  end
-  defp calculate_srvtk(a) do
-    4.187 * (
-      -0.10353 * :math.pow(a.t_k, 4) * :math.pow(10, -10) +
-       0.35002 * :math.pow(a.t_k, 3) * :math.pow(10, -7) +
-      -0.15931 * :math.pow(a.t_k, 2) * :math.pow(10, -4) +
-       0.24089 * a.t_k
-    )
-  end
-  defp calculate_ntg(a) do
-    4.187 * (
-       0.25084 * :math.pow(a.tg, 2) * :math.pow(10, -3) +
-       0.35186 * a.tg +
-      -0.33025 * :math.pow(a.tg, 3) * :math.pow(10, -7) +
-       -17.533
-    )
-  end
-  defp calculate_nrb(a) do
-    4.187 * (
-       0.25084 * :math.pow(a.rb, 2) * :math.pow(10, -3) +
-       0.35186 * a.rb +
-      -0.33025 * :math.pow(a.rb, 3) * :math.pow(10, -7) +
-       -17.533
-    )
-  end
-  defp calculate_qr(a) do
-    (a.srvtg - a.srvtk) / (a.hu * a.n_g - a.ntg + a.nrb)
-  end
-  defp calculate_ak1(a) do
-    (1) / (a.qr*a.l0)
-  end
-  defp calculate_ak2(a) do
-    ((a.hu * a.n_g)-(a.c2 * a.tg))
-     / (a.l0*((a.c2 * a.tg) - (a.c1 * a.t_k)))
-  end
-  defp calculate_ak(a) do
-    (a.gv) / (a.l0 * a.gt)
-  end
-  defp calculate_gtc(a) do
-    (a.gt) * 3600
-  end
-end
-
-defmodule Utils do
-  def to_float(str) when is_binary(str) do
-    case Float.parse(str) do
-      {num, _rest} -> num
-      :error -> raise "Invalid float string: #{str}"
-    end
-  end
-
-  def to_float(num) when is_number(num), do: num * 1.0
 end
