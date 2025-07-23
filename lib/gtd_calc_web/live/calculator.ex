@@ -46,6 +46,7 @@ defmodule GtdCalcWeb.Calculator do
       ak1: nil,
       ak2: nil,
       ak: nil,
+      gtc: nil,
       formula1: "",
       formula2: "",
       formula3: "",
@@ -60,7 +61,8 @@ defmodule GtdCalcWeb.Calculator do
       formula12: "",
       formula13: "",
       formula14: "",
-      formula15: ""
+      formula15: "",
+      formula16: ""
     }
 
     socket = assign(socket, Map.new(assigns))
@@ -245,6 +247,9 @@ defmodule GtdCalcWeb.Calculator do
 
             {@formula14}
             {@formula15}
+
+            Часовой расход топлива<br>
+            {@formula16}
           </div>
 
 
@@ -309,6 +314,10 @@ defmodule GtdCalcWeb.Calculator do
     formula14 = "\\[ αк2 = \\frac{Hu \\cdot ηг-C2 \\cdot Tг}{L0(C2 \\cdot Tг-C1 \\cdot Tк)} = #{ak2} \\]"
     formula15 = "\\[ αк = \\frac{Gв}{L0 \\cdot Gт}= #{ak} \\]"
 
+    gtc = calculate_gtc(socket.assigns)
+    socket = assign(socket, gtc: gtc)
+    formula16 = "\\[ GтЧ = Gт \\cdot 3600= #{gtc} \\]"
+
     assign(socket, formula1: formula1,
                    formula2: formula2,
                    formula3: formula3,
@@ -321,7 +330,8 @@ defmodule GtdCalcWeb.Calculator do
                    formula10: formula10,
                    formula11: formula11,
                    formula14: formula14,
-                   formula15: formula15
+                   formula15: formula15,
+                   formula16: formula16
     )
   end
 
@@ -389,6 +399,9 @@ defmodule GtdCalcWeb.Calculator do
   end
   defp calculate_ak(a) do
     (a.gv) / (a.l0 * a.gt)
+  end
+  defp calculate_gtc(a) do
+    (a.gt) * 3600
   end
 end
 
