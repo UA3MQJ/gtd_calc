@@ -31,6 +31,7 @@ defmodule GtdCalcWeb.Calculator do
       tt: 300,
       # полнота сгорания
       kv: 0.22,
+      c1: 1.2 , c2: 1.164,
       # результаты
       t_v: nil,
       t_k: nil,
@@ -42,6 +43,9 @@ defmodule GtdCalcWeb.Calculator do
       ntg: nil,
       nrb: nil,
       qr: nil,
+      ak1: nil,
+      ak2: nil,
+      ak: nil,
       formula1: "",
       formula2: "",
       formula3: "",
@@ -51,7 +55,12 @@ defmodule GtdCalcWeb.Calculator do
       formula7: "",
       formula8: "",
       formula9: "",
-      formula10: ""
+      formula10: "",
+      formula11: "",
+      formula12: "",
+      formula13: "",
+      formula14: "",
+      formula15: ""
     }
 
     socket = assign(socket, Map.new(assigns))
@@ -83,6 +92,8 @@ defmodule GtdCalcWeb.Calculator do
       vr: Utils.to_float(params["vr"]),
       tt: Utils.to_float(params["tt"]),
       kv: Utils.to_float(params["kv"]),
+      c1: Utils.to_float(params["c1"]),
+      c2: Utils.to_float(params["c2"]),
     }
 
     socket = assign(socket, assigns)
@@ -220,6 +231,20 @@ defmodule GtdCalcWeb.Calculator do
             {@formula8}
             {@formula9}
             {@formula10}
+
+            <br>Коэффициент избытка воздуха в камере сгорания<br>
+            {@formula11}
+            <div>
+              <label class="block text-sm font-medium">C1:</label>
+              <input type="number" name="calc[c1]" value={@c1} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium">C2:</label>
+              <input type="number" name="calc[c2]" value={@c2} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+
+            {@formula14}
+            {@formula15}
           </div>
 
 
@@ -273,6 +298,17 @@ defmodule GtdCalcWeb.Calculator do
     formula9 = "\\[ nRв = 4.187 \\cdot ( 0.25084 \\cdot Rв^2 \\cdot 10^{-3}+0.35186 \\cdot Rв-0.33025 \\cdot Rв^3 \\cdot 10^{-7}-17.533 ) = #{nrb} \\]"
     formula10 = "\\[ qт = \\frac{СрвTг - СрвTк}{Hu \\cdot ηг-nTг+nRв} = #{qr} \\]"
 
+    ak1 = calculate_ak1(socket.assigns)
+    socket = assign(socket, ak1: ak1)
+    ak2 = calculate_ak2(socket.assigns)
+    socket = assign(socket, ak2: ak2)
+    ak = calculate_ak(socket.assigns)
+    socket = assign(socket, ak: ak)
+
+    formula11 = "\\[ αк1 = \\frac{1}{qт \\cdot L0}= #{ak1} \\]"
+    formula14 = "\\[ αк2 = \\frac{Hu \\cdot ηг-C2 \\cdot Tг}{L0(C2 \\cdot Tг-C1 \\cdot Tк)} = #{ak2} \\]"
+    formula15 = "\\[ αк = \\frac{Gв}{L0 \\cdot Gт}= #{ak} \\]"
+
     assign(socket, formula1: formula1,
                    formula2: formula2,
                    formula3: formula3,
@@ -282,7 +318,10 @@ defmodule GtdCalcWeb.Calculator do
                    formula7: formula7,
                    formula8: formula8,
                    formula9: formula9,
-                   formula10: formula10
+                   formula10: formula10,
+                   formula11: formula11,
+                   formula14: formula14,
+                   formula15: formula15
     )
   end
 
@@ -340,6 +379,16 @@ defmodule GtdCalcWeb.Calculator do
   end
   defp calculate_qr(a) do
     (a.srvtg - a.srvtk) / (a.hu * a.n_g - a.ntg + a.nrb)
+  end
+  defp calculate_ak1(a) do
+    (1) / (a.qr*a.l0)
+  end
+  defp calculate_ak2(a) do
+    ((a.hu * a.n_g)-(a.c2 * a.tg))
+     / (a.l0*((a.c2 * a.tg) - (a.c1 * a.t_k)))
+  end
+  defp calculate_ak(a) do
+    (a.gv) / (a.l0 * a.gt)
   end
 end
 
