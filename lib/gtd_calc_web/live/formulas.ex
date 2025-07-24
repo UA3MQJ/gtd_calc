@@ -44,6 +44,14 @@ defmodule GtdCalcWeb.Formulas do
         :gtc =>
           "GтЧ = Gт \\cdot 3600",
 
+        :kv2 =>
+          "Kv = \\frac{Gв \\cdot (1 - βотб)}{Vж \\cdot (\\frac{Pк}{10^5}) \\cdot Tк}",
+
+        :vg =>
+          "??? Vж = Find(Vж) ",
+
+        :pv =>
+          "ρв = \\frac{Pк}{Rв \\cdot Tк} \\cdot \\left(1 - \\frac{k-1}{k+1} \\cdot λк\\right)^{\\frac{1}{k-1}}"
       }
   end
 
