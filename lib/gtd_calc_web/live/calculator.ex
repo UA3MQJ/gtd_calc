@@ -4,7 +4,7 @@ defmodule GtdCalcWeb.Calculator do
   @params [:r_os, :t_os, :k, :rb, :m, :gv, :pk, :dkn, :dkvn, :ncomp, :yk, :votb, :tg, :dtn, :dtvn, :gt, :hu, :l0, :rt, :vr, :tt, :kv, :c1, :c1]
   @calcs  [
             :t_v, :t_k, :n_g, :w_k, :p_k, :srvtg, :srvtk, :ntg, :nrb, :qr, :ak1, :ak2, :ak, :gtc, :vg, :kv2, :pv,
-            :gvzg
+            :gvzg, :kvzg, :vgzg
           ]
 
   def mount(_params, _session, socket) do
@@ -38,7 +38,8 @@ defmodule GtdCalcWeb.Calculator do
       # полнота сгорания
       kv: 0.22,
       c1: 1.2 , c2: 1.164,
-      azg: 1.61 # αзг
+      azg: 1.61, # αзг
+      kvzg: 0.097 # Kvзг
     }
 
     socket = assign(socket, Map.new(assigns))
@@ -216,6 +217,15 @@ defmodule GtdCalcWeb.Calculator do
               <input type="number" name="calc[azg]" value={@azg} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
             </div>
             {@formulas.gvzg}
+
+            Объем зоны горения<br>
+            <div>
+              <label class="block text-sm font-medium">Kvзг:</label>
+              <input type="number" name="calc[kvzg]" value={@kvzg} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+            {@formulas.kvzg}
+            {@formulas.vgzg}
+
 
           </div>
 

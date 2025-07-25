@@ -55,6 +55,12 @@ defmodule GtdCalcWeb.Formulas do
 
         :gvzg =>
           "Gвзг = \\frac{αзг}{αк} \\cdot Gв \\cdot (1 - βотб)",
+
+        :kvzg =>
+          "Kvзг = \\frac{Gвзг}{Vжзг \\cdot \\left( \\frac{Pк}{10^5} \\right)^{1.25} \\cdot Tк}",
+
+        :vgzg =>
+          "Vжзг"
       }
   end
 
