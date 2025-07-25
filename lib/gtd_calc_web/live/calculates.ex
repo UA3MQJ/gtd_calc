@@ -69,7 +69,7 @@ defmodule GtdCalcWeb.Calculates do
     (a.gt) * 3600
   end
   def calculate(:vg, a) do
-    0.002692911317425453441
+    (a.gv * (1 - a.votb)) / (a.kv * (a.p_k / (:math.pow(10, 5))) * a.t_k)
   end
   def calculate(:kv2, a) do
     (a.gv * (1 - a.votb)) / (a.vg * (a.p_k / (:math.pow(10, 5))) * a.t_k)
