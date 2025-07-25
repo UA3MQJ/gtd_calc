@@ -51,7 +51,10 @@ defmodule GtdCalcWeb.Formulas do
           "Vж = Find(Vж) ",
 
         :pv =>
-          "ρв = \\frac{Pк}{Rв \\cdot Tк} \\cdot \\left(1 - \\frac{k-1}{k+1} \\cdot λк\\right)^{\\frac{1}{k-1}}"
+          "ρв = \\frac{Pк}{Rв \\cdot Tк} \\cdot \\left(1 - \\frac{k-1}{k+1} \\cdot λк\\right)^{\\frac{1}{k-1}}",
+
+        :gvzg =>
+          "Gвзг = \\frac{αзг}{αк} \\cdot Gв \\cdot (1 - βотб)",
       }
   end
 
