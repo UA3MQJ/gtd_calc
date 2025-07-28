@@ -4,7 +4,7 @@ defmodule GtdCalcWeb.Calculator do
   @params [:r_os, :t_os, :k, :rb, :m, :gv, :pk, :dkn, :dkvn, :ncomp, :yk, :votb, :tg, :dtn, :dtvn, :gt, :hu, :l0, :rt, :vr, :tt, :kv, :c1, :c1]
   @calcs  [
             :t_v, :t_k, :n_g, :w_k, :p_k, :srvtg, :srvtk, :ntg, :nrb, :qr, :ak1, :ak2, :ak, :gtc, :vg, :kv2, :pv,
-            :gvzg, :kvzg, :vgzg
+            :gvzg, :kvzg, :vgzg, :gohl
           ]
 
   def mount(_params, _session, socket) do
@@ -225,7 +225,8 @@ defmodule GtdCalcWeb.Calculator do
             </div>
             {@formulas.kvzg}
             {@formulas.vgzg}
-
+            Расход воздуха на охлаждение (15-30%)<br>
+            {@formulas.gohl}
 
           </div>
 

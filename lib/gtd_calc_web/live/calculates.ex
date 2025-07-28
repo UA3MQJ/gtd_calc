@@ -86,5 +86,7 @@ defmodule GtdCalcWeb.Calculates do
   def calculate(:vgzg, a) do
     (a.gvzg) / (a.kvzg * :math.pow((a.p_k / (:math.pow(10, 5))), 1.25) * a.t_k)
   end
-
+  def calculate(:gohl, a) do
+    (a.gv/100) * 15
+  end
 end
