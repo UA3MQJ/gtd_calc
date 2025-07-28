@@ -29,7 +29,7 @@ defmodule GtdCalcWeb.Formulas do
         :nrb =>
           "nRв = 4.187 \\cdot ( 0.25084 \\cdot Rв^2 \\cdot 10^{-3}+0.35186 \\cdot Rв-0.33025 \\cdot Rв^3 \\cdot 10^{-7}-17.533 )",
 
-        :qr =>
+        :qt =>
           "qт = \\frac{СрвTг - СрвTк}{Hu \\cdot ηг-nTг+nRв}",
 
         :ak1 =>
@@ -64,6 +64,9 @@ defmodule GtdCalcWeb.Formulas do
 
         :gohl =>
           "Gохл = \\frac{Gв}{100} \\cdot 15",
+
+        :rg =>
+          "Rг = Rв \\cdot \\frac{1 + 1.0862 \\cdot qт}{1+qт}",
       }
   end
 

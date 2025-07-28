@@ -1,10 +1,10 @@
 defmodule GtdCalcWeb.Calculator do
   use GtdCalcWeb, :live_view
 
-  @params [:r_os, :t_os, :k, :rb, :m, :gv, :pk, :dkn, :dkvn, :ncomp, :yk, :votb, :tg, :dtn, :dtvn, :gt, :hu, :l0, :rt, :vr, :tt, :kv, :c1, :c1]
+  @params [:r_os, :t_os, :k, :rv, :m, :gv, :pk, :dkn, :dkvn, :ncomp, :yk, :votb, :tg, :dtn, :dtvn, :gt, :hu, :l0, :rt, :vr, :tt, :kv, :c1, :c1]
   @calcs  [
-            :t_v, :t_k, :n_g, :w_k, :p_k, :srvtg, :srvtk, :ntg, :nrb, :qr, :ak1, :ak2, :ak, :gtc, :vg, :kv2, :pv,
-            :gvzg, :kvzg, :vgzg, :gohl
+            :t_v, :t_k, :n_g, :w_k, :p_k, :srvtg, :srvtk, :ntg, :nrb, :qt, :ak1, :ak2, :ak, :gtc, :vg, :kv2, :pv,
+            :gvzg, :kvzg, :vgzg, :gohl, :rg
           ]
 
   def mount(_params, _session, socket) do
@@ -13,7 +13,7 @@ defmodule GtdCalcWeb.Calculator do
       r_os: 101325,
       t_os: 288.15,
       k: 1.4,
-      rb: 287.1,
+      rv: 287.1,
       m: 0.0,
       # параметры компрессора
       gv: 1.42,
@@ -84,7 +84,7 @@ defmodule GtdCalcWeb.Calculator do
         </div>
         <div>
           <label class="block text-sm font-medium">Rб:</label>
-          <input type="number" name="calc[rb]" value={@rb} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+          <input type="number" name="calc[rv]" value={@rv} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
         </div>
         <div>
           <label class="block text-sm font-medium">M:</label>
@@ -187,7 +187,7 @@ defmodule GtdCalcWeb.Calculator do
             {@formulas.srvtk}
             {@formulas.ntg}
             {@formulas.nrb}
-            {@formulas.qr}
+            {@formulas.qt}
 
             <br>Коэффициент избытка воздуха в камере сгорания<br>
             {@formulas.ak1}
@@ -227,6 +227,8 @@ defmodule GtdCalcWeb.Calculator do
             {@formulas.vgzg}
             Расход воздуха на охлаждение (15-30%)<br>
             {@formulas.gohl}
+            Газовая постоянная газа<br>
+            {@formulas.rg}
 
           </div>
 

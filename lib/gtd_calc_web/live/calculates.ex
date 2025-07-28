@@ -13,7 +13,7 @@ defmodule GtdCalcWeb.Calculates do
   end
 
   def calculate(:w_k, a) do
-    :math.sqrt(a.rb*a.t_k*(((2*a.k)/(a.k+1))))*a.yk
+    :math.sqrt(a.rv*a.t_k*(((2*a.k)/(a.k+1))))*a.yk
   end
 
   def calculate(:p_k, a) do
@@ -46,17 +46,17 @@ defmodule GtdCalcWeb.Calculates do
   end
   def calculate(:nrb, a) do
     4.187 * (
-       0.25084 * :math.pow(a.rb, 2) * :math.pow(10, -3) +
-       0.35186 * a.rb +
-      -0.33025 * :math.pow(a.rb, 3) * :math.pow(10, -7) +
+       0.25084 * :math.pow(a.rv, 2) * :math.pow(10, -3) +
+       0.35186 * a.rv +
+      -0.33025 * :math.pow(a.rv, 3) * :math.pow(10, -7) +
        -17.533
     )
   end
-  def calculate(:qr, a) do
+  def calculate(:qt, a) do
     (a.srvtg - a.srvtk) / (a.hu * a.n_g - a.ntg + a.nrb)
   end
   def calculate(:ak1, a) do
-    (1) / (a.qr*a.l0)
+    (1) / (a.qt*a.l0)
   end
   def calculate(:ak2, a) do
     ((a.hu * a.n_g)-(a.c2 * a.tg))
@@ -75,7 +75,7 @@ defmodule GtdCalcWeb.Calculates do
     (a.gv * (1 - a.votb)) / (a.vg * (a.p_k / (:math.pow(10, 5))) * a.t_k)
   end
   def calculate(:pv, a) do
-    (a.p_k / (a.rb*a.t_k)) * (:math.pow(1 - (((a.k - 1)/(a.k + 1))*a.yk), (1/(a.k - 1))))
+    (a.p_k / (a.rv*a.t_k)) * (:math.pow(1 - (((a.k - 1)/(a.k + 1))*a.yk), (1/(a.k - 1))))
   end
   def calculate(:gvzg, a) do
     (a.azg / a.ak) * a.gv * (1 - a.votb)
@@ -88,5 +88,8 @@ defmodule GtdCalcWeb.Calculates do
   end
   def calculate(:gohl, a) do
     (a.gv/100) * 15
+  end
+  def calculate(:rg, a) do
+    a.rv*((1 + 1.0862 * a.qt)/(1+a.qt))
   end
 end
