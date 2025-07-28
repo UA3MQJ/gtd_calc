@@ -92,4 +92,7 @@ defmodule GtdCalcWeb.Calculates do
   def calculate(:rg, a) do
     a.rv*((1 + 1.0862 * a.qt)/(1+a.qt))
   end
+  def calculate(:t, a) do
+    a.tg / 1000
+  end
 end

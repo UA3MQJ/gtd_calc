@@ -67,6 +67,9 @@ defmodule GtdCalcWeb.Formulas do
 
         :rg =>
           "Rг = Rв \\cdot \\frac{1 + 1.0862 \\cdot qт}{1+qт}",
+
+        :t =>
+          "T = \\frac{Tг}{1000}"
       }
   end
 
