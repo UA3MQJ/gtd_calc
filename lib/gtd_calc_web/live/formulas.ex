@@ -82,6 +82,9 @@ defmodule GtdCalcWeb.Formulas do
 
         :srg =>
           "Срг = \\frac{(Cрв1+Nn \\cdot qт) \\cdot 1000}{1+qт} ",
+
+        :kg =>
+          "Срг = \\frac{Срг}{Срг - Rг}",
       }
   end
 

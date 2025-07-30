@@ -107,4 +107,7 @@ defmodule GtdCalcWeb.Calculates do
   def calculate(:srg, a) do
     ((a.srv1+a.nn*a.qt) * 1000)/(1+a.qt)
   end
+  def calculate(:kg, a) do
+    (a.srg)/(a.srg - a.rg)
+  end
 end
