@@ -3,9 +3,9 @@ defmodule GtdCalcWeb.Calculator do
 
   @params [:r_os, :t_os, :k, :rv, :m, :gv, :pk, :dkn, :dkvn, :ncomp, :yk, :votb, :tg, :dtn, :dtvn, :gt, :hu, :l0, :rt, :vr, :tt, :kv, :c1, :c1]
   @calcs  [
-            :t_v, :t_k, :n_g, :w_k, :p_k, :srvtg, :srvtk, :ntg, :nrb, :qt, :ak1, :ak2, :ak, :gtc, :vg, :kv2, :pv,
+            :t_v, :tk, :ng, :w_k, :p_k, :srvtg, :srvtk, :ntg, :nrb, :qt, :ak1, :ak2, :ak, :gtc, :vg, :kv2, :pv,
             :gvzg, :kvzg, :vgzg, :gohl, :rg, :t, :srv1, :srv, :nn,
-            :srg, :kg
+            :srg, :kg, :tzg, :tzgprov
           ]
 
   def mount(_params, _session, socket) do
@@ -40,7 +40,10 @@ defmodule GtdCalcWeb.Calculator do
       kv: 0.22,
       c1: 1.2 , c2: 1.164,
       azg: 1.61, # αзг
-      kvzg: 0.097 # Kvзг
+      kvzg: 0.097, # Kvзг
+      # Максимальная температура зоны горения
+      srt: 2220,
+      qh: 42950000,
     }
 
     socket = assign(socket, Map.new(assigns))
@@ -172,7 +175,7 @@ defmodule GtdCalcWeb.Calculator do
           <div id="katex-container" phx-hook="KatexRenderer" phx-update="replace">
 
             Температура на входе в двигатель<br>{@formulas.t_v}
-            Температура за компрессором<br>{@formulas.t_k}
+            Температура за компрессором<br>{@formulas.tk}
             Скорость за компрессором<br>{@formulas.w_k}
             Давление за компрессором<br>{@formulas.p_k}
             Полнота сгорания<br>
@@ -181,7 +184,7 @@ defmodule GtdCalcWeb.Calculator do
               <input type="number" name="calc[kv]" value={@kv} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
             </div>
 
-            {@formulas.n_g}
+            {@formulas.ng}
 
             Относительный расход топлива<br>
             {@formulas.srvtg}
@@ -241,6 +244,18 @@ defmodule GtdCalcWeb.Calculator do
             {@formulas.srg}
             Показатель адиабаты газа на выходе из камеры
             {@formulas.kg}
+            Максимальная температура зоны горения
+            <div>
+              <label class="block text-sm font-medium">Срт:</label>
+              <input type="number" name="calc[srt]" value={@srt} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium">Qн:</label>
+              <input type="number" name="calc[qh]" value={@qh} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+            {@formulas.tzg}
+            {@formulas.tzgprov}
+
           </div>
 
 

@@ -85,6 +85,13 @@ defmodule GtdCalcWeb.Formulas do
 
         :kg =>
           "Срг = \\frac{Срг}{Срг - Rг}",
+
+        :tzg =>
+          "Tзг = \\frac{αзг \\cdot Срв \\cdot Tк \\cdot \\frac{1}{L0} \\cdot Срт \\cdot Tт + \\frac{1}{L0} \\cdot Qн \\cdot ηг}{Срг \\cdot (\\frac{1}{L0} + 1) + Срг \\cdot (αзг - 1)}",
+
+        :tzgprov =>
+          "Tзгпров = \\frac{Gвзг \\cdot Срв \\cdot Tк+Gт \\cdot Срт \\cdot Tт+Gт \\cdot Qн \\cdot ηг}{(Gт + \\frac{Gвзг}{αзг}) \\cdot Срг + (Gвзг - \\frac{Gвзг}{αзг}) \\cdot Срв}",
+
       }
   end
 
