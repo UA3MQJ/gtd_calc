@@ -97,9 +97,11 @@ defmodule GtdCalcWeb.Calculates do
   end
   def calculate(:srv1, a) do
     1.04406-0.39193*a.t+1.08845*(:math.pow(a.t, 2))-0.85793*(:math.pow(a.t, 3))+0.29362*(:math.pow(a.t, 4))-0.03747*(:math.pow(a.t, 5))
-
   end
   def calculate(:srv, a) do
     a.srv1 * 1000
+  end
+  def calculate(:nn, a) do
+    1.80041+0.93518*a.t+0.98923*(:math.pow(a.t, 2))-0.69064*(:math.pow(a.t, 3))+0.1187*(:math.pow(a.t, 4))
   end
 end

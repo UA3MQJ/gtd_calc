@@ -76,6 +76,9 @@ defmodule GtdCalcWeb.Formulas do
 
         :srv =>
           "Срв = Срв1 \\cdot 1000",
+
+        :nn =>
+          "Nn = 1.80041+0.93518\\cdotТ+0.98923\\cdotТ^2-0.69064\\cdotТ^3+0.1187\\cdotТ^4",
       }
   end
 
