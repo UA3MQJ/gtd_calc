@@ -5,7 +5,7 @@ defmodule GtdCalcWeb.Calculator do
   @calcs  [
             :t_v, :tk, :ng, :w_k, :p_k, :srvtg, :srvtk, :ntg, :nrb, :qt, :ak1, :ak2, :ak, :gtc, :vg, :kv2, :pv,
             :gvzg, :kvzg, :vgzg, :gohl, :rg, :t, :srv1, :srv, :nn,
-            :srg, :kg, :tzg, :tzgprov
+            :srg, :kg, :tzg, :tzgprov, :tg1, :pks
           ]
 
   def mount(_params, _session, socket) do
@@ -255,6 +255,10 @@ defmodule GtdCalcWeb.Calculator do
             </div>
             {@formulas.tzg}
             {@formulas.tzgprov}
+            Подтверждение температуры газа
+            {@formulas.tg1}
+            Мощность камеры сгорания
+            {@formulas.pks}
 
           </div>
 

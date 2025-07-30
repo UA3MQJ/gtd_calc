@@ -120,4 +120,20 @@ defmodule GtdCalcWeb.Calculates do
     /
     ((a.gt+a.gvzg/a.azg)*a.srg + (a.gvzg-a.gvzg/a.azg)*a.srv)
   end
+  def calculate(:tg1, a) do
+    (
+      (a.gt + a.l0*a.gt) * a.srg * a.tzg +
+      (a.gt + a.l0*a.gt) * a.srg * a.tzg +
+      (a.gv - a.l0*a.gt) * a.srg * a.tzg +
+      (a.gv - a.l0*a.gt) * a.srg +
+      a.gohl*a.srv*a.tk
+    ) / (
+      (a.gt + a.l0*a.gt + a.gt + a.l0*a.gt)*a.srg +
+      (a.gv - a.l0*a.gt + a.gv - a.l0*a.gt)*a.srv +
+      a.gohl*a.srv
+    )
+  end
+  def calculate(:pks, a) do
+    a.gt*a.qh*a.ng
+  end
 end

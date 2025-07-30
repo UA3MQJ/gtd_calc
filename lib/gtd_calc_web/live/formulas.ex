@@ -92,6 +92,11 @@ defmodule GtdCalcWeb.Formulas do
         :tzgprov =>
           "Tзгпров = \\frac{Gвзг \\cdot Срв \\cdot Tк+Gт \\cdot Срт \\cdot Tт+Gт \\cdot Qн \\cdot ηг}{(Gт + \\frac{Gвзг}{αзг}) \\cdot Срг + (Gвзг - \\frac{Gвзг}{αзг}) \\cdot Срв}",
 
+        :tg1 =>
+          "Tг1 = \\frac{(Gт+L0 \\cdot Gт) \\cdot Срг \\cdot Tзг + (Gт + L0 \\cdot Gт) \\cdot Срг \\cdot Tзг + (Gв - L0 \\cdot Gт) \\cdot Срг \\cdot Tзг + (Gв - L0 \\cdot Gт) \\cdot Срг + Gохл \\cdot Срв \\cdot Tк}{(Gт+L0 \\cdot Gт+Gт+L0 \\cdot Gт) \\cdot Срг+(Gв-L0 \\cdot Gт+Gв-L0 \\cdot Gт) \\cdot Срв+Gохл \\cdot Срв}",
+
+        :pks =>
+          "Pкс = Gт \\cdot Qн \\cdot ηг",
       }
   end
 
