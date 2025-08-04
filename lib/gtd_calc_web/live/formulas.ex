@@ -97,6 +97,19 @@ defmodule GtdCalcWeb.Formulas do
 
         :pks =>
           "Pкс = Gт \\cdot Qн \\cdot ηг",
+
+        :dksr =>
+          "Dкср = \\frac{Dкн+Dквн}{2}",
+
+        :dtsr =>
+          "Dтср = \\frac{Dтн+Dтвн}{2}",
+
+        :hk =>
+          "hк = \\frac{Dкн-Dквн}{2}",
+
+        :ht =>
+          "hт = \\frac{Dтн-Dтвн}{2}",
+
       }
   end
 

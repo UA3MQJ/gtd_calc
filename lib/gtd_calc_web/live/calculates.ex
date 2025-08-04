@@ -136,4 +136,17 @@ defmodule GtdCalcWeb.Calculates do
   def calculate(:pks, a) do
     a.gt*a.qh*a.ng
   end
+  def calculate(:dksr, a) do
+    (a.dkn+a.dkvn)/2
+  end
+  def calculate(:dtsr, a) do
+    (a.dtn+a.dtvn)/2
+  end
+  def calculate(:hk, a) do
+    (a.dkn-a.dkvn)/2
+  end
+  def calculate(:ht, a) do
+    (a.dtn-a.dtvn)/2
+  end
+
 end

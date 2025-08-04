@@ -5,7 +5,8 @@ defmodule GtdCalcWeb.Calculator do
   @calcs  [
             :t_v, :tk, :ng, :w_k, :p_k, :srvtg, :srvtk, :ntg, :nrb, :qt, :ak1, :ak2, :ak, :gtc, :vg, :kv2, :pv,
             :gvzg, :kvzg, :vgzg, :gohl, :rg, :t, :srv1, :srv, :nn,
-            :srg, :kg, :tzg, :tzgprov, :tg1, :pks
+            :srg, :kg, :tzg, :tzgprov, :tg1, :pks, :dksr,
+            :dtsr, :hk, :ht
           ]
 
   def mount(_params, _session, socket) do
@@ -259,6 +260,16 @@ defmodule GtdCalcWeb.Calculator do
             {@formulas.tg1}
             Мощность камеры сгорания
             {@formulas.pks}
+
+            Определение основных геометрических размеров камеры сгорания<br><br>
+            Средний диаметр компрессора
+            {@formulas.dksr}
+            Средний диаметр турбины
+            {@formulas.dtsr}
+            Высота лопатки компрессора
+            {@formulas.hk}
+            Высота лопатки турбины
+            {@formulas.ht}
 
           </div>
 
