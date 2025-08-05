@@ -6,7 +6,8 @@ defmodule GtdCalcWeb.Calculator do
             :t_v, :tk, :ng, :w_k, :p_k, :srvtg, :srvtk, :ntg, :nrb, :qt, :ak1, :ak2, :ak, :gtc, :vg, :kv2, :pv,
             :gvzg, :kvzg, :vgzg, :gohl, :rg, :t, :srv1, :srv, :nn,
             :srg, :kg, :tzg, :tzgprov, :tg1, :pks, :dksr,
-            :dtsr, :hk, :ht
+            :dtsr, :hk, :ht, :hz, :hz1,
+            :lg, :lzg, :lzs, :ld, :lp, :dp, :fg,
           ]
 
   def mount(_params, _session, socket) do
@@ -45,6 +46,8 @@ defmodule GtdCalcWeb.Calculator do
       # Максимальная температура зоны горения
       srt: 2220,
       qh: 42950000,
+      a1: 2.3, a2: 2.08, a3: 0.5,
+      lks: 0.19,
     }
 
     socket = assign(socket, Map.new(assigns))
@@ -270,6 +273,60 @@ defmodule GtdCalcWeb.Calculator do
             {@formulas.hk}
             Высота лопатки турбины
             {@formulas.ht}
+
+            <br>
+            Высота жаровой трубы в первом приближении<br><br>
+
+            <div>
+              <label class="block text-sm font-medium">A1:</label>
+              <input type="number" name="calc[a1]" value={@a1} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+
+            <br>
+            Lж/hж=1.8-2.5 относительная длина жаровой трубы<br><br>
+
+
+            Прямоток
+            {@formulas.hz}
+
+            Противоток
+            {@formulas.hz1}
+
+            Длины зон камеры сгорания<br><br>
+            <div>
+              <label class="block text-sm font-medium">A2:</label>
+              <input type="number" name="calc[a2]" value={@a2} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium">Lкс:</label>
+              <input type="number" name="calc[lks]" value={@lks} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div><br>
+            Lзг/hж=1.2-2 относительная длина зоны горения<br><br>
+
+
+            {@formulas.lg}
+            {@formulas.lzg}
+            {@formulas.lzs}
+            {@formulas.ld}
+
+            <br>
+            Средний диаметр жаровой трубы<br><br>
+            Lр/hж=0.5-0.6 относительное удаление торца форсунки <br><br>
+            <div>
+              <label class="block text-sm font-medium">A3:</label>
+              <input type="number" name="calc[a3]" value={@a3} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+
+            {@formulas.lp}
+            {@formulas.dp}
+
+            <br>
+            Площадь поперечного сечения жаровой трубы<br><br>
+            {@formulas.fg}
+
+            <br>
+            Определение размеров корпуса камеры сгорания<br><br>
+
 
           </div>
 

@@ -110,6 +110,26 @@ defmodule GtdCalcWeb.Formulas do
         :ht =>
           "hт = \\frac{Dтн-Dтвн}{2}",
 
+        :hz =>
+          "hж = \\sqrt{\\frac{2 \\cdot Vж}{π \\cdot (Dкср+Dтср) \\cdot A1}}",
+
+        :hz1 =>
+          "hж1 = \\sqrt{\\frac{2 \\cdot Vжзг}{π \\cdot (Dкср+Dтср) \\cdot (A1 - 0.12)}}",
+
+        :lg =>
+          "Lж = 4.65 \\cdot hж1",
+        :lzg =>
+          "Lзг = A2 \\cdot hж1",
+        :lzs =>
+          "Lзс = Lж-Lзг",
+        :ld =>
+          "Lд = 3 \\cdot hк",
+        :lp =>
+          "Lд = A3 \\cdot hж1",
+        :dp =>
+          "Dр = Dкср + (Dтср - Dкср) \\cdot \\frac{Lд+Lр+hт}{Lкс}",
+        :fg =>
+          "Fж = π \\cdot Dр \\cdot hж1",
       }
   end
 

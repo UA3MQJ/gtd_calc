@@ -148,5 +148,44 @@ defmodule GtdCalcWeb.Calculates do
   def calculate(:ht, a) do
     (a.dtn-a.dtvn)/2
   end
-
+  def calculate(:hz, a) do
+    :math.sqrt(
+      (2 * a.vg)
+      /
+      (:math.pi() * (a.dksr + a.dtsr) * (a.a1))
+    )
+  end
+  def calculate(:hz1, a) do
+    :math.sqrt(
+      (2 * a.vgzg)
+      /
+      (:math.pi() * (a.dksr + a.dtsr) * (a.a1 - 0.12))
+    )
+  end
+  def calculate(:lg, a) do
+    (4.65 * a.hz1)
+  end
+  def calculate(:lzg, a) do
+    (a.a2 * a.hz1)
+  end
+  def calculate(:lzs, a) do
+    (a.lg - a.lzg)
+  end
+  def calculate(:ld, a) do
+    (3.0 * a.hk)
+  end
+  def calculate(:lp, a) do
+    (a.a3 * a.hz1)
+  end
+  def calculate(:dp, a) do
+    a.dksr +
+    (a.dtsr - a.dksr) * (
+      (a.ld + a.lp + a.ht)
+      /
+      (a.lks)
+    )
+  end
+  def calculate(:fg, a) do
+    :math.pi() * a.dp * a.hz1
+  end
 end
