@@ -7,7 +7,9 @@ defmodule GtdCalcWeb.Calculator do
             :gvzg, :kvzg, :vgzg, :gohl, :rg, :t, :srv1, :srv, :nn,
             :srg, :kg, :tzg, :tzgprov, :tg1, :pks, :dksr,
             :dtsr, :hk, :ht, :hz, :hz1,
-            :lg, :lzg, :lzs, :ld, :lp, :dp, :fg,
+            :lg, :lzg, :lzs, :ld, :lp, :dp, :fg, :vk, :fk, :fkk,
+            :dgn, :dgvn, :fkkn1, :fkkn, :fkkvn,
+            :dkkn, :dkkvn,
           ]
 
   def mount(_params, _session, socket) do
@@ -46,7 +48,7 @@ defmodule GtdCalcWeb.Calculator do
       # Максимальная температура зоны горения
       srt: 2220,
       qh: 42950000,
-      a1: 2.3, a2: 2.08, a3: 0.5,
+      a1: 2.3, a2: 2.08, a3: 0.5, a4: 1,
       lks: 0.19,
     }
 
@@ -326,7 +328,34 @@ defmodule GtdCalcWeb.Calculator do
 
             <br>
             Определение размеров корпуса камеры сгорания<br><br>
+            <br>
+            Объемный расход воздуха через КС
+            {@formulas.vk}
+            Площадь на входе в КС
+            {@formulas.fk}
 
+            <br>
+            Суммарная площадь поперечного сечения кольцевых каналов<br><br>
+            Fкк/Fк=1.2-1.9 относительная площадь кольцевых каналов<br><br>
+            <div>
+              <label class="block text-sm font-medium">A4:</label>
+              <input type="number" name="calc[a4]" value={@a4} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+
+            {@formulas.fkk}
+            Наружный и внутренний диаметры ЖТ
+            {@formulas.dgn}
+            {@formulas.dgvn}
+            Площадь наружного и внутреннего кольцевых каналов<br>
+            прямоток
+            {@formulas.fkkn1}
+            противоток
+            {@formulas.fkkn}
+            {@formulas.fkkvn}
+            Диаметр наружной обечайки корпуса
+            {@formulas.dkkn}
+            Диаметр внутренней обечайки корпуса
+            {@formulas.dkkvn}
 
           </div>
 

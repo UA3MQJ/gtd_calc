@@ -188,4 +188,60 @@ defmodule GtdCalcWeb.Calculates do
   def calculate(:fg, a) do
     :math.pi() * a.dp * a.hz1
   end
+  def calculate(:vk, a) do
+    a.gv / a.pv
+  end
+  def calculate(:fk, a) do
+
+    x1 = (
+      ((:math.pi() * :math.pow(a.dkn, 2)) / 4)
+    )
+
+    x2 = (
+      ((:math.pi() * :math.pow(a.dkvn, 2)) / 4)
+    )
+
+    x1 - x2
+  end
+  def calculate(:fkk, a) do
+    a.a4 * a.fk
+  end
+
+  def calculate(:dgn, a) do
+    a.dp + a.hz1
+  end
+  def calculate(:dgvn, a) do
+    a.dp - a.hz1
+  end
+  def calculate(:fkkn1, a) do
+    (
+      (:math.pow(a.dgn, 2) -:math.pow(a.dp, 2))
+      /
+      (:math.pow(a.dp, 2) -:math.pow(a.dgvn, 2))
+    ) * a.fkk
+  end
+  def calculate(:fkkn, a) do
+    (
+      (:math.pow(a.dgn, 2) -:math.pow(a.dp, 2))
+      /
+      (:math.pow(a.dp, 2) -:math.pow(a.dgvn, 2))
+      /
+      2
+    ) * a.fkk
+  end
+  def calculate(:fkkvn, a) do
+    a.fkk - a.fkkn
+  end
+  def calculate(:dkkn, a) do
+    :math.sqrt(
+      :math.pow(a.dgn, 2) + (4*a.fkkn/:math.pi)
+    )
+  end
+  def calculate(:dkkvn, a) do
+    :math.sqrt(
+      :math.pow(a.dgvn, 2.24) + (4*a.fkkvn/:math.pi)
+    )
+  end
+
+
 end

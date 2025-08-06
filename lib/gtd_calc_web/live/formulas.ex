@@ -130,6 +130,29 @@ defmodule GtdCalcWeb.Formulas do
           "Dр = Dкср + (Dтср - Dкср) \\cdot \\frac{Lд+Lр+hт}{Lкс}",
         :fg =>
           "Fж = π \\cdot Dр \\cdot hж1",
+
+        :vk =>
+          "Vк = \\frac{Gв}{ρв}",
+
+        :fk =>
+          "Fк = \\frac{π \\cdot Dкн^2}{4} - \\frac{π \\cdot Dквн^2}{4}",
+        :fkk =>
+          "Fкк = A4 \\cdot Fк",
+        :dgn =>
+          "dжн = Dр+hж1",
+        :dgvn =>
+          "dжвн = Dр-hж1",
+
+        :fkkn1 =>
+          "Fккн1 = \\frac{dжн^2 - Dр^2}{Dр^2-dжвн^2} \\cdot Fкк",
+        :fkkn =>
+          "Fккн = \\frac{ \\frac{dжн^2-Dр^2}{Dр^2-dжвн^2} }{2} \\cdot Fкк",
+        :fkkvn =>
+          "Fкквн = Fкк-Fккн",
+        :dkkn =>
+          "Dккн = \\sqrt{dжн^2 + \\frac{4 \\cdot Fккн}{π}}",
+        :dkkvn =>
+          "Dкквн = \\sqrt{dжвн^{2.24} + \\frac{4 \\cdot Fкквн}{π}}",
       }
   end
 
