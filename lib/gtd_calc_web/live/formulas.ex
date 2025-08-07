@@ -153,6 +153,12 @@ defmodule GtdCalcWeb.Formulas do
           "Dккн = \\sqrt{dжн^2 + \\frac{4 \\cdot Fккн}{π}}",
         :dkkvn =>
           "Dкквн = \\sqrt{dжвн^{2.24} + \\frac{4 \\cdot Fкквн}{π}}",
+        :dfr =>
+          "Dфр = Dкср + (Dтср-Dкср) \\cdot \\frac{Lд+Lр+hт}{Lкс}",
+        :nf1 =>
+          "nф1 = \\frac{π \\cdot Dфр}{A5 \\cdot hж1}",
+        :nf =>
+          "nф = round(nф1)",
       }
   end
 

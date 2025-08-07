@@ -242,6 +242,20 @@ defmodule GtdCalcWeb.Calculates do
       :math.pow(a.dgvn, 2.24) + (4*a.fkkvn/:math.pi)
     )
   end
-
+  def calculate(:dfr, a) do
+    a.dksr + (a.dtsr - a.dksr) * (
+      (a.ld + a.lp + a.ht)
+      /
+      (a.lks)
+    )
+  end
+  def calculate(:nf1, a) do
+    (:math.pi() * a.dfr)
+    /
+    (a.a5 * a.hz1)
+  end
+  def calculate(:nf, a) do
+    round(a.nf1)
+  end
 
 end

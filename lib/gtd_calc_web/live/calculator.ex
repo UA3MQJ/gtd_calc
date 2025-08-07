@@ -1,7 +1,9 @@
 defmodule GtdCalcWeb.Calculator do
   use GtdCalcWeb, :live_view
 
-  @params [:r_os, :t_os, :k, :rv, :m, :gv, :pk, :dkn, :dkvn, :ncomp, :yk, :votb, :tg, :dtn, :dtvn, :gt, :hu, :l0, :rt, :vr, :tt, :kv, :c1, :c1]
+  @params [:r_os, :t_os, :k, :rv, :m, :gv, :pk, :dkn, :dkvn, :ncomp, :yk, :votb, :tg, :dtn, :dtvn, :gt, :hu, :l0, :rt, :vr, :tt, :kv, :c1, :c1,
+    :azg, :kvzg, :srt, :qh, :a1, :a2, :a3, :a4, :a5, :lks
+  ]
   @calcs  [
             :t_v, :tk, :ng, :w_k, :p_k, :srvtg, :srvtk, :ntg, :nrb, :qt, :ak1, :ak2, :ak, :gtc, :vg, :kv2, :pv,
             :gvzg, :kvzg, :vgzg, :gohl, :rg, :t, :srv1, :srv, :nn,
@@ -10,6 +12,7 @@ defmodule GtdCalcWeb.Calculator do
             :lg, :lzg, :lzs, :ld, :lp, :dp, :fg, :vk, :fk, :fkk,
             :dgn, :dgvn, :fkkn1, :fkkn, :fkkvn,
             :dkkn, :dkkvn,
+            :dfr, :nf1, :nf
           ]
 
   def mount(_params, _session, socket) do
@@ -48,7 +51,7 @@ defmodule GtdCalcWeb.Calculator do
       # Максимальная температура зоны горения
       srt: 2220,
       qh: 42950000,
-      a1: 2.3, a2: 2.08, a3: 0.5, a4: 1,
+      a1: 2.3, a2: 2.08, a3: 0.5, a4: 1, a5: 0.88,
       lks: 0.19,
     }
 
@@ -356,6 +359,20 @@ defmodule GtdCalcWeb.Calculator do
             {@formulas.dkkn}
             Диаметр внутренней обечайки корпуса
             {@formulas.dkkvn}
+
+            <br><br>
+            Определение числа форсунок<br><br>
+            Средний диаметр фронтового устройства
+            {@formulas.dfr}
+            tф/hж=0.3-0.8 Относительный шаг форсунок<br><br>
+            <div>
+              <label class="block text-sm font-medium">A5:</label>
+              <input type="number" name="calc[a5]" value={@a5} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+            {@formulas.nf1}
+            {@formulas.nf}
+
+            <br><br>Расчет форсунки<br><br>
 
           </div>
 
