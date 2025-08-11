@@ -159,11 +159,34 @@ defmodule GtdCalcWeb.Formulas do
           "nф1 = \\frac{π \\cdot Dфр}{A5 \\cdot hж1}",
         :nf =>
           "nф = round(nф1)",
+        :gf =>
+          "Gф = \\frac{Gт}{nф}",
+        :gv =>
+          "Gж = \\frac{Gф}{ρт}",
+        :dc1 =>
+          "dс1 = \\sqrt{\\frac{4 \\cdot Gж}{π \\cdot μ \\cdot \\sqrt{2 \\cdot \\frac{ΔP}{ρт}}}}",
+        :lc =>
+          "lс = 0.75 \\cdot dс1",
+        :lkz =>
+          "lкз = \\frac{(Dкз-dс1)}{2 \\cdot tan(\\frac{βк}{2})}",
+        :f0 =>
+          "f0 = π \\cdot \\frac{dс1^2}{4}",
+        :efk =>
+          "ΣFк = 4.3 \\cdot f0",
+        :lgalpha =>
+          "lgα = 0.01 \\cdot βк \\cdot \\left( 5.3 \\cdot \\frac{lс^2}{dс1^2}  \\right) ^{0.58} + 0.32",
+        :alpha1 =>
+          "α1 = 10^{lgα}",
+        :alpha =>
+          "α = \\frac{α1 \\cdot 180}{π}",
+        :da =>
+          "a = \\left( \\frac{ΣFк}{n \\cdot cos(α)}\\right)^{0.5}",
+
       }
   end
 
   def get(key, a) do
-    formula = formulas(a)[key]
+    formula = formulas(a)[key] || "?"
     result = a[key]
     "\\[ #{formula} = #{result} \\]"
   end

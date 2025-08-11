@@ -2,7 +2,8 @@ defmodule GtdCalcWeb.Calculator do
   use GtdCalcWeb, :live_view
 
   @params [:r_os, :t_os, :k, :rv, :m, :gv, :pk, :dkn, :dkvn, :ncomp, :yk, :votb, :tg, :dtn, :dtvn, :gt, :hu, :l0, :rt, :vr, :tt, :kv, :c1, :c1,
-    :azg, :kvzg, :srt, :qh, :a1, :a2, :a3, :a4, :a5, :lks
+    :azg, :kvzg, :srt, :qh, :a1, :a2, :a3, :a4, :a5, :lks,
+    :deltap, :n, :kf, :u, :bk, :dkz, :nf2,
   ]
   @calcs  [
             :t_v, :tk, :ng, :w_k, :p_k, :srvtg, :srvtk, :ntg, :nrb, :qt, :ak1, :ak2, :ak, :gtc, :vg, :kv2, :pv,
@@ -12,7 +13,8 @@ defmodule GtdCalcWeb.Calculator do
             :lg, :lzg, :lzs, :ld, :lp, :dp, :fg, :vk, :fk, :fkk,
             :dgn, :dgvn, :fkkn1, :fkkn, :fkkvn,
             :dkkn, :dkkvn,
-            :dfr, :nf1, :nf
+            :dfr, :nf1, :nf,
+            :gf, :gv, :dc1, :lc, :lkz, :f0, :efk, :lgalpha, :alpha1, :alpha, :da
           ]
 
   def mount(_params, _session, socket) do
@@ -53,6 +55,8 @@ defmodule GtdCalcWeb.Calculator do
       qh: 42950000,
       a1: 2.3, a2: 2.08, a3: 0.5, a4: 1, a5: 0.88,
       lks: 0.19,
+      # расчет форсунки
+      deltap: 1013250, n: 2, kf: 0.75,  u: 0.6, bk: 2*:math.pi()/3, dkz: 0.004, nf2: 10,
     }
 
     socket = assign(socket, Map.new(assigns))
@@ -373,6 +377,54 @@ defmodule GtdCalcWeb.Calculator do
             {@formulas.nf}
 
             <br><br>Расчет форсунки<br><br>
+            <div>
+              <label class="block text-sm font-medium">ΔP (Па):</label>
+              <input type="number" name="calc[deltap]" value={@deltap} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium">n:</label>
+              <input type="number" name="calc[n]" value={@n} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium">kф:</label>
+              <input type="number" name="calc[kf]" value={@kf} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium">μ:</label>
+              <input type="number" name="calc[u]" value={@u} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium">βк (2*pi/3) угол конусности в радианах:</label>
+              <input type="number" name="calc[bk]" value={@bk} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium">Dкз (диаметр камеры закрутки):</label>
+              <input type="number" name="calc[dkz]" value={@dkz} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium">nф2:</label>
+              <input type="number" name="calc[nf2]" value={@nf2} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+
+            Расход через одну форсунку в кг/c
+            {@formulas.gf}
+            Расход через одну форсунку в м3/c
+            {@formulas.gv}
+            Диаметр соплового отверстия
+            {@formulas.dc1}
+            Длина соплового канала
+            {@formulas.lc}
+            Высота камеры закрутки
+            {@formulas.lkz}
+            Суммарная площадь закручивающих каналов
+            {@formulas.f0}
+            {@formulas.efk}
+            Угол наклона закручивающих каналов
+            {@formulas.lgalpha}
+            {@formulas.alpha1}
+            {@formulas.alpha}
+            Диаметр закручивающих каналов
+            {@formulas.da}
 
           </div>
 

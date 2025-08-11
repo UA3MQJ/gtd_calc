@@ -257,5 +257,57 @@ defmodule GtdCalcWeb.Calculates do
   def calculate(:nf, a) do
     round(a.nf1)
   end
+  def calculate(:gf, a) do
+    a.gt / a.nf2
+  end
+  def calculate(:gv, a) do
+    a.gf / a.rt
+  end
+  def calculate(:dc1, a) do
+    :math.sqrt(
+      (4 * a.gv)
+      /
+      (
+        (:math.pi() * a.u) * :math.sqrt(
+          2 * (a.deltap / a.rt)
+        )
+      )
+    )
+  end
+  def calculate(:lc, a) do
+    a.dc1 * 0.75
+  end
+  def calculate(:lkz, a) do
+    (a.dkz - a.dc1) /
+    (2 * :math.tan(a.bk / 2))
+  end
+  def calculate(:f0, a) do
+    :math.pi() * (a.dc1*a.dc1/4)
+  end
+  def calculate(:efk, a) do
+    a.f0*4.3
+  end
+  def calculate(:lgalpha, a) do
+    0.01 * a.bk * :math.pow((
+      5.3 * ((a.lc*a.lc)/(a.dc1*a.dc1))
+    ), 0.58) + 0.32
+  end
+  def calculate(:alpha1, a) do
+    :math.pow(10, a.lgalpha)
+  end
+  def calculate(:alpha, a) do
+    a.alpha1 * 180 / :math.pi()
+  end
+  def calculate(:da, a) do
+    :math.pow((
+      (a.efk)
+      /
+      (a.n * :math.cos(a.alpha))
+    ), 0.5)
+  end
 
+
+  def calculate(_, a) do
+    nil
+  end
 end
