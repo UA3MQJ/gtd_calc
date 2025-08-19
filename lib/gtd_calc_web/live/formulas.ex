@@ -1,6 +1,6 @@
 defmodule GtdCalcWeb.Formulas do
 
-  def formulas(a) do
+  def formulas(_a) do
     %{
         :t_v =>
           "T_{\\text{в}} = T_{\\text{ос}} \\cdot \\left( 1 + \\frac{k - 1}{k} \\cdot M^2 \\right)",
@@ -181,7 +181,41 @@ defmodule GtdCalcWeb.Formulas do
           "α = \\frac{α1 \\cdot 180}{π}",
         :da =>
           "a = \\left( \\frac{ΣFк}{n \\cdot cos(α)}\\right)^{0.5}",
+        :b =>
+          "b = \\frac{π \\cdot a^2}{4} \\cdot 1000000",
+        :dc =>
+          "dс = dс1 \\cdot 1000",
+        :d =>
+          "D = Dкз \\cdot 1000",
+        :gc =>
+          "Gс = Gф",
+        :mf =>
+          "mф = \\frac{Gф}{Gс}",
+        :fc =>
+          "Fс = \\frac{π \\cdot dс^2}{4}",
+        :rf =>
+          "Rф = D - \\frac{b}{2}",
+        :rc =>
+          "rс = \\frac{dс}{2}",
+        :af =>
+          "Aф = \\frac{kф \\cdot π \\cdot Rф \\cdot rс}{n \\cdot b}",
+        :af1 =>
+          "Aф",
+        :affi =>
+          "Aф = (1 - φ) \\cdot \\sqrt{\\frac{2}{φ^{3}}}",
+        :fi =>
+          "φ = Find(φ)",
+        :ndif =>
+          "nдиф = \\frac{Fвых}{Fк}",
+        :ldif =>
+          "Lдиф = Lд",
+        :opr =>
+          "σпр = find(σпр)",
+        :fi2 =>
+          "ϕ = 10 \\cdot \\left( \\frac{σпр \\cdot deg}{2} \\right) \\cdot  \\sqrt[4]{tan \\left( \\frac{σпр \\cdot deg}{2} \\right) } ",
 
+        :zp =>
+          "ζр = ϕ \\cdot \\left( 1 - \\frac{1}{nдиф} \\right) ^2",
       }
   end
 

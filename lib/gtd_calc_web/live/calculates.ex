@@ -305,7 +305,90 @@ defmodule GtdCalcWeb.Calculates do
       (a.n * :math.cos(a.alpha))
     ), 0.5)
   end
-
+  def calculate(:b, a) do
+    ((:math.pi() * a.da * a.da)
+    /
+    (4)) * 1000000
+  end
+  def calculate(:dc, a) do
+    a.dc1 * 1000
+  end
+  def calculate(:d, a) do
+    a.dkz * 1000
+  end
+  def calculate(:gc, a) do
+    a.gf
+  end
+  def calculate(:mf, a) do
+    a.gf / a.gc
+  end
+  def calculate(:fc, a) do
+    ((:math.pi() * a.dc * a.dc)
+    /
+    (4))
+  end
+  def calculate(:rf, a) do
+    a.d - ((a.b)
+    /
+    (2))
+  end
+  def calculate(:rc, a) do
+    a.dc
+    /
+    (2)
+  end
+  def calculate(:af, a) do
+    (a.kf * :math.pi() * a.rf * a.rc)
+    /
+    (a.n * a.b)
+  end
+  def calculate(:af1, a) do
+    0.85
+  end
+  def calculate(:affi, a) do
+    a.af1
+  end
+  def calculate(:fi, a) do
+    0
+  end
+  def calculate(:ndif, a) do
+    a.fvih / a.fk
+  end
+  def calculate(:ldif, a) do
+    a.ld
+  end
+  def calculate(:deg, a) do
+    0.01745329251994
+  end
+  def calculate(:opr, a) do
+    # a.ndif
+    # a.deg
+    2*:math.atan(
+      (a.hk*(:math.sqrt(a.ndif) - 1))
+      /
+      (a.ldif)
+    ) /
+    (a.deg)
+  end
+  def calculate(:fi2, a) do
+    10 * :math.tan(
+      (a.opr*a.deg) / 2
+    )
+    *
+    :math.pow(
+      :math.tan(
+        (a.opr*a.deg) / 2
+      ), 1/4
+    )
+  end
+  def calculate(:zp, a) do
+    a.fi2 * :math.pow(
+      1 - (
+        1 / a.ndif
+      ),
+      2
+    )
+  end
 
   def calculate(_, a) do
     nil

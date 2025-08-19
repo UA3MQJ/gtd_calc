@@ -3,7 +3,7 @@ defmodule GtdCalcWeb.Calculator do
 
   @params [:r_os, :t_os, :k, :rv, :m, :gv, :pk, :dkn, :dkvn, :ncomp, :yk, :votb, :tg, :dtn, :dtvn, :gt, :hu, :l0, :rt, :vr, :tt, :kv, :c1, :c1,
     :azg, :kvzg, :srt, :qh, :a1, :a2, :a3, :a4, :a5, :lks,
-    :deltap, :n, :kf, :u, :bk, :dkz, :nf2,
+    :deltap, :n, :kf, :u, :bk, :dkz, :nf2
   ]
   @calcs  [
             :t_v, :tk, :ng, :w_k, :p_k, :srvtg, :srvtk, :ntg, :nrb, :qt, :ak1, :ak2, :ak, :gtc, :vg, :kv2, :pv,
@@ -14,7 +14,10 @@ defmodule GtdCalcWeb.Calculator do
             :dgn, :dgvn, :fkkn1, :fkkn, :fkkvn,
             :dkkn, :dkkvn,
             :dfr, :nf1, :nf,
-            :gf, :gv, :dc1, :lc, :lkz, :f0, :efk, :lgalpha, :alpha1, :alpha, :da
+            :gf, :gv, :dc1, :lc, :lkz, :f0, :efk, :lgalpha, :alpha1, :alpha, :da,
+            :b, :dc, :d, :gc, :mf, :fc, :rf, :rc, :af, :af1, :affi, :fi,
+            :ndif, :ldif, :deg, :opr,
+            :fi2, :zp,
           ]
 
   def mount(_params, _session, socket) do
@@ -57,6 +60,8 @@ defmodule GtdCalcWeb.Calculator do
       lks: 0.19,
       # расчет форсунки
       deltap: 1013250, n: 2, kf: 0.75,  u: 0.6, bk: 2*:math.pi()/3, dkz: 0.004, nf2: 10,
+      # гидравлический расчет
+      fk: 0.00524, fvih: 0.01
     }
 
     socket = assign(socket, Map.new(assigns))
@@ -425,6 +430,52 @@ defmodule GtdCalcWeb.Calculator do
             {@formulas.alpha}
             Диаметр закручивающих каналов
             {@formulas.da}
+
+            <br><br>Аналитический расчет форсунки<br><br>
+            {@formulas.b}
+            {@formulas.dc}
+            {@formulas.d}
+            Коэффициент кратности
+            {@formulas.gc}
+            {@formulas.mf}
+            Площадь сопла форсунки в выходном сечении
+            {@formulas.fc}
+            Растояние от оси входного канало до оси форсунки
+            {@formulas.rf}
+            Геометрическая характеристика форсунки
+            {@formulas.rc}
+            {@formulas.af}
+            {@formulas.af1}
+            Коэффициент живого сечения
+            {@formulas.affi}
+            {@formulas.fi}
+            ...
+            доделать позже
+            ...
+
+            <br><br>Гидравлический расчет<br><br>
+            Степень раскрытия диффузора
+            <div>
+              <label class="block text-sm font-medium">Fк:</label>
+              <input type="number" name="calc[fk]" value={@fk} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium">Fвых:</label>
+              <input type="number" name="calc[fvih]" value={@fvih} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+            {@formulas.ndif}
+            Величина раскрытия диффузора
+
+            { "\\[ Lдиф = Lд \\]" }
+            { "Given" }
+            { "\\[ tan \\left( \\frac{σпр \\cdot deg}{2} \\right) = \\frac{hк}{Lдиф} \\cdot (\\sqrt{nдиф} - 1) \\]" }
+
+            {@formulas.opr}
+
+            Коэффициенты сопротивления
+            {@formulas.fi2}
+            {@formulas.zp}
+
 
           </div>
 
