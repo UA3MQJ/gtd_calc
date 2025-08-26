@@ -216,6 +216,13 @@ defmodule GtdCalcWeb.Formulas do
 
         :zp =>
           "ζр = ϕ \\cdot \\left( 1 - \\frac{1}{nдиф} \\right) ^2",
+        :re =>
+          "Re = \\frac{Wк \\cdot 2 \\cdot hк}{vв}",
+
+        :psit =>
+          "ζт = \\frac{0.0385}{sin \\left( \\frac{σпр \\cdot deg}{2} \\right)} \\cdot \\frac{1 - \\frac{1}{nдиф^2}}{log(Re - 0.91)^2}",
+
+
       }
   end
 

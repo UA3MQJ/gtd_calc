@@ -12,7 +12,7 @@ defmodule GtdCalcWeb.Calculates do
     1 - (0.8 * (:math.pow(a.kv, 2)))
   end
 
-  def calculate(:w_k, a) do
+  def calculate(:wk, a) do
     :math.sqrt(a.rv*a.tk*(((2*a.k)/(a.k+1))))*a.yk
   end
 
@@ -387,6 +387,20 @@ defmodule GtdCalcWeb.Calculates do
         1 / a.ndif
       ),
       2
+    )
+  end
+  def calculate(:re, a) do
+    (a.wk * 2 * a.hk) / (a.vb)
+  end
+  def calculate(:psit, a) do
+    (
+      (0.0385) /
+      :math.sin((a.opr * a.deg) / 2)
+    )
+    *
+    (
+      (1 - (1 / (:math.pow(a.ndif, 2)))) /
+      :math.pow(:math.log10(a.re - 0.91), 2)
     )
   end
 

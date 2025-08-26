@@ -3,10 +3,10 @@ defmodule GtdCalcWeb.Calculator do
 
   @params [:r_os, :t_os, :k, :rv, :m, :gv, :pk, :dkn, :dkvn, :ncomp, :yk, :votb, :tg, :dtn, :dtvn, :gt, :hu, :l0, :rt, :vr, :tt, :kv, :c1, :c1,
     :azg, :kvzg, :srt, :qh, :a1, :a2, :a3, :a4, :a5, :lks,
-    :deltap, :n, :kf, :u, :bk, :dkz, :nf2
+    :deltap, :n, :kf, :u, :bk, :dkz, :nf2, :vb, :beta
   ]
   @calcs  [
-            :t_v, :tk, :ng, :w_k, :p_k, :srvtg, :srvtk, :ntg, :nrb, :qt, :ak1, :ak2, :ak, :gtc, :vg, :kv2, :pv,
+            :t_v, :tk, :ng, :wk, :p_k, :srvtg, :srvtk, :ntg, :nrb, :qt, :ak1, :ak2, :ak, :gtc, :vg, :kv2, :pv,
             :gvzg, :kvzg, :vgzg, :gohl, :rg, :t, :srv1, :srv, :nn,
             :srg, :kg, :tzg, :tzgprov, :tg1, :pks, :dksr,
             :dtsr, :hk, :ht, :hz, :hz1,
@@ -17,7 +17,7 @@ defmodule GtdCalcWeb.Calculator do
             :gf, :gv, :dc1, :lc, :lkz, :f0, :efk, :lgalpha, :alpha1, :alpha, :da,
             :b, :dc, :d, :gc, :mf, :fc, :rf, :rc, :af, :af1, :affi, :fi,
             :ndif, :ldif, :deg, :opr,
-            :fi2, :zp,
+            :fi2, :zp, :re, :psit
           ]
 
   def mount(_params, _session, socket) do
@@ -61,7 +61,8 @@ defmodule GtdCalcWeb.Calculator do
       # расчет форсунки
       deltap: 1013250, n: 2, kf: 0.75,  u: 0.6, bk: 2*:math.pi()/3, dkz: 0.004, nf2: 10,
       # гидравлический расчет
-      fk: 0.00524, fvih: 0.01
+      fk: 0.00524, fvih: 0.01,
+      vb: 1.51e-5, beta: 10
     }
 
     socket = assign(socket, Map.new(assigns))
@@ -194,7 +195,7 @@ defmodule GtdCalcWeb.Calculator do
 
             Температура на входе в двигатель<br>{@formulas.t_v}
             Температура за компрессором<br>{@formulas.tk}
-            Скорость за компрессором<br>{@formulas.w_k}
+            Скорость за компрессором<br>{@formulas.wk}
             Давление за компрессором<br>{@formulas.p_k}
             Полнота сгорания<br>
             <div>
@@ -455,10 +456,10 @@ defmodule GtdCalcWeb.Calculator do
 
             <br><br>Гидравлический расчет<br><br>
             Степень раскрытия диффузора
-            <div>
-              <label class="block text-sm font-medium">Fк:</label>
-              <input type="number" name="calc[fk]" value={@fk} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
-            </div>
+
+
+            <br><br>Fк = {@fk}<br><br>
+
             <div>
               <label class="block text-sm font-medium">Fвых:</label>
               <input type="number" name="calc[fvih]" value={@fvih} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
@@ -475,6 +476,19 @@ defmodule GtdCalcWeb.Calculator do
             Коэффициенты сопротивления
             {@formulas.fi2}
             {@formulas.zp}
+
+            <div>
+              <label class="block text-sm font-medium">vв (кинематическая вязкость):</label>
+              <input type="number" name="calc[vb]" value={@vb} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+
+            {@formulas.re}
+            {@formulas.psit}
+
+            <div>
+              <label class="block text-sm font-medium">β:</label>
+              <input type="number" name="calc[beta]" value={@beta} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
 
 
           </div>
