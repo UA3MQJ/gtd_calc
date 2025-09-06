@@ -403,6 +403,28 @@ defmodule GtdCalcWeb.Calculates do
       :math.pow(:math.log10(a.re - 0.91), 2)
     )
   end
+  def calculate(:psip, a) do
+    (0.43*a.ndif + 0.02) *
+    (
+      :math.pow(
+        (:math.tan(a.beta*a.deg)),
+        (
+          1 / (
+            0.57 * a.ndif - 0.47
+          )
+        )
+      )
+    )
+  end
+  def calculate(:psidif, a) do
+    a.psit + a.zp + a.psip
+  end
+  def calculate(:deltadif, a) do
+    (a.k/(a.k + 1)) * a.psidif * (:math.pow(a.yk, 2))
+  end
+  def calculate(:ndifkr, a) do
+    1.65 + 0.1 * ( a.ldif / a.hk)
+  end
 
   def calculate(_, a) do
     nil

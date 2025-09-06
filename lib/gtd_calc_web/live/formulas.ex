@@ -222,7 +222,14 @@ defmodule GtdCalcWeb.Formulas do
         :psit =>
           "ζт = \\frac{0.0385}{sin \\left( \\frac{σпр \\cdot deg}{2} \\right)} \\cdot \\frac{1 - \\frac{1}{nдиф^2}}{log(Re - 0.91)^2}",
 
-
+        :psip =>
+          "ζп = (0.43 \\cdot nдиф + 0.02) \\cdot (tan(β \\cdot deg))^{ \\frac{1}{(0.57 \\ cdot nдиф - 0.47)} }",
+        :psidif =>
+          "ζдиф = ζт+ζр+ζп",
+        :deltadif =>
+          "δдиф = \\frac{k}{k + 1} \\cdot ζдиф \\cdot λк^2",
+        :ndifkr =>
+          "nдифкр = 1.65 + 0.1 \\cdot \\frac{Lдиф}{hк}"
       }
   end
 

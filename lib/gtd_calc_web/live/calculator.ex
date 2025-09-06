@@ -17,7 +17,7 @@ defmodule GtdCalcWeb.Calculator do
             :gf, :gv, :dc1, :lc, :lkz, :f0, :efk, :lgalpha, :alpha1, :alpha, :da,
             :b, :dc, :d, :gc, :mf, :fc, :rf, :rc, :af, :af1, :affi, :fi,
             :ndif, :ldif, :deg, :opr,
-            :fi2, :zp, :re, :psit
+            :fi2, :zp, :re, :psit, :psip, :psidif, :deltadif, :ndifkr
           ]
 
   def mount(_params, _session, socket) do
@@ -490,6 +490,15 @@ defmodule GtdCalcWeb.Calculator do
               <input type="number" name="calc[beta]" value={@beta} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
             </div>
 
+            {@formulas.psip}
+            Коэффициент гидравлических потель в диффузоре
+            {@formulas.psidif}
+            {@formulas.deltadif}
+            Критическое значение величины степени расширения на плавном участке
+            {@formulas.ndifkr}
+
+            <br><br>Тепловые потери<br><br>
+            Коэффициент тепловых потерь
 
           </div>
 
