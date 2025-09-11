@@ -425,6 +425,15 @@ defmodule GtdCalcWeb.Calculates do
   def calculate(:ndifkr, a) do
     1.65 + 0.1 * ( a.ldif / a.hk)
   end
+  def calculate(:teta, a) do
+    a.tg / a.tk
+  end
+  def calculate(:dzetatepl, a) do
+    0.5 * (a.teta - 1) * :math.pow((a.fk / a.fg), 2)
+  end
+  def calculate(:deltatepl, a) do
+    (a.k / (a.k + 1)) * a.dzetatepl * :math.pow(a.yk, 2)
+  end
 
   def calculate(_, a) do
     nil

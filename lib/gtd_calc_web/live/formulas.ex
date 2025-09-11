@@ -229,7 +229,13 @@ defmodule GtdCalcWeb.Formulas do
         :deltadif =>
           "δдиф = \\frac{k}{k + 1} \\cdot ζдиф \\cdot λк^2",
         :ndifkr =>
-          "nдифкр = 1.65 + 0.1 \\cdot \\frac{Lдиф}{hк}"
+          "nдифкр = 1.65 + 0.1 \\cdot \\frac{Lдиф}{hк}",
+        :teta =>
+          "θ = \\frac{Tг}{Tк}",
+        :dzetatepl =>
+          "ζтепл = 0.5 \\cdot  ( θ - 1 ) \\cdot \\left( \\frac{Fк}{Fж} \\right)  ^ 2",
+        :deltatepl =>
+          "δтепл = \\frac{k}{k+1} \\cdot ζтепл \\cdot λк ^ 2",
       }
   end
 

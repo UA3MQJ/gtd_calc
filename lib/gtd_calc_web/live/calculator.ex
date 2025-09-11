@@ -17,7 +17,8 @@ defmodule GtdCalcWeb.Calculator do
             :gf, :gv, :dc1, :lc, :lkz, :f0, :efk, :lgalpha, :alpha1, :alpha, :da,
             :b, :dc, :d, :gc, :mf, :fc, :rf, :rc, :af, :af1, :affi, :fi,
             :ndif, :ldif, :deg, :opr,
-            :fi2, :zp, :re, :psit, :psip, :psidif, :deltadif, :ndifkr
+            :fi2, :zp, :re, :psit, :psip, :psidif, :deltadif, :ndifkr,
+            :teta, :dzetatepl, :deltatepl
           ]
 
   def mount(_params, _session, socket) do
@@ -499,6 +500,10 @@ defmodule GtdCalcWeb.Calculator do
 
             <br><br>Тепловые потери<br><br>
             Коэффициент тепловых потерь
+            {@formulas.teta}
+            {@formulas.dzetatepl}
+            {@formulas.deltatepl}
+
 
           </div>
 
