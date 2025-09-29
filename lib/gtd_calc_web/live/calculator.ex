@@ -18,7 +18,8 @@ defmodule GtdCalcWeb.Calculator do
             :b, :dc, :d, :gc, :mf, :fc, :rf, :rc, :af, :af1, :affi, :fi,
             :ndif, :ldif, :deg, :opr,
             :fi2, :zp, :re, :psit, :psip, :psidif, :deltadif, :ndifkr,
-            :teta, :dzetatepl, :deltatepl
+            :teta, :dzetatepl, :deltatepl, :deltaotv1,
+            :efotv
           ]
 
   def mount(_params, _session, socket) do
@@ -63,7 +64,9 @@ defmodule GtdCalcWeb.Calculator do
       deltap: 1013250, n: 2, kf: 0.75,  u: 0.6, bk: 2*:math.pi()/3, dkz: 0.004, nf2: 10,
       # гидравлический расчет
       fk: 0.00524, fvih: 0.01,
-      vb: 1.51e-5, beta: 10
+      vb: 1.51e-5, beta: 10,
+      deltaks: 0.03,
+      uzt: 0.6
     }
 
     socket = assign(socket, Map.new(assigns))
@@ -504,6 +507,25 @@ defmodule GtdCalcWeb.Calculator do
             {@formulas.dzetatepl}
             {@formulas.deltatepl}
 
+            <br><br>
+            Величина потерь полного давления при перетекании через отверстия
+            <br><br>
+
+            <div>
+              <label class="block text-sm font-medium">δкс:</label>
+              <input type="number" name="calc[deltaks]" value={@deltaks} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+            {@formulas.deltaotv1}
+            Суммарная геометрическая площадь отверстий<br><br>
+            <div>
+              <label class="block text-sm font-medium">μжт:</label>
+              <input type="number" name="calc[uzt]" value={@uzt} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+            <br><br>
+            given
+            { "\\[ μ \\cdot ΣFотв = Fкк \\cdot \\sqrt{[\\frac{0.6 \\cdot λк^2 \\cdot k}{δотв1 \\cdot (k + 1) - 0.1 \\cdot λк^2 \\cdot k}]^{3}} \\]" }
+
+            {@formulas.efotv}
 
           </div>
 

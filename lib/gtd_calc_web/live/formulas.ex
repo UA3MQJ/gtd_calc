@@ -236,6 +236,10 @@ defmodule GtdCalcWeb.Formulas do
           "ζтепл = 0.5 \\cdot  ( θ - 1 ) \\cdot \\left( \\frac{Fк}{Fж} \\right)  ^ 2",
         :deltatepl =>
           "δтепл = \\frac{k}{k+1} \\cdot ζтепл \\cdot λк ^ 2",
+        :deltaotv1 =>
+          "δотв1 = δкс - δдиф - δтепл",
+        :efotv =>
+          "ΣFотв = find(ΣFотв)",
       }
   end
 

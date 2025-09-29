@@ -434,6 +434,21 @@ defmodule GtdCalcWeb.Calculates do
   def calculate(:deltatepl, a) do
     (a.k / (a.k + 1)) * a.dzetatepl * :math.pow(a.yk, 2)
   end
+  def calculate(:deltaotv1, a) do
+    a.deltaks - a.deltadif - a.deltatepl
+  end
+  def calculate(:efotv, a) do
+    # a.fkk
+    sq = :math.sqrt(
+      :math.pow((
+        (0.6 * :math.pow(a.yk, 2) * a.k)/
+        ((a.deltaotv1 * (a.k + 1)) - (0.1 * :math.pow(a.yk, 2) * a.k))
+      ), 3)
+    )
+
+    (a.fkk * sq) / a.uzt
+  end
+
 
   def calculate(_, a) do
     nil
