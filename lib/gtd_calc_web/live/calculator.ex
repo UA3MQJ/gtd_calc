@@ -19,7 +19,10 @@ defmodule GtdCalcWeb.Calculator do
             :ndif, :ldif, :deg, :opr,
             :fi2, :zp, :re, :psit, :psip, :psidif, :deltadif, :ndifkr,
             :teta, :dzetatepl, :deltatepl, :deltaotv1,
-            :efotv
+            :efotv,
+            :formula1, :dzetaotv, :deltaotv, :edelta, :sigmaks,
+            :deltapdif, :deltaptepl, :deltapotv,
+            :deltape, :deltapotn
           ]
 
   def mount(_params, _session, socket) do
@@ -523,9 +526,35 @@ defmodule GtdCalcWeb.Calculator do
             </div>
             <br><br>
             given
-            { "\\[ μ \\cdot ΣFотв = Fкк \\cdot \\sqrt{[\\frac{0.6 \\cdot λк^2 \\cdot k}{δотв1 \\cdot (k + 1) - 0.1 \\cdot λк^2 \\cdot k}]^{3}} \\]" }
+            { "\\[ μ \\cdot ΣFотв = Fкк \\cdot \\sqrt{ \\left[ \\frac{0.6 \\cdot λк^2 \\cdot k}{δотв1 \\cdot (k + 1) - 0.1 \\cdot λк^2 \\cdot k} \\right] ^{3}} \\]" }
 
             {@formulas.efotv}
+            {@formulas.formula1}
+            {@formulas.dzetaotv}
+
+            Подтверждение величины потерь полного давления при перетекании через отверстия
+
+            {@formulas.deltaotv}
+
+            Суммарная величина потерь по тракту камеры сгорания
+
+            {@formulas.edelta}
+            {@formulas.sigmaks}
+
+            Потери полного давления по тракту камеры сгорания
+
+            {@formulas.deltapdif}
+            {@formulas.deltaptepl}
+            {@formulas.deltapotv}
+
+            Относительная величина потерь полного давления
+
+            {@formulas.deltape}
+            {@formulas.deltapotn}
+
+            Суммарная площадь проходного сечения фронтового устройства
+
+            αфр
 
           </div>
 

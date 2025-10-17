@@ -448,6 +448,43 @@ defmodule GtdCalcWeb.Calculates do
 
     (a.fkk * sq) / a.uzt
   end
+  def calculate(:formula1, a) do
+    (a.uzt * a.efotv) / a.fg
+  end
+  def calculate(:dzetaotv, a) do
+    0.1 +
+    (
+      (0.6)/
+      (:math.pow((
+        (a.uzt * a.efotv) / a.fkk
+      ), 1.5))
+    )
+  end
+  def calculate(:deltaotv, a) do
+    (a.k / (a.k + 1)) * a.dzetaotv * :math.pow(a.yk, 2)
+  end
+  def calculate(:edelta, a) do
+    a.deltadif + a.deltatepl + a.deltaotv
+  end
+  def calculate(:sigmaks, a) do
+    1-a.edelta
+  end
+  def calculate(:deltapdif, a) do
+    a.p_k - (a.p_k * a.deltadif)
+  end
+  def calculate(:deltaptepl, a) do
+    a.deltapdif - (a.p_k * a.deltatepl)
+  end
+  def calculate(:deltapotv, a) do
+    a.deltaptepl - (a.p_k * a.deltaotv)
+  end
+  def calculate(:deltape, a) do
+    a.p_k - a.deltapotv
+  end
+  def calculate(:deltapotn, a) do
+    a.deltape/a.p_k * 100
+  end
+
 
 
   def calculate(_, a) do
