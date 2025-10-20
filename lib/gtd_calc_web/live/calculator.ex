@@ -1,7 +1,9 @@
 defmodule GtdCalcWeb.Calculator do
   use GtdCalcWeb, :live_view
 
-  @params [:r_os, :t_os, :k, :rv, :m, :gv, :pk, :dkn, :dkvn, :ncomp, :yk, :votb, :tg, :dtn, :dtvn, :gt, :hu, :l0, :rt, :vr, :tt, :kv, :c1, :c1,
+  @params [:r_os, :t_os, :k, :rv, :m,
+    :gv,
+    :pk, :dkn, :dkvn, :ncomp, :yk, :votb, :tg, :dtn, :dtvn, :gt, :hu, :l0, :rt, :vr, :tt, :kv, :c1, :c1,
     :azg, :kvzg, :srt, :qh, :a1, :a2, :a3, :a4, :a5, :lks,
     :deltap, :n, :kf, :u, :bk, :dkz, :nf2, :vb, :beta
   ]
@@ -14,7 +16,9 @@ defmodule GtdCalcWeb.Calculator do
             :dgn, :dgvn, :fkkn1, :fkkn, :fkkvn,
             :dkkn, :dkkvn,
             :dfr, :nf1, :nf,
-            :gf, :gv, :dc1, :lc, :lkz, :f0, :efk, :lgalpha, :alpha1, :alpha, :da,
+            :gf,
+            :gv,
+            :dc1, :lc, :lkz, :f0, :efk, :lgalpha, :alpha1, :alpha, :da,
             :b, :dc, :d, :gc, :mf, :fc, :rf, :rc, :af, :af1, :affi, :fi,
             :ndif, :ldif, :deg, :opr,
             :fi2, :zp, :re, :psit, :psip, :psidif, :deltadif, :ndifkr,
@@ -22,7 +26,8 @@ defmodule GtdCalcWeb.Calculator do
             :efotv,
             :formula1, :dzetaotv, :deltaotv, :edelta, :sigmaks,
             :deltapdif, :deltaptepl, :deltapotv,
-            :deltape, :deltapotn
+            :deltape, :deltapotn,
+            :ffr, :wotv
           ]
 
   def mount(_params, _session, socket) do
@@ -34,7 +39,7 @@ defmodule GtdCalcWeb.Calculator do
       rv: 287.1,
       m: 0.0,
       # параметры компрессора
-      gv: 1.42,
+      gw: 1.42,
       pk: 4.75,
       dkn: 0.230,
       dkvn: 0.215,
@@ -69,7 +74,8 @@ defmodule GtdCalcWeb.Calculator do
       fk: 0.00524, fvih: 0.01,
       vb: 1.51e-5, beta: 10,
       deltaks: 0.03,
-      uzt: 0.6
+      uzt: 0.6,
+      alphafr: 0.0387
     }
 
     socket = assign(socket, Map.new(assigns))
@@ -125,7 +131,7 @@ defmodule GtdCalcWeb.Calculator do
         <br>
         <div>
           <label class="block text-sm font-medium">Gв (кг/c):</label>
-          <input type="number" name="calc[gv]" value={@gv} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+          <input type="number" name="calc[gw]" value={@gw} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
         </div>
         <div>
           <label class="block text-sm font-medium">Пк:</label>
@@ -554,7 +560,20 @@ defmodule GtdCalcWeb.Calculator do
 
             Суммарная площадь проходного сечения фронтового устройства
 
-            αфр
+            <br><br>
+            <div>
+              <label class="block text-sm font-medium">μжт:</label>
+              <input type="number" name="calc[alphafr]" value={@alphafr} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+
+            {@formulas.ffr}
+
+            Скорости течения в различных сечениях жаровой трубы<br><br>
+
+            Скорость воздуха в отверстиях<br><br>
+            {@formulas.wotv}
+
+            Среднерасходная скорость в миделевом сечении КС
 
           </div>
 

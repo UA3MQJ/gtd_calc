@@ -161,8 +161,6 @@ defmodule GtdCalcWeb.Formulas do
           "nф = round(nф1)",
         :gf =>
           "Gф = \\frac{Gт}{nф}",
-        :gv =>
-          "Gж = \\frac{Gф}{ρт}",
         :dc1 =>
           "dс1 = \\sqrt{\\frac{4 \\cdot Gж}{π \\cdot μ \\cdot \\sqrt{2 \\cdot \\frac{ΔP}{ρт}}}}",
         :lc =>
@@ -260,6 +258,12 @@ defmodule GtdCalcWeb.Formulas do
           "ΔPΣ = Pк - ΔPотв",
         :deltapotn =>
           "ΔPотн = \\frac{ΔPΣ}{Pк} \\cdot 100",
+        :ffr =>
+          "Fфр = \\left( \\frac{αфр}{αк}  \\right) \\cdot ΣFотв",
+        :wotv =>
+          "Wотв = \\frac{Gв \\cdot ( 1 - βотб )}{ρв \\cdot ΣFотв}",
+        :gv =>
+          "Gж = \\frac{Gф}{ρт}",
       }
   end
 

@@ -63,22 +63,22 @@ defmodule GtdCalcWeb.Calculates do
      / (a.l0*((a.c2 * a.tg) - (a.c1 * a.tk)))
   end
   def calculate(:ak, a) do
-    (a.gv) / (a.l0 * a.gt)
+    (a.gw) / (a.l0 * a.gt)
   end
   def calculate(:gtc, a) do
     (a.gt) * 3600
   end
   def calculate(:vg, a) do
-    (a.gv * (1 - a.votb)) / (a.kv * (a.p_k / (:math.pow(10, 5))) * a.tk)
+    (a.gw * (1 - a.votb)) / (a.kv * (a.p_k / (:math.pow(10, 5))) * a.tk)
   end
   def calculate(:kv2, a) do
-    (a.gv * (1 - a.votb)) / (a.vg * (a.p_k / (:math.pow(10, 5))) * a.tk)
+    (a.gw * (1 - a.votb)) / (a.vg * (a.p_k / (:math.pow(10, 5))) * a.tk)
   end
   def calculate(:pv, a) do
     (a.p_k / (a.rv*a.tk)) * (:math.pow(1 - (((a.k - 1)/(a.k + 1))*a.yk), (1/(a.k - 1))))
   end
   def calculate(:gvzg, a) do
-    (a.azg / a.ak) * a.gv * (1 - a.votb)
+    (a.azg / a.ak) * a.gw * (1 - a.votb)
   end
   def calculate(:kvzg, a) do
     a.kvzg
@@ -87,7 +87,7 @@ defmodule GtdCalcWeb.Calculates do
     (a.gvzg) / (a.kvzg * :math.pow((a.p_k / (:math.pow(10, 5))), 1.25) * a.tk)
   end
   def calculate(:gohl, a) do
-    (a.gv/100) * 15
+    (a.gw/100) * 15
   end
   def calculate(:rg, a) do
     a.rv*((1 + 1.0862 * a.qt)/(1+a.qt))
@@ -124,12 +124,12 @@ defmodule GtdCalcWeb.Calculates do
     (
       (a.gt + a.l0*a.gt) * a.srg * a.tzg +
       (a.gt + a.l0*a.gt) * a.srg * a.tzg +
-      (a.gv - a.l0*a.gt) * a.srg * a.tzg +
-      (a.gv - a.l0*a.gt) * a.srg +
+      (a.gw - a.l0*a.gt) * a.srg * a.tzg +
+      (a.gw - a.l0*a.gt) * a.srg +
       a.gohl*a.srv*a.tk
     ) / (
       (a.gt + a.l0*a.gt + a.gt + a.l0*a.gt)*a.srg +
-      (a.gv - a.l0*a.gt + a.gv - a.l0*a.gt)*a.srv +
+      (a.gw - a.l0*a.gt + a.gw - a.l0*a.gt)*a.srv +
       a.gohl*a.srv
     )
   end
@@ -189,7 +189,7 @@ defmodule GtdCalcWeb.Calculates do
     :math.pi() * a.dp * a.hz1
   end
   def calculate(:vk, a) do
-    a.gv / a.pv
+    a.gw / a.pv
   end
   def calculate(:fk, a) do
 
@@ -484,8 +484,14 @@ defmodule GtdCalcWeb.Calculates do
   def calculate(:deltapotn, a) do
     a.deltape/a.p_k * 100
   end
-
-
+  def calculate(:ffr, a) do
+    (a.alphafr / a.ak) * a.efotv
+  end
+  def calculate(:wotv, a) do
+    (a.gw * (1 - a.votb))
+    /
+    (a.pv * a.efotv)
+  end
 
   def calculate(_, a) do
     nil
