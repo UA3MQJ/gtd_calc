@@ -264,6 +264,12 @@ defmodule GtdCalcWeb.Formulas do
           "Wотв = \\frac{Gв \\cdot ( 1 - βотб )}{ρв \\cdot ΣFотв}",
         :gv =>
           "Gж = \\frac{Gф}{ρт}",
+        :wm =>
+          "Wm = \\frac{Gв \\cdot Rв \\cdot Tк}{Pк \\cdot Fж}",
+        :wpz =>
+          "Wпз = \\frac{Gв \\cdot 1.5 \\cdot Rв \\cdot Tк \\cdot μ}{Pк \\cdot Fж}",
+        :wkk =>
+          "Wкк = \\frac{Gв \\cdot Rв \\cdot Tк \\cdot (1 - Fфр)}{Pк \\cdot Fж \\cdot (1 - μ)}",
       }
   end
 

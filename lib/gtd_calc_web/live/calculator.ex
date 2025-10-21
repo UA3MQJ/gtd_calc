@@ -27,7 +27,7 @@ defmodule GtdCalcWeb.Calculator do
             :formula1, :dzetaotv, :deltaotv, :edelta, :sigmaks,
             :deltapdif, :deltaptepl, :deltapotv,
             :deltape, :deltapotn,
-            :ffr, :wotv
+            :ffr, :wotv, :wm, :wpz, :wkk
           ]
 
   def mount(_params, _session, socket) do
@@ -574,6 +574,16 @@ defmodule GtdCalcWeb.Calculator do
             {@formulas.wotv}
 
             Среднерасходная скорость в миделевом сечении КС
+
+            {@formulas.wm}
+
+            Среднерасходная скорость течения за фронтовым устройством
+
+            {@formulas.wpz}
+
+            Скорость течения в кольцевом канале
+
+            {@formulas.wkk}
 
           </div>
 

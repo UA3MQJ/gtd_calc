@@ -492,6 +492,22 @@ defmodule GtdCalcWeb.Calculates do
     /
     (a.pv * a.efotv)
   end
+  def calculate(:wm, a) do
+    (a.gw * a.rv * a.tk)
+    /
+    (a.p_k * a.fg)
+  end
+  def calculate(:wpz, a) do
+    (a.gw * 1.5 * a.rv * a.tk * a.uzt)
+    /
+    (a.p_k * a.fg)
+  end
+  def calculate(:wkk, a) do
+    (a.gw * a.rv * a.tk * (1 - a.ffr))
+    /
+    (a.p_k * a.fg * (1 - a.uzt))
+  end
+
 
   def calculate(_, a) do
     nil
