@@ -31,7 +31,12 @@ defmodule GtdCalcWeb.Calculator do
           ]
 
   def mount(_params, _session, socket) do
+    labels = Enum.to_list(1..5)
+    values = [481293.75, 478151.962, 477679.071, 464913.891, 464913.891]
+
     assigns = %{
+      labels: labels,
+      values: values,
       # параметры окружающей среды
       r_os: 101325,
       t_os: 288.15,
@@ -97,6 +102,7 @@ defmodule GtdCalcWeb.Calculator do
   def render(assigns) do
     ~H"""
     <div class="max-w-md mx-auto mt-10 p-6 bg-white shadow rounded">
+
       <h1 class="text-2xl font-bold mb-4">Расчет камеры сгорания МГТД</h1>
       <h1>Исходные данные</h1>
       <br>
@@ -585,12 +591,27 @@ defmodule GtdCalcWeb.Calculator do
 
             {@formulas.wkk}
 
+            <!-- График -->
+            <div
+                  id="chart-container"
+                  phx-hook="ChartRenderer"
+                  phx-update="replace"
+                  data-labels={Jason.encode!(@labels)}
+                  data-values={Jason.encode!(@values)}
+                  class="mt-6"
+                  style="height: 300px; width: 100%;"
+                >
+              <canvas></canvas>
+            </div>
+
           </div>
 
 
       </form>
 
     </div>
+
+
     """
   end
 
