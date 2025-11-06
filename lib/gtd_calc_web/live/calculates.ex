@@ -507,6 +507,12 @@ defmodule GtdCalcWeb.Calculates do
     /
     (a.p_k * a.fg * (1 - a.uzt))
   end
+  def calculate(:labels1, a) do
+    Jason.encode!(Enum.to_list(1..5))
+  end
+  def calculate(:values1, a) do
+    Jason.encode!([a.p_k, a.deltapdif, a.deltaptepl, a.deltapotv, a.deltapotv])
+  end
 
 
   def calculate(_, a) do

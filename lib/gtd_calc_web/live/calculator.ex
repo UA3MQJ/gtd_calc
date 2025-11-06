@@ -27,16 +27,18 @@ defmodule GtdCalcWeb.Calculator do
             :formula1, :dzetaotv, :deltaotv, :edelta, :sigmaks,
             :deltapdif, :deltaptepl, :deltapotv,
             :deltape, :deltapotn,
-            :ffr, :wotv, :wm, :wpz, :wkk
+            :ffr, :wotv, :wm, :wpz, :wkk,
+            :labels1, :values1
           ]
 
   def mount(_params, _session, socket) do
-    labels = Enum.to_list(1..5)
-    values = [481293.75, 478151.962, 477679.071, 464913.891, 464913.891]
+    # labels = Enum.to_list(1..5)
+    # values = [481293.75, 478151.962, 477679.071, 464913.891, 464913.891]
+
 
     assigns = %{
-      labels: labels,
-      values: values,
+      labels1: "",
+      values1: "",
       # параметры окружающей среды
       r_os: 101325,
       t_os: 288.15,
@@ -596,8 +598,8 @@ defmodule GtdCalcWeb.Calculator do
                   id="chart-container"
                   phx-hook="ChartRenderer"
                   phx-update="replace"
-                  data-labels={Jason.encode!(@labels)}
-                  data-values={Jason.encode!(@values)}
+                  data-labels={@labels1}
+                  data-values={@values1}
                   class="mt-6"
                   style="height: 300px; width: 100%;"
                 >
