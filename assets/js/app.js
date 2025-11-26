@@ -105,38 +105,68 @@ Hooks.ChartRenderer = {
 
     // Получаем данные из data-атрибутов
     let labels = []
-    let values = []
+    let datasets = []
+    let title_x = "x"
+    let title_y = "y"
 
     try {
       labels = JSON.parse(this.el.dataset.labels || "[]")
-      values = JSON.parse(this.el.dataset.values || "[]")
+      datasets = JSON.parse(this.el.dataset.datasets || "[]")
+      title_x = this.el.dataset.titleX || "x";
+      title_y = this.el.dataset.titleY || "y";
     } catch (e) {
       console.error("[ChartRenderer] Ошибка парсинга JSON:", e)
       return
     }
 
-        if (labels.length === 0 || values.length === 0) {
+    if (labels.length === 0 || datasets.length === 0) {
       console.warn("[ChartRenderer] Нет данных для графика", { labels, values })
       return
     }
+
+    const colors = [
+      "red",
+      "blue",
+      "green",
+      "orange",
+      "purple",
+      "pink",
+      "brown",
+      "gray",
+      "black",
+      "cyan"
+    ];
+
+    const chartDatasets = datasets.map((dataset, index) => ({
+      label: dataset.label,
+      data: dataset.data,
+      borderColor: colors[index % colors.length],
+      backgroundColor: `rgba(${colors[index % colors.length]}, 0.1)`,
+      pointBackgroundColor: colors[index % colors.length],
+      pointBorderColor: colors[index % colors.length],
+      pointRadius: 3,
+      tension: 0.1,
+      fill: false
+    }));
 
     // Создаём график
     const ctx = canvas.getContext("2d")
     this.chart = new Chart(ctx, {
       type: "line",
-      data: {  // ← вот здесь был пропущен "data:"
+      data: {
         labels: labels,
-        datasets: [{
-          label: "ΔPx",
-          data: values,  // ← и здесь "data", а не просто "values"
-          borderColor: "red",
-          backgroundColor: "rgba(255, 0, 0, 0.1)",
-          pointBackgroundColor: "red",
-          pointBorderColor: "red",
-          pointRadius: 6,
-          tension: 0.1,
-          fill: false
-        }]
+        datasets: chartDatasets
+        // datasets: [{
+        //   label: "ΔPк",
+        //   data: values,
+        //   borderColor: "red",
+        //   backgroundColor: "rgba(255, 0, 0, 0.1)",
+        //   pointBackgroundColor: "red",
+        //   pointBorderColor: "red",
+        //   pointRadius: 3,
+        //   tension: 0.1,
+        //   fill: false
+        // }]
       },
       options: {
         responsive: true,
@@ -146,10 +176,12 @@ Hooks.ChartRenderer = {
         },
         scales: {
           x: {
-            title: { display: true, text: "II" }
+            // title: { display: true, text: "II" }
+            title: { display: true, text: title_x }
           },
           y: {
-            title: { display: true, text: "ΔPx" },
+            // title: { display: true, text: "ΔPк" },
+            title: { display: true, text: title_y },
             beginAtZero: false
           }
         }

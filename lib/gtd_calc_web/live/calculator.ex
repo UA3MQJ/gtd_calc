@@ -28,13 +28,10 @@ defmodule GtdCalcWeb.Calculator do
             :deltapdif, :deltaptepl, :deltapotv,
             :deltape, :deltapotn,
             :ffr, :wotv, :wm, :wpz, :wkk,
-            :labels1, :values1
+            :labels1, :values1, :datasets1, :labels2, :values2, :datasets2
           ]
 
   def mount(_params, _session, socket) do
-    # labels = Enum.to_list(1..5)
-    # values = [481293.75, 478151.962, 477679.071, 464913.891, 464913.891]
-
 
     assigns = %{
       labels1: "",
@@ -544,6 +541,22 @@ defmodule GtdCalcWeb.Calculator do
 
             {@formulas.efotv}
             {@formulas.formula1}
+
+            <div
+                  id="chart-container"
+                  phx-hook="ChartRenderer"
+                  phx-update="replace"
+                  data-labels={@labels2}
+                  data-values={@values2}
+                  data-datasets={@datasets2}
+                  data-title-x="ΣμFотв/Fж"
+                  data-title-y="ζотв"
+                  class="mt-6"
+                  style="height: 300px; width: 100%;"
+                >
+              <canvas></canvas>
+            </div>
+
             {@formulas.dzetaotv}
 
             Подтверждение величины потерь полного давления при перетекании через отверстия
@@ -600,6 +613,9 @@ defmodule GtdCalcWeb.Calculator do
                   phx-update="replace"
                   data-labels={@labels1}
                   data-values={@values1}
+                  data-datasets={@datasets1}
+                  data-title-x="II"
+                  data-title-y="ΔPк"
                   class="mt-6"
                   style="height: 300px; width: 100%;"
                 >

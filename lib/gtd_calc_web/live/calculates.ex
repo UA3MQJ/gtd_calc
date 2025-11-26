@@ -511,9 +511,52 @@ defmodule GtdCalcWeb.Calculates do
     Jason.encode!(Enum.to_list(1..5))
   end
   def calculate(:values1, a) do
-    Jason.encode!([a.p_k, a.deltapdif, a.deltaptepl, a.deltapotv, a.deltapotv])
+    Jason.encode!([%{
+        label: "ΔPк",
+        data: [a.p_k, a.deltapdif, a.deltaptepl, a.deltapotv, a.deltapotv]
+    }])
   end
 
+  def calculate(:labels2, a) do
+    Jason.encode!([0.3, 0.5, 0.7, 0.9, 1.1, 1.3, 1.5])
+  end
+  def calculate(:values2, a) do
+    Jason.encode!([0.84, 0.86, 1.02, 1.2, 1.4, 1.6, 1.9])
+  end
+  def calculate(:datasets1, a) do
+    Jason.encode!([%{
+        label: "ΔPк",
+        data: [a.p_k, a.deltapdif, a.deltaptepl, a.deltapotv, a.deltapotv]
+    }])
+  end
+  def calculate(:datasets2, a) do
+    Jason.encode!([
+      %{
+        label: "1",
+        data: [0.84, 0.86, 1.02, 1.2, 1.4, 1.6, 1.9]
+      },
+      %{
+        label: "2",
+        data: [0.68, 0.69, 0.82, 0.99, 1.19, 1.4, 1.7]
+      },
+      %{
+        label: "3",
+        data: [0.6, 0.58, 0.62, 0.8, 1.0, 1.19, 1.4]
+      },
+      %{
+        label: "4",
+        data: [0.49, 0.49, 0.50, 0.56, 0.64, 0.8, 1.04]
+      },
+      %{
+        label: "5",
+        data: [0.44, 0.38, 0.36, 0.4, 0.48, 0.58, 0.69]
+      },
+      %{
+        label: "6",
+        data: [0.41, 0.36, 0.34, 0.36, 0.4, 0.48, 0.56]
+      },
+    ])
+  end
 
   def calculate(_, a) do
     nil
