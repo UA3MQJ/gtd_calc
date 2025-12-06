@@ -557,6 +557,21 @@ defmodule GtdCalcWeb.Calculates do
       },
     ])
   end
+  def calculate(:delptapdif1, a) do
+    a.p_k * a.deltadif
+  end
+  def calculate(:delta_p_obt_zun, a) do
+    a.ksi_obt_zun * (a.p_k * :math.pow(a.wkk, 2)) / (2 * a.rv * a.tk)
+  end
+  def calculate(:delta_p_obt_zuvn, a) do
+    a.ksi_obt_zuvn * (a.p_k * :math.pow(a.wkk, 2)) / (2 * a.rg * a.tzg)
+  end
+  def calculate(:ksi_pov, a) do
+    0.73  * a.frd * a.f_alpha
+  end
+  def calculate(:delta_p_pov, a) do
+    a.ksi_pov * (a.p_k * :math.pow(a.wkk, 2)) / (2 * a.rv * a.tk)
+  end
 
   def calculate(_, a) do
     nil

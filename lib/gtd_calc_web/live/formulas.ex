@@ -270,6 +270,16 @@ defmodule GtdCalcWeb.Formulas do
           "Wпз = \\frac{Gв \\cdot 1.5 \\cdot Rв \\cdot Tк \\cdot μ}{Pк \\cdot Fж}",
         :wkk =>
           "Wкк = \\frac{Gв \\cdot Rв \\cdot Tк \\cdot (1 - Fфр)}{Pк \\cdot Fж \\cdot (1 - μ)}",
+        :delptapdif1 =>
+          "ΔPдиф1 = Pк \\cdot δдиф",
+        :delta_p_obt_zun =>
+          "ΔPобт\\_зун = ξобт\\_зун \\cdot \\frac{Pк \\cdot Wкк^2}{2 \\cdot Rв \\cdot Tк}",
+        :delta_p_obt_zuvn =>
+          "ΔPобт\\_зувн = ξобт\\_зувн \\cdot \\frac{Pк \\cdot Wкк^2}{2 \\cdot Rг \\cdot Tзг}",
+        :ksi_pov =>
+          "ξпов = 0.73 \\cdot fα \\cdot fRd",
+        :delta_p_pov =>
+          "ΔPпов = ξпов \\cdot \\frac{Pк \\cdot Wкк^2}{2 \\cdot Rв \\cdot Tк}"
       }
   end
 

@@ -28,7 +28,9 @@ defmodule GtdCalcWeb.Calculator do
             :deltapdif, :deltaptepl, :deltapotv,
             :deltape, :deltapotn,
             :ffr, :wotv, :wm, :wpz, :wkk,
-            :labels1, :values1, :datasets1, :labels2, :values2, :datasets2
+            :labels1, :values1, :datasets1, :labels2, :values2, :datasets2,
+            :delptapdif1, :delta_p_obt_zun, :delta_p_obt_zuvn,
+            :ksi_pov, :delta_p_pov
           ]
 
   def mount(_params, _session, socket) do
@@ -79,7 +81,11 @@ defmodule GtdCalcWeb.Calculator do
       vb: 1.51e-5, beta: 10,
       deltaks: 0.03,
       uzt: 0.6,
-      alphafr: 0.0387
+      alphafr: 0.0387,
+      ksi_obt_zun: 0.162,
+      ksi_obt_zuvn: 0.125,
+      f_alpha: 1,
+      frd: 0.07
     }
 
     socket = assign(socket, Map.new(assigns))
@@ -441,6 +447,7 @@ defmodule GtdCalcWeb.Calculator do
             Высота камеры закрутки
             {@formulas.lkz}
             Суммарная площадь закручивающих каналов
+
             {@formulas.f0}
             {@formulas.efk}
             Угол наклона закручивающих каналов
@@ -543,7 +550,7 @@ defmodule GtdCalcWeb.Calculator do
             {@formulas.formula1}
 
             <div
-                  id="chart-container"
+                  id="chart-container1"
                   phx-hook="ChartRenderer"
                   phx-update="replace"
                   data-labels={@labels2}
@@ -579,7 +586,7 @@ defmodule GtdCalcWeb.Calculator do
             {@formulas.deltape}
             {@formulas.deltapotn}
 
-            Суммарная площадь проходного сечения фронтового устройства
+            Суммарная площадь проходного сечения фронтового устройства !
 
             <br><br>
             <div>
@@ -608,7 +615,7 @@ defmodule GtdCalcWeb.Calculator do
 
             <!-- График -->
             <div
-                  id="chart-container"
+                  id="chart-container2"
                   phx-hook="ChartRenderer"
                   phx-update="replace"
                   data-labels={@labels1}
@@ -621,6 +628,42 @@ defmodule GtdCalcWeb.Calculator do
                 >
               <canvas></canvas>
             </div>
+
+            Подробный гидравлический расчет
+            <br><br>
+            Потери в диффузоре
+            <br>
+            {@formulas.delptapdif1}
+            Потери на обтекание запального устройства
+            <div>
+              <label class="block text-sm font-medium">ξобт_зун:</label>
+              <input type="number" name="calc[ksi_obt_zun]" value={@ksi_obt_zun} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium">ξобт_зувн:</label>
+              <input type="number" name="calc[ksi_obt_zuvn]" value={@ksi_obt_zuvn} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+            <br><br>
+            Потери полного давления
+            {@formulas.delta_p_obt_zun}
+            {@formulas.delta_p_obt_zuvn}
+
+            Потери на поворот потока
+            При повороте потока на 90 градусов
+
+            <div>
+              <label class="block text-sm font-medium">fα:</label>
+              <input type="number" name="calc[f_alpha]" value={@f_alpha} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium">fRd:</label>
+              <input type="number" name="calc[frd]" value={@frd} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+            {@formulas.ksi_pov}
+
+            Потери полного давления
+
+            {@formulas.delta_p_pov}
 
           </div>
 
