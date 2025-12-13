@@ -279,7 +279,17 @@ defmodule GtdCalcWeb.Formulas do
         :ksi_pov =>
           "ξпов = 0.73 \\cdot fα \\cdot fRd",
         :delta_p_pov =>
-          "ΔPпов = ξпов \\cdot \\frac{Pк \\cdot Wкк^2}{2 \\cdot Rв \\cdot Tк}"
+          "ΔPпов = ξпов \\cdot \\frac{Pк \\cdot Wкк^2}{2 \\cdot Rв \\cdot Tк}",
+        :gfr =>
+          "Gфр = Gохл",
+        :nox =>
+          "nox = \\frac{Gохл}{Gфр}",
+        :mox =>
+          "mox = \\frac{Wкк}{Wотв}",
+        :delta_p_ohl =>
+          "ΔPохл = \\left| \\frac{ρв \\cdot Wотв^{2}}{2} \\cdot (nox^{2} + 2 \\cdot nox - 2 \\cdot nox \\cdot mox) \\right|",
+        :gzs =>
+          "Gзс = 0.1 \\cdot Gв"
       }
   end
 

@@ -30,7 +30,8 @@ defmodule GtdCalcWeb.Calculator do
             :ffr, :wotv, :wm, :wpz, :wkk,
             :labels1, :values1, :datasets1, :labels2, :values2, :datasets2,
             :delptapdif1, :delta_p_obt_zun, :delta_p_obt_zuvn,
-            :ksi_pov, :delta_p_pov
+            :ksi_pov, :delta_p_pov, :gfr, :nox, :mox, :delta_p_ohl,
+            :gzs
           ]
 
   def mount(_params, _session, socket) do
@@ -664,6 +665,18 @@ defmodule GtdCalcWeb.Calculator do
             Потери полного давления
 
             {@formulas.delta_p_pov}
+
+            Потери на охлаждение
+
+            {@formulas.gfr}
+            {@formulas.nox}
+            {@formulas.mox}
+            {@formulas.delta_p_ohl}
+
+            Потери в зоне смешения
+            {@formulas.gzs}
+
+
 
           </div>
 
