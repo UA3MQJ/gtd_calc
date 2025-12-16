@@ -590,7 +590,34 @@ defmodule GtdCalcWeb.Calculates do
   def calculate(:gzs, a) do
     0.1 * a.gw
   end
-
+  def calculate(:nsm, a) do
+    a.gzs / (a.gfr + a.gohl * 8)
+  end
+  def calculate(:delta_p_sm, a) do
+    abs(
+      (a.pv * :math.pow(a.wotv, 2) / 2) *
+      ( :math.pow(a.nsm, 2) + 2 * a.nsm - 2 * a.nsm * a.mox)
+    )
+  end
+  def calculate(:delta_p_otv1, a) do
+    a.p_k * a.deltaotv
+  end
+  def calculate(:r_evkk, a) do
+    (a.gw * a.hz) /
+    (a.pv * a.vb * (a.fg - a.fkkvn))
+  end
+  def calculate(:l_uch, a) do
+    2 * a.lg / 10
+  end
+  def calculate(:h_kk, a) do
+    (a.dkkn - a.dgn) / 2
+  end
+  def calculate(:dzeta_tr_34, a) do
+    0.0334 * :math.pow(a.r_evkk, -0.2) * (a.l_uch / a.h_kk)
+  end
+  def calculate(:delta_p_tr_34, a) do
+    a.dzeta_tr_34 * ((a.pv * :math.pow(a.wkk, 2) )/2)
+  end
 
   def calculate(_, a) do
     nil

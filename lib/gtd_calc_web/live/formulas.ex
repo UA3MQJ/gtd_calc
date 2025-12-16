@@ -289,7 +289,23 @@ defmodule GtdCalcWeb.Formulas do
         :delta_p_ohl =>
           "ΔPохл = \\left| \\frac{ρв \\cdot Wотв^{2}}{2} \\cdot (nox^{2} + 2 \\cdot nox - 2 \\cdot nox \\cdot mox) \\right|",
         :gzs =>
-          "Gзс = 0.1 \\cdot Gв"
+          "Gзс = 0.1 \\cdot Gв",
+        :nsm =>
+          "Nсм = \\frac{Gзс}{Gфр + Gохл \\cdot 8}",
+        :delta_p_sm =>
+          "ΔPсм = \\left| \\frac{ρв \\cdot Wотв^{2}}{2} \\cdot \\left( nсм^{2} + 2 \\cdot nсм - 2 \\cdot nсм \\cdot mox \\right) \\right|",
+        :delta_p_otv1 =>
+          "ΔPотв1 = Pк \\cdot δотв",
+        :r_evkk =>
+          "Reвкк = \\frac{Gв \\cdot hж}{ρв \\cdot vв \\cdot (Fж - Fкквн) }",
+        :l_uch =>
+          "Lуч = \\frac{2 \\cdot Lж}{10}",
+        :h_kk =>
+          "hкк = \\frac{Dккн - dжн}{2}",
+        :dzeta_tr_34 =>
+          "ζтр3–4 = 0.0334 \\cdot Reвкк^(-0.2) \\cdot \\frac{Lуч}{hкк}",
+        :delta_p_tr_34 =>
+          "ΔPтр3–4 = ζтр3–4 \\cdot \\frac{ρв \\cdot Wкк^{2}}{2}"
       }
   end
 

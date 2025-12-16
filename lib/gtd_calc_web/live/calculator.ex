@@ -31,7 +31,8 @@ defmodule GtdCalcWeb.Calculator do
             :labels1, :values1, :datasets1, :labels2, :values2, :datasets2,
             :delptapdif1, :delta_p_obt_zun, :delta_p_obt_zuvn,
             :ksi_pov, :delta_p_pov, :gfr, :nox, :mox, :delta_p_ohl,
-            :gzs
+            :gzs, :nsm, :delta_p_sm, :delta_p_otv1,
+            :r_evkk, :l_uch, :h_kk, :dzeta_tr_34, :delta_p_tr_34
           ]
 
   def mount(_params, _session, socket) do
@@ -675,7 +676,25 @@ defmodule GtdCalcWeb.Calculator do
 
             Потери в зоне смешения
             {@formulas.gzs}
+            {@formulas.nsm}
+            {@formulas.delta_p_sm}
 
+            Потери на прочие отверстия
+            {@formulas.delta_p_otv1}
+
+            Путевые потери<br>
+            Число Рейнольдса в кольцевом канале
+            {@formulas.r_evkk}
+
+            Длина одного расчетного участка
+            {@formulas.l_uch}
+
+            Высота кольцевого канала
+            {@formulas.h_kk}
+
+            Участок 3-4
+            {@formulas.dzeta_tr_34}
+            {@formulas.delta_p_tr_34}
 
 
           </div>
