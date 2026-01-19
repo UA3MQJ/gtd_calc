@@ -305,7 +305,39 @@ defmodule GtdCalcWeb.Formulas do
         :dzeta_tr_34 =>
           "ζтр3–4 = 0.0334 \\cdot Reвкк^(-0.2) \\cdot \\frac{Lуч}{hкк}",
         :delta_p_tr_34 =>
-          "ΔPтр3–4 = ζтр3–4 \\cdot \\frac{ρв \\cdot Wкк^{2}}{2}"
+          "ΔPтр3–4 = ζтр3–4 \\cdot \\frac{ρв \\cdot Wкк^{2}}{2}",
+        :dzeta_tr_45 =>
+          "ζтр4–5 = 0.0334 \\cdot Reвкк^{-0.2} \\cdot \\frac{Lуч}{hкк}",
+        :delta_p_tr_45 =>
+          "ΔPтр4–5 = ζтр4–5 \\cdot \\frac{ρв \\cdot Wкк^{2}}{2}",
+        :dzeta_tr_56 =>
+          "ζтр5–6 = 0.0334 \\cdot Reвкк^{-0.2} \\cdot \\frac{2 \\cdot Lуч}{hкк}",
+        :delta_p_tr_56 =>
+          "ΔPтр5–6 = ζтр3–4 \\cdot \\frac{ρв \\cdot Wкк^{2}}{2}",
+        :dzeta_tr_67 =>
+          "ζтр6–7 = 0.0334 \\cdot Reвкк^{-0.2} \\cdot \\frac{Lуч}{hкк}",
+        :delta_p_tr_67 =>
+          "ΔPтр6–7 = ζтр3-4 \\cdot \\frac{ρв \\cdot Wкк^{2}}{2}",
+        :dzeta_tr_78 =>
+          "ζтр7–8 = 0.0334 \\cdot Reвкк^{-0.2} \\cdot \\frac{Lуч}{hкк}",
+        :delta_p_tr_78 =>
+          "ΔPтр7–8 = ζтр3-4 \\cdot \\frac{ρв \\cdot Wкк^{2}}{2}",
+        :dzeta_tr_89 =>
+          "ζтр8–9 = 0.0334 \\cdot Reвкк^{-0.2} \\cdot \\frac{2 \\cdot Lуч}{hкк}",
+        :delta_p_tr_89 =>
+          "ΔPтр8–9 = ζтр3-4 \\cdot \\frac{ρв \\cdot Wкк^{2}}{2}",
+        :dzeta_tr_910 =>
+          "ζтр9–10 = 0.0334 \\cdot Reвкк^{-0.2} \\cdot \\frac{Lуч}{hкк}",
+        :delta_p_tr_910 =>
+          "ΔPтр9–10 = ζтр3-4 \\cdot \\frac{ρв \\cdot Wкк^{2}}{2}",
+        :dzeta_tr_1011 =>
+          "ζтр10–11 = 0.0334 \\cdot Reвкк^{-0.2} \\cdot \\frac{Lуч}{hкк}",
+        :delta_p_tr_1011 =>
+          "ΔPтр10–11 = ζтр3-4 \\cdot \\frac{ρв \\cdot Wкк^{2}}{2}",
+        :dzeta_tr_1112 =>
+          "ζтр11–12 = 0.0334 \\cdot Reвкк^{-0.2} \\cdot \\frac{2 \\cdot Lуч}{hкк}",
+        :delta_p_tr_1112 =>
+          "ΔPтр11–12 = ζтр3-4 \\cdot \\frac{ρв \\cdot Wкк^{2}}{2}",
       }
   end
 

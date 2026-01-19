@@ -618,6 +618,55 @@ defmodule GtdCalcWeb.Calculates do
   def calculate(:delta_p_tr_34, a) do
     a.dzeta_tr_34 * ((a.pv * :math.pow(a.wkk, 2) )/2)
   end
+  def calculate(:dzeta_tr_45, a) do
+    0.0334 * :math.pow(a.r_evkk, -0.2) * (a.l_uch / a.h_kk)
+  end
+  def calculate(:delta_p_tr_45, a) do
+    a.dzeta_tr_34 * ((a.pv * :math.pow(a.wkk, 2) )/2)
+  end
+  def calculate(:dzeta_tr_56, a) do
+    0.0334 * :math.pow(a.r_evkk, -0.2) * (2 * a.l_uch / a.h_kk)
+  end
+  def calculate(:delta_p_tr_56, a) do
+    a.dzeta_tr_34 * ((a.pv * :math.pow(a.wkk, 2) )/2)
+  end
+  def calculate(:dzeta_tr_67, a) do
+    0.0334 * :math.pow(a.r_evkk, -0.2) * (a.l_uch / a.h_kk)
+  end
+  def calculate(:delta_p_tr_67, a) do
+    a.dzeta_tr_34 * ((a.pv * :math.pow(a.wkk, 2) )/2)
+  end
+  def calculate(:dzeta_tr_78, a) do
+    0.0334 * :math.pow(a.r_evkk, -0.2) * (a.l_uch / a.h_kk)
+  end
+  def calculate(:delta_p_tr_78, a) do
+    a.dzeta_tr_34 * ((a.pv * :math.pow(a.wkk, 2) )/2)
+  end
+  def calculate(:dzeta_tr_89, a) do
+    0.0334 * :math.pow(a.r_evkk, -0.2) * (2 *a.l_uch / a.h_kk)
+  end
+  def calculate(:delta_p_tr_89, a) do
+    a.dzeta_tr_34 * ((a.pv * :math.pow(a.wkk, 2) )/2)
+  end
+  def calculate(:dzeta_tr_910, a) do
+    0.0334 * :math.pow(a.r_evkk, -0.2) * (a.l_uch / a.h_kk)
+  end
+  def calculate(:delta_p_tr_910, a) do
+    a.dzeta_tr_34 * ((a.pv * :math.pow(a.wkk, 2) )/2)
+  end
+  def calculate(:dzeta_tr_1011, a) do
+    0.0334 * :math.pow(a.r_evkk, -0.2) * (a.l_uch / a.h_kk)
+  end
+  def calculate(:delta_p_tr_1011, a) do
+    a.dzeta_tr_34 * ((a.pv * :math.pow(a.wkk, 2) )/2)
+  end
+  def calculate(:dzeta_tr_1112, a) do
+    0.0334 * :math.pow(a.r_evkk, -0.2) * (2 * a.l_uch / a.h_kk)
+  end
+  def calculate(:delta_p_tr_1112, a) do
+    a.dzeta_tr_34 * ((a.pv * :math.pow(a.wkk, 2) )/2)
+  end
+
 
   def calculate(_, a) do
     nil

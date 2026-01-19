@@ -32,7 +32,15 @@ defmodule GtdCalcWeb.Calculator do
             :delptapdif1, :delta_p_obt_zun, :delta_p_obt_zuvn,
             :ksi_pov, :delta_p_pov, :gfr, :nox, :mox, :delta_p_ohl,
             :gzs, :nsm, :delta_p_sm, :delta_p_otv1,
-            :r_evkk, :l_uch, :h_kk, :dzeta_tr_34, :delta_p_tr_34
+            :r_evkk, :l_uch, :h_kk, :dzeta_tr_34, :delta_p_tr_34,
+            :dzeta_tr_45, :delta_p_tr_45,
+            :dzeta_tr_56, :delta_p_tr_56,
+            :dzeta_tr_67, :delta_p_tr_67,
+            :dzeta_tr_78, :delta_p_tr_78,
+            :dzeta_tr_89, :delta_p_tr_89,
+            :dzeta_tr_910, :delta_p_tr_910,
+            :dzeta_tr_1011, :delta_p_tr_1011,
+            :dzeta_tr_1112, :delta_p_tr_1112
           ]
 
   def mount(_params, _session, socket) do
@@ -696,6 +704,39 @@ defmodule GtdCalcWeb.Calculator do
             {@formulas.dzeta_tr_34}
             {@formulas.delta_p_tr_34}
 
+            Участок 4-5
+            {@formulas.dzeta_tr_45}
+            {@formulas.delta_p_tr_45}
+
+            Участок 5-6
+            {@formulas.dzeta_tr_56}
+            {@formulas.delta_p_tr_56}
+
+            Участок 6-7
+            {@formulas.dzeta_tr_67}
+            {@formulas.delta_p_tr_67}
+
+            Участок 7-8
+            {@formulas.dzeta_tr_78}
+            {@formulas.delta_p_tr_78}
+
+            Участок 8-9
+            {@formulas.dzeta_tr_89}
+            {@formulas.delta_p_tr_89}
+
+            Участок 9-10
+            {@formulas.dzeta_tr_910}
+            {@formulas.delta_p_tr_910}
+
+            Участок 10-11
+            {@formulas.dzeta_tr_1011}
+            {@formulas.delta_p_tr_1011}
+
+            Участок 11-12
+            {@formulas.dzeta_tr_1112}
+            {@formulas.delta_p_tr_1112}
+
+            Общите потери
 
           </div>
 
