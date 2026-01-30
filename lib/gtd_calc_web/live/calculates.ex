@@ -687,6 +687,33 @@ defmodule GtdCalcWeb.Calculates do
   def calculate(:delta_p_ks_100, a) do
     (a.delta_p_ks / a.p_k) * 100
   end
+  def calculate(:labels3, _a) do
+    Jason.encode!(Enum.to_list(0..16))
+  end
+  def calculate(:datasets3, a) do
+    p1 = a.p_k
+    p2 = p1 - a.delptapdif1
+    p3 = p2 - a.delta_p_obt_zun
+    p4 = p3 - a.delta_p_obt_zuvn
+    p5 = p4 - a.delta_p_pov
+    p6 = p5 - a.delta_p_ohl
+    p7 = p6 - a.delta_p_otv1
+    p8 = p7 - a.delta_p_sm
+    p9 = p8 - a.delta_p_tr_34
+    p10 = p9 - a.delta_p_tr_45
+    p11 = p10 - a.delta_p_tr_56
+    p12 = p11 - a.delta_p_tr_67
+    p13 = p12 - a.delta_p_tr_78
+    p14 = p13 - a.delta_p_tr_89
+    p15 = p14 - a.delta_p_tr_910
+    p16 = p15 - a.delta_p_tr_1011
+    p17 = p16 - a.delta_p_tr_1112
+
+    Jason.encode!([%{
+      label: "P1",
+      data: [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17]
+    }])
+  end
 
 
   def calculate(_, a) do

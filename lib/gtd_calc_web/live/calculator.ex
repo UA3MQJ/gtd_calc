@@ -41,7 +41,8 @@ defmodule GtdCalcWeb.Calculator do
             :dzeta_tr_910, :delta_p_tr_910,
             :dzeta_tr_1011, :delta_p_tr_1011,
             :dzeta_tr_1112, :delta_p_tr_1112,
-            :delta_p_ks, :delta_p_ks_100
+            :delta_p_ks, :delta_p_ks_100,
+            :labels3, :datasets3
           ]
 
   def mount(_params, _session, socket) do
@@ -741,6 +742,21 @@ defmodule GtdCalcWeb.Calculator do
             {@formulas.delta_p_ks}
             Процент потерь
             {@formulas.delta_p_ks_100}
+
+            Распределение отверстий по тракту жаровой трубы
+            <div
+                  id="chart-container3"
+                  phx-hook="ChartRenderer"
+                  phx-update="replace"
+                  data-labels={@labels3}
+                  data-datasets={@datasets3}
+                  data-title-x="Индекс"
+                  data-title-y="P1"
+                  class="mt-6"
+                  style="height: 300px; width: 100%;"
+                >
+              <canvas></canvas>
+            </div>
 
           </div>
 
