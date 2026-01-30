@@ -5,7 +5,8 @@ defmodule GtdCalcWeb.Calculator do
     :gv,
     :pk, :dkn, :dkvn, :ncomp, :yk, :votb, :tg, :dtn, :dtvn, :gt, :hu, :l0, :rt, :vr, :tt, :kv, :c1, :c1,
     :azg, :kvzg, :srt, :qh, :a1, :a2, :a3, :a4, :a5, :lks,
-    :deltap, :n, :kf, :u, :bk, :dkz, :nf2, :vb, :beta
+    :deltap, :n, :kf, :u, :bk, :dkz, :nf2, :vb, :beta,
+    :ffr, :alpha_zg
   ]
   @calcs  [
             :t_v, :tk, :ng, :wk, :p_k, :srvtg, :srvtk, :ntg, :nrb, :qt, :ak1, :ak2, :ak, :gtc, :vg, :kv2, :pv,
@@ -97,7 +98,8 @@ defmodule GtdCalcWeb.Calculator do
       ksi_obt_zun: 0.162,
       ksi_obt_zuvn: 0.125,
       f_alpha: 1,
-      frd: 0.07
+      frd: 0.07,
+      ffr: 0.0000728, alpha_zg: 1.24
     }
 
     socket = assign(socket, Map.new(assigns))
@@ -756,6 +758,14 @@ defmodule GtdCalcWeb.Calculator do
                   style="height: 300px; width: 100%;"
                 >
               <canvas></canvas>
+            </div>
+            <div>
+              <label class="block text-sm font-medium">Fфр:</label>
+              <input type="number" name="calc[:ffr]" value={@ffr} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium">ΣFотв:</label>
+              <input type="number" name="calc[alpha_zg]" value={@alpha_zg} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
             </div>
 
           </div>
