@@ -40,7 +40,8 @@ defmodule GtdCalcWeb.Calculator do
             :dzeta_tr_89, :delta_p_tr_89,
             :dzeta_tr_910, :delta_p_tr_910,
             :dzeta_tr_1011, :delta_p_tr_1011,
-            :dzeta_tr_1112, :delta_p_tr_1112
+            :dzeta_tr_1112, :delta_p_tr_1112,
+            :delta_p_ks, :delta_p_ks_100
           ]
 
   def mount(_params, _session, socket) do
@@ -737,6 +738,9 @@ defmodule GtdCalcWeb.Calculator do
             {@formulas.delta_p_tr_1112}
 
             Общите потери
+            {@formulas.delta_p_ks}
+            Процент потерь
+            {@formulas.delta_p_ks_100}
 
           </div>
 

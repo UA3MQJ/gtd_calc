@@ -666,6 +666,27 @@ defmodule GtdCalcWeb.Calculates do
   def calculate(:delta_p_tr_1112, a) do
     a.dzeta_tr_34 * ((a.pv * :math.pow(a.wkk, 2) )/2)
   end
+  def calculate(:delta_p_ks, a) do
+    a.delptapdif1 +
+      a.delta_p_obt_zun +
+      a.delta_p_obt_zuvn +
+      a.delta_p_pov +
+      a.delta_p_ohl +
+      a.delta_p_otv1 +
+      a.delta_p_sm +
+      a.delta_p_tr_34 +
+      a.delta_p_tr_45 +
+      a.delta_p_tr_56 +
+      a.delta_p_tr_67 +
+      a.delta_p_tr_78 +
+      a.delta_p_tr_89 +
+      a.delta_p_tr_910 +
+      a.delta_p_tr_1011 +
+      a.delta_p_tr_1112
+  end
+  def calculate(:delta_p_ks_100, a) do
+    (a.delta_p_ks / a.p_k) * 100
+  end
 
 
   def calculate(_, a) do
