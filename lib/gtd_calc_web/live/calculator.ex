@@ -24,7 +24,7 @@ defmodule GtdCalcWeb.Calculator do
             :ndif, :ldif, :deg, :opr,
             :fi2, :zp, :re, :psit, :psip, :psidif, :deltadif, :ndifkr,
             :teta, :dzetatepl, :deltatepl, :deltaotv1,
-            :efotv,
+            :efotv, :ef_ozg,
             :formula1, :dzetaotv, :deltaotv, :edelta, :sigmaks,
             :deltapdif, :deltaptepl, :deltapotv,
             :deltape, :deltapotn,
@@ -764,9 +764,11 @@ defmodule GtdCalcWeb.Calculator do
               <input type="number" name="calc[:ffr]" value={@ffr} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
             </div>
             <div>
-              <label class="block text-sm font-medium">ΣFотв:</label>
+              <label class="block text-sm font-medium">αзг:</label>
               <input type="number" name="calc[alpha_zg]" value={@alpha_zg} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
             </div>
+
+            {@formulas.ef_ozg}
 
           </div>
 
