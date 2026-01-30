@@ -344,7 +344,12 @@ defmodule GtdCalcWeb.Formulas do
           "ΔPкс_{100} = \\frac{ΔPкс}{Pк} \\cdot 100",
         :ef_ozg =>
           "ΣFозг = \\left( \\frac{αзг}{αк} \\right) \\cdot ΣFотв",
-
+        :f_ozg =>
+          "Fозг = ΣFозг - Fфр",
+        :f_zg1 =>
+          "Fзг1 = Fозг \\cdot 0.535",
+        :f_zg2 =>
+          "Fзг2 = Fозг - Fзг1"
       }
   end
 

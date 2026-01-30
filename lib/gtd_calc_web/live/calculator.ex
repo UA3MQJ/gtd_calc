@@ -43,7 +43,8 @@ defmodule GtdCalcWeb.Calculator do
             :dzeta_tr_1011, :delta_p_tr_1011,
             :dzeta_tr_1112, :delta_p_tr_1112,
             :delta_p_ks, :delta_p_ks_100,
-            :labels3, :datasets3
+            :labels3, :datasets3,
+            :f_ozg, :f_zg1, :f_zg2
           ]
 
   def mount(_params, _session, socket) do
@@ -769,6 +770,14 @@ defmodule GtdCalcWeb.Calculator do
             </div>
 
             {@formulas.ef_ozg}
+
+            Площадь основных отверстий зоны горения
+            {@formulas.f_ozg}
+            Площадь первичной зоны
+            {@formulas.f_zg1}
+            Площадь промежуточной зоны
+            {@formulas.f_zg2}
+
 
           </div>
 

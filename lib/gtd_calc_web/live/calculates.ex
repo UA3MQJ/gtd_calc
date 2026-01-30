@@ -718,7 +718,15 @@ defmodule GtdCalcWeb.Calculates do
   def calculate(:ef_ozg, a) do
     (a.alpha_zg / a.ak) * a.efotv
   end
-
+  def calculate(:f_ozg, a) do
+    a.ef_ozg - a.ffr
+  end
+  def calculate(:f_zg1, a) do
+    a.f_ozg * 0.535
+  end
+  def calculate(:f_zg2, a) do
+    a.f_ozg - a.f_zg1
+  end
 
   def calculate(_, a) do
     nil
