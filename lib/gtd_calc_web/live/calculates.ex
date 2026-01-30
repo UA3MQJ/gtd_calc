@@ -687,8 +687,9 @@ defmodule GtdCalcWeb.Calculates do
   def calculate(:delta_p_ks_100, a) do
     (a.delta_p_ks / a.p_k) * 100
   end
-  def calculate(:labels3, _a) do
-    Jason.encode!(Enum.to_list(0..16))
+  def calculate(:labels3, a) do
+    multipliers = [0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 7, 7, 8, 8, 9, 9]
+    Jason.encode!(Enum.map(multipliers, &(&1 * a.l_uch |> Float.round(2))))
   end
   def calculate(:datasets3, a) do
     p1 = a.p_k
