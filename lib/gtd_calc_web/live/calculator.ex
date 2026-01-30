@@ -6,7 +6,7 @@ defmodule GtdCalcWeb.Calculator do
     :pk, :dkn, :dkvn, :ncomp, :yk, :votb, :tg, :dtn, :dtvn, :gt, :hu, :l0, :rt, :vr, :tt, :kv, :c1, :c1,
     :azg, :kvzg, :srt, :qh, :a1, :a2, :a3, :a4, :a5, :lks,
     :deltap, :n, :kf, :u, :bk, :dkz, :nf2, :vb, :beta,
-    :ffr, :alpha_zg
+    :ffr, :alpha_zg, :gohl
   ]
   @calcs  [
             :t_v, :tk, :ng, :wk, :p_k, :srvtg, :srvtk, :ntg, :nrb, :qt, :ak1, :ak2, :ak, :gtc, :vg, :kv2, :pv,
@@ -778,6 +778,11 @@ defmodule GtdCalcWeb.Calculator do
             Площадь промежуточной зоны
             {@formulas.f_zg2}
 
+            Площадь отверстий системы охлаждения (15 - 30%)
+            <div>
+              <label class="block text-sm font-medium">Gохл:</label>
+              <input type="number" name="calc[gohl]" value={@gohl} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
 
           </div>
 
