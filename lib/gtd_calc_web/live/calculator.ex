@@ -6,7 +6,7 @@ defmodule GtdCalcWeb.Calculator do
     :pk, :dkn, :dkvn, :ncomp, :yk, :votb, :tg, :dtn, :dtvn, :gt, :hu, :l0, :rt, :vr, :tt, :kv, :c1, :c1,
     :azg, :kvzg, :srt, :qh, :a1, :a2, :a3, :a4, :a5, :lks,
     :deltap, :n, :kf, :u, :bk, :dkz, :nf2, :vb, :beta,
-    :ffr, :alpha_zg, :gohl
+    :ffr, :alpha_zg, :gohl, :lg_div_hg,  :zzg, :zzs
   ]
   @calcs  [
             :t_v, :tk, :ng, :wk, :p_k, :srvtg, :srvtk, :ntg, :nrb, :qt, :ak1, :ak2, :ak, :gtc, :vg, :kv2, :pv,
@@ -44,7 +44,9 @@ defmodule GtdCalcWeb.Calculator do
             :dzeta_tr_1112, :delta_p_tr_1112,
             :delta_p_ks, :delta_p_ks_100,
             :labels3, :datasets3,
-            :f_ozg, :f_zg1, :f_zg2
+            :f_ozg, :f_zg1, :f_zg2,
+            :fohl, :foohl, :fozs,
+            :nozg, :nozs
           ]
 
   def mount(_params, _session, socket) do
@@ -100,7 +102,9 @@ defmodule GtdCalcWeb.Calculator do
       ksi_obt_zuvn: 0.125,
       f_alpha: 1,
       frd: 0.07,
-      ffr: 0.0000728, alpha_zg: 1.24
+      ffr: 0.0000728, alpha_zg: 1.24,
+      lg_div_hg: 3.891, zzg: 2, zzs: 2
+
     }
 
     socket = assign(socket, Map.new(assigns))
@@ -783,6 +787,37 @@ defmodule GtdCalcWeb.Calculator do
               <label class="block text-sm font-medium">Gохл:</label>
               <input type="number" name="calc[gohl]" value={@gohl} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
             </div>
+            {@formulas.fohl}
+            {@formulas.foohl}
+
+            Площадь основных отверстий зоны разбавления (смешения)
+
+            {@formulas.fozs}
+
+            Число поясов основных отверстий<br>
+            при меньше 2.2 z=1  при больше 2.2 z больше
+            <div>
+              <label class="block text-sm font-medium">Lж/hж:</label>
+              <input type="number" name="calc[lg_div_hg]" value={@lg_div_hg} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium">zзг:</label>
+              <input type="number" name="calc[zzg]" value={@zzg} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium">zзс:</label>
+              <input type="number" name="calc[zzs]" value={@zzs} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+
+            {@formulas.nozg}
+            {@formulas.nozs}
+
+            В зоне горения отверстия на одной стенке следует сдвигать в окружном направлении на половину шага относительно отверстий в другой стенке.
+
+            Расчет диаметров основных отверстий на наружной и внутреней стенки ЖТ
+
+
+
 
           </div>
 
