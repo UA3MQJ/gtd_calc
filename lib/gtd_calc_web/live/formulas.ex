@@ -351,6 +351,10 @@ defmodule GtdCalcWeb.Formulas do
           "Fнозг = \\frac{K1 \\cdot Fозг}{0.98 + K1}",
         :fvnozg =>
           "Fвнозг = Fозг - Fнозг",
+        :dnozg1 =>
+          "dнозг1 = \\sqrt{\\frac{24 \\cdot Fнозг}{\\pi \\cdot nозг}}",
+        :dvnozg1 =>
+          "dвнозг1 = \\sqrt{\\frac{1.6 \\cdot Fвнозг}{\\pi \\cdot nозг}}",
         :f_zg1 =>
           "Fзг1 = Fозг \\cdot 0.535",
         :f_zg2 =>
