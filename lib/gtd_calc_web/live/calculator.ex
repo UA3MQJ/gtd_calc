@@ -47,7 +47,8 @@ defmodule GtdCalcWeb.Calculator do
             :nozg, :nozs,
             :f_ozg, :f_zg1, :f_zg2, :fnozg, :fvnozg,
             :dnozg1, :dvnozg1,
-            :fohl, :foohl, :fozs,
+            :fohl, :foohl, :fozs, :dnozg2, :dvnozg2,
+            :fnozs, :fvnozs, :dnozs, :dvnozs
           ]
 
   def mount(_params, _session, socket) do
@@ -826,6 +827,20 @@ defmodule GtdCalcWeb.Calculator do
             {@formulas.dnozg1}
             {@formulas.dvnozg1}
 
+            Диаметры отверстий промежуточной зоны
+
+            {@formulas.dnozg2}
+            {@formulas.dvnozg2}
+
+            Площадь основных отверстий в зоне разбавления (смешения)
+
+            {@formulas.fnozs}
+            {@formulas.fvnozs}
+
+            Диаметры отверстий зоны разбавления (смешения)
+
+            {@formulas.dnozs}
+            {@formulas.dvnozs}
 
           </div>
 

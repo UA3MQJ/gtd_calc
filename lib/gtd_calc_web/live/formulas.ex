@@ -368,7 +368,16 @@ defmodule GtdCalcWeb.Formulas do
         :nozg =>
           "nозг = 6 \\cdot nф \\cdot zзг",
         :nozs =>
-          "nозс = 3.85 \\cdot nф \\cdot zзс"
+          "nозс = 3.85 \\cdot nф \\cdot zзс",
+        :dnozg2 =>
+          "dнозг2 = dвнозг1",
+        :dvnozg2 =>
+          "dвнозг2 = dнозг1",
+        :dnozs =>
+          "dнозс = \\sqrt{\\frac{10.5 \\cdot Fозс}{\\pi \\cdot nозс}}",
+        :dvnozs =>
+          "dвнозс = \\sqrt{\\frac{0.65 \\cdot Fозс}{\\pi \\cdot nозс}}",
+
       }
   end
 

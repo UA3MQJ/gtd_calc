@@ -761,7 +761,24 @@ defmodule GtdCalcWeb.Calculates do
   def calculate(:dvnozg1, a) do
     :math.sqrt((1.6 * a.fvnozg) / (:math.pi() * a.nozg))
   end
-
+  def calculate(:dnozg2, a) do
+    a.dvnozg1
+  end
+  def calculate(:dvnozg2, a) do
+    a.dnozg1
+  end
+  def calculate(:fnozs, a) do
+    0.9 * a.fozs
+  end
+  def calculate(:fvnozs, a) do
+    0.1 * a.fozs
+  end
+  def calculate(:dnozs, a) do
+    :math.sqrt((10.5 * a.fozs) / (:math.pi() * a.nozs))
+  end
+  def calculate(:dvnozs, a) do
+    :math.sqrt((0.65 * a.fozs) / (:math.pi() * a.nozs))
+  end
 
   def calculate(_, a) do
     nil
