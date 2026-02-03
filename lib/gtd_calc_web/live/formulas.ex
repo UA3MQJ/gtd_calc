@@ -142,7 +142,8 @@ defmodule GtdCalcWeb.Formulas do
           "dжн = Dр+hж1",
         :dgvn =>
           "dжвн = Dр-hж1",
-
+        :k1 =>
+          "K1 = \\frac{dжн^2 - Dр^2}{Dр^2-dжвн^2}",
         :fkkn1 =>
           "Fккн1 = \\frac{dжн^2 - Dр^2}{Dр^2-dжвн^2} \\cdot Fкк",
         :fkkn =>
@@ -346,6 +347,8 @@ defmodule GtdCalcWeb.Formulas do
           "ΣFозг = \\left( \\frac{αзг}{αк} \\right) \\cdot ΣFотв",
         :f_ozg =>
           "Fозг = ΣFозг - Fфр",
+        :fnozg =>
+          "Fнозг = \\frac{K1 \\cdot Fозг}{0.98 + K1}",
         :f_zg1 =>
           "Fзг1 = Fозг \\cdot 0.535",
         :f_zg2 =>

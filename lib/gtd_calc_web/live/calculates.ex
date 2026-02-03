@@ -213,6 +213,13 @@ defmodule GtdCalcWeb.Calculates do
   def calculate(:dgvn, a) do
     a.dp - a.hz1
   end
+  def calculate(:k1, a) do
+    (
+      (:math.pow(a.dgn, 2) - :math.pow(a.dp, 2))
+      /
+      (:math.pow(a.dp, 2) - :math.pow(a.dgvn, 2))
+    )
+  end
   def calculate(:fkkn1, a) do
     (
       (:math.pow(a.dgn, 2) -:math.pow(a.dp, 2))
@@ -720,6 +727,9 @@ defmodule GtdCalcWeb.Calculates do
   end
   def calculate(:f_ozg, a) do
     a.ef_ozg - a.ffr
+  end
+  def calculate(:fnozg, a) do
+    (a.k1 * a.f_ozg) / (0.98 + a.k1)
   end
   def calculate(:f_zg1, a) do
     a.f_ozg * 0.535

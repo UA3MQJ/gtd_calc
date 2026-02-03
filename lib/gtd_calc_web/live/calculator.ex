@@ -14,7 +14,7 @@ defmodule GtdCalcWeb.Calculator do
             :srg, :kg, :tzg, :tzgprov, :tg1, :pks, :dksr,
             :dtsr, :hk, :ht, :hz, :hz1,
             :lg, :lzg, :lzs, :ld, :lp, :dp, :fg, :vk, :fk, :fkk,
-            :dgn, :dgvn, :fkkn1, :fkkn, :fkkvn,
+            :dgn, :dgvn, :k1, :fkkn1, :fkkn, :fkkvn,
             :dkkn, :dkkvn,
             :dfr, :nf1, :nf,
             :gf,
@@ -44,7 +44,7 @@ defmodule GtdCalcWeb.Calculator do
             :dzeta_tr_1112, :delta_p_tr_1112,
             :delta_p_ks, :delta_p_ks_100,
             :labels3, :datasets3,
-            :f_ozg, :f_zg1, :f_zg2,
+            :f_ozg, :f_zg1, :f_zg2, :fnozg,
             :fohl, :foohl, :fozs,
             :nozg, :nozs
           ]
@@ -816,7 +816,8 @@ defmodule GtdCalcWeb.Calculator do
 
             Расчет диаметров основных отверстий на наружной и внутреней стенки ЖТ
 
-
+            {@formulas.k1}
+            {@formulas.fnozg}
 
 
           </div>
