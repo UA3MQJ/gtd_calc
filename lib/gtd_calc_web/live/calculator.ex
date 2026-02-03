@@ -44,7 +44,7 @@ defmodule GtdCalcWeb.Calculator do
             :dzeta_tr_1112, :delta_p_tr_1112,
             :delta_p_ks, :delta_p_ks_100,
             :labels3, :datasets3,
-            :f_ozg, :f_zg1, :f_zg2, :fnozg,
+            :f_ozg, :f_zg1, :f_zg2, :fnozg, :fvnozg,
             :fohl, :foohl, :fozs,
             :nozg, :nozs
           ]
@@ -818,6 +818,7 @@ defmodule GtdCalcWeb.Calculator do
 
             {@formulas.k1}
             {@formulas.fnozg}
+            {@formulas.fvnozg}
 
 
           </div>

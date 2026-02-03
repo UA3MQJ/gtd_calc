@@ -349,6 +349,8 @@ defmodule GtdCalcWeb.Formulas do
           "Fозг = ΣFозг - Fфр",
         :fnozg =>
           "Fнозг = \\frac{K1 \\cdot Fозг}{0.98 + K1}",
+        :fvnozg =>
+          "Fвнозг = Fозг - Fнозг",
         :f_zg1 =>
           "Fзг1 = Fозг \\cdot 0.535",
         :f_zg2 =>
