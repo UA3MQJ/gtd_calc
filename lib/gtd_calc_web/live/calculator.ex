@@ -6,7 +6,7 @@ defmodule GtdCalcWeb.Calculator do
     :pk, :dkn, :dkvn, :ncomp, :yk, :votb, :tg, :dtn, :dtvn, :gt, :hu, :l0, :rt, :vr, :tt, :kv, :c1, :c1,
     :azg, :kvzg, :srt, :qh, :a1, :a2, :a3, :a4, :a5, :lks,
     :deltap, :n, :kf, :u, :bk, :dkz, :nf2, :vb, :beta,
-    :ffr, :alpha_zg, :gohl, :lg_div_hg,  :zzg, :zzs
+    :ffr, :alpha_zg, :gohl, :lg_div_hg,  :zzg, :zzs, :wsp
   ]
   @calcs  [
             :t_v, :tk, :ng, :wk, :p_k, :srvtg, :srvtk, :ntg, :nrb, :qt, :ak1, :ak2, :ak, :gtc, :vg, :kv2, :pv,
@@ -48,7 +48,8 @@ defmodule GtdCalcWeb.Calculator do
             :f_ozg, :f_zg1, :f_zg2, :fnozg, :fvnozg,
             :dnozg1, :dvnozg1,
             :fohl, :foohl, :fozs, :dnozg2, :dvnozg2,
-            :fnozs, :fvnozs, :dnozs, :dvnozs
+            :fnozs, :fvnozs, :dnozs, :dvnozs,
+            :pg, :dee, :ro_g
           ]
 
   def mount(_params, _session, socket) do
@@ -105,7 +106,8 @@ defmodule GtdCalcWeb.Calculator do
       f_alpha: 1,
       frd: 0.07,
       ffr: 0.0000728, alpha_zg: 1.24,
-      lg_div_hg: 3.891, zzg: 2, zzs: 2
+      lg_div_hg: 3.891, zzg: 2, zzs: 2,
+      wsp: 30
 
     }
 
@@ -841,6 +843,24 @@ defmodule GtdCalcWeb.Calculator do
 
             {@formulas.dnozs}
             {@formulas.dvnozs}
+
+            Полное давление газа на выходе из камеры сгорания
+
+            {@formulas.pg}
+
+            Относительная глубина проникновения струй воздуха
+
+            {@formulas.dee}
+            {@formulas.ro_g}
+
+            20 - 35
+
+            <div>
+              <label class="block text-sm font-medium">Wсп:</label>
+              <input type="number" name="calc[wsp]" value={@wsp} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+
+            Given
 
           </div>
 

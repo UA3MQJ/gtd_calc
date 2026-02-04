@@ -373,11 +373,20 @@ defmodule GtdCalcWeb.Formulas do
           "dнозг2 = dвнозг1",
         :dvnozg2 =>
           "dвнозг2 = dнозг1",
+        :fnozs =>
+          "Fнозс = 0.9 \\cdot Fозс",
+        :fvnozs =>
+          "Fвнозс = 0.1 \\cdot Fозс",
         :dnozs =>
           "dнозс = \\sqrt{\\frac{10.5 \\cdot Fозс}{\\pi \\cdot nозс}}",
         :dvnozs =>
           "dвнозс = \\sqrt{\\frac{0.65 \\cdot Fозс}{\\pi \\cdot nозс}}",
-
+        :pg =>
+          "Pг = Pк \\cdot σкс",
+        :dee =>
+          "dее = dнозс",
+        :ro_g =>
+          "ρг = \\frac{Pг}{Rг \\cdot Tг}"
       }
   end
 
