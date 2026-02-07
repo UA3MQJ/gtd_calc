@@ -49,7 +49,10 @@ defmodule GtdCalcWeb.Calculator do
             :dnozg1, :dvnozg1,
             :fohl, :foohl, :fozs, :dnozg2, :dvnozg2,
             :fnozs, :fvnozs, :dnozs, :dvnozs,
-            :pg, :dee, :ro_g
+            :pg, :dee, :ro_g,
+            :b2, :botn, :lrc, :lopz1, :loopz, :lozs, :dd, :fkz, :fc1, :efc,
+            :fc2, :dtdc, :u1, :pkr, :vkr,
+            :omega_kr, :fsf, :u2, :omega, :fsfvih, :dvih
           ]
 
   def mount(_params, _session, socket) do
@@ -107,8 +110,9 @@ defmodule GtdCalcWeb.Calculator do
       frd: 0.07,
       ffr: 0.0000728, alpha_zg: 1.24,
       lg_div_hg: 3.891, zzg: 2, zzs: 2,
-      wsp: 30
-
+      wsp: 30,
+      dvkz: 0.026, mp: 3, pb: 1600000, rp: 518,
+      beta_kr: 0.487
     }
 
     socket = assign(socket, Map.new(assigns))
@@ -862,8 +866,107 @@ defmodule GtdCalcWeb.Calculator do
 
             Given
 
-          </div>
+            { "\\[ \\frac{B}{hж} = 0.41 \\cdot \\frac{ \\sqrt{μ} \\cdot dэ}{hж} \\cdot \\left( \\frac{ρв \\cdot Wотв^{2}}{ρг \\cdot Wсп} + 3\\right)^{3} \\]" }
 
+            {@formulas.b2}
+            {@formulas.botn}
+
+            Расстояния до поясов охлаждения<br>
+            Длина газосборника
+            {@formulas.lrc}
+
+            Расстояние до первого ряда отверстий
+            {@formulas.lopz1}
+            {@formulas.loopz}
+
+            Расстояние от выхода из камеры сгорания до отверстий зоны смешения<br>
+            0.8 - 1.5
+            {@formulas.lozs}
+
+            Расчет геометрических параметров для вихревой противоточной КС<br>
+            Внутренний диаметр камеры закрутки
+            <div>
+              <label class="block text-sm font-medium">dкз:</label>
+              <input type="number" name="calc[dvkz]" value={@dvkz} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+
+            Число тангенциальных подводов на одно горелочное устройство
+            <div>
+              <label class="block text-sm font-medium">mп:</label>
+              <input type="number" name="calc[mp]" value={@mp} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+
+            Диаметр входа в сопло:
+
+            {@formulas.dd}
+
+            Площадь камеры закрутки
+            {@formulas.fkz}
+
+            Площадь тангенциального подвода
+            {@formulas.fc1}
+
+            Суммарная площадь тангенциальных подводов
+            {@formulas.efc}
+            {@formulas.f_ozg}
+
+            Соотношение
+            {@formulas.fc2}
+
+            Диаметр тангенциального подвода
+            {@formulas.dtdc}
+
+            EV-burn расчет<br><br>
+            Давление газообразного топлива
+            <div>
+              <label class="block text-sm font-medium">Pб:</label>
+              <input type="number" name="calc[pb]" value={@pb} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+
+            Газовая постоянная для пропана
+            <div>
+              <label class="block text-sm font-medium">Rп:</label>
+              <input type="number" name="calc[rp]" value={@rp} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+
+            Критическое отношение давлений
+            <div>
+              <label class="block text-sm font-medium">βкр:</label>
+              <input type="number" name="calc[beta_kr]" value={@beta_kr} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+
+            Удельный объем газа в минимальном сечении<br>
+            Значение υ1
+            {@formulas.u1}
+
+            Критическое давление, в минимальном сечении газовой форсунки
+            {@formulas.pkr}
+            {@formulas.vkr}
+
+            Теоретическая скорость в минимальном сечении
+            {@formulas.omega_kr}
+
+            Площадь теоретически минимального сечения сопла форсунки
+            {@formulas.fsf}
+
+            Удельный объем газа в выходном сечении форсунки
+            {@formulas.u2}
+
+            Скорость истечения газа из форсунки
+
+            {@formulas.omega}
+
+            Площадь в выходном сечении форсунки
+            {@formulas.fsfvih}
+
+            Диаметр выхода
+            {@formulas.dvih}
+
+            <br><br>
+            Тепловой расчет стенки жаровой трубы
+
+
+          </div>
 
       </form>
 

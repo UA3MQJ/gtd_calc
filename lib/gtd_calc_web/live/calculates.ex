@@ -788,6 +788,96 @@ defmodule GtdCalcWeb.Calculates do
   def calculate(:ro_g, a) do
     a.pg / (a.rg * a.tg)
   end
+  def calculate(:b2, a) do
+    res = 0.41 *
+    ((:math.sqrt(a.u)*a.dee)/(a.hz)) *
+    :math.pow((((a.pv*a.wotv*a.wotv)/
+      (a.ro_g * a.wsp)
+    ) + 3), 3)
+
+    a.hz * res
+  end
+  def calculate(:botn, a) do
+    a.b2 / a.hz
+  end
+  def calculate(:lrc, a) do
+    1.25 * a.hz
+  end
+  def calculate(:lopz1, a) do
+    0.8 * a.hz
+  end
+  def calculate(:loopz, a) do
+    0.3 * a.hz
+  end
+  def calculate(:lozs, a) do
+    0.8 * a.hz
+  end
+  def calculate(:dd, a) do
+    0.8 * a.dvkz
+  end
+  def calculate(:fkz, a) do
+    :math.pi() * a.dvkz * a.dvkz / 4
+  end
+  def calculate(:fc1, a) do
+    a.fkz * 0.22 / a.mp
+  end
+  def calculate(:efc, a) do
+    a.fc1 * a.mp * a.nf2
+  end
+  def calculate(:fc2, a) do
+    a.fc1 * a.mp / a.fkz
+  end
+  def calculate(:dtdc, a) do
+    2 * :math.sqrt(a.fc1 / :math.pi())
+  end
+  def calculate(:u1, a) do
+    a.rp * a.t_v / a.pb
+  end
+  def calculate(:pkr, a) do
+    a.beta_kr * a.pb
+  end
+  def calculate(:vkr, a) do
+    a.u1 *
+    :math.pow(
+      (a.pb / a.pkr),
+      (1 / a.k)
+    )
+  end
+  def calculate(:omega_kr, a) do
+    :math.sqrt(
+      2 *
+      (a.k/(a.k+1)) *
+      a.rp * a.t_v
+    )
+  end
+  def calculate(:fsf, a) do
+    a.gf * a.vkr / a.omega_kr
+  end
+  def calculate(:u2, a) do
+    a.u1 *
+    :math.pow(
+      (a.pb / a.p_k),
+      (1 / a.k)
+    )
+  end
+  def calculate(:omega, a) do
+    :math.sqrt(
+      2 *
+      (a.k/(a.k-1)) *
+      a.pb * a.u1
+      *
+      (1 - :math.pow((a.p_k / a.pb), (a.k-1)/a.k))
+    )
+  end
+  def calculate(:fsfvih, a) do
+    a.gf * a.u2 / a.omega
+  end
+  def calculate(:dvih, a) do
+    :math.sqrt(
+      (a.fsfvih) /
+      (:math.pi() / 4)
+    )
+  end
 
   def calculate(_, a) do
     nil
