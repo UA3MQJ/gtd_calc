@@ -2,11 +2,11 @@ defmodule GtdCalcWeb.Calculator do
   use GtdCalcWeb, :live_view
 
   @params [:r_os, :t_os, :k, :rv, :m,
-    :gv,
     :pk, :dkn, :dkvn, :ncomp, :yk, :votb, :tg, :dtn, :dtvn, :gt, :hu, :l0, :rt, :vr, :tt, :kv, :c1, :c1,
     :azg, :kvzg, :srt, :qh, :a1, :a2, :a3, :a4, :a5, :lks,
     :deltap, :n, :kf, :u, :bk, :dkz, :nf2, :vb, :beta,
-    :ffr, :alpha_zg, :gohl, :lg_div_hg,  :zzg, :zzs, :wsp
+    :alpha_zg, :gohl, :lg_div_hg,  :zzg, :zzs, :wsp,
+    :dvkz, :mp, :pb, :rp, :beta_kr
   ]
   @calcs  [
             :t_v, :tk, :ng, :wk, :p_k, :srvtg, :srvtk, :ntg, :nrb, :qt, :ak1, :ak2, :ak, :gtc, :vg, :kv2, :pv,
@@ -122,7 +122,10 @@ defmodule GtdCalcWeb.Calculator do
 
   def handle_event("calculate", %{"calc" => params}, socket) do
     assigns = @params
-      |> Enum.map(fn(k) -> {k, Utils.to_float(params["#{k}"])} end)
+      |> Enum.map(fn(k) ->
+        # IO.inspect({k, Utils.to_float(params["#{k}"])}, label: ">>>>>>")
+        {k, Utils.to_float(params["#{k}"])}
+      end)
       |> Enum.into(%{})
 
     socket = assign(socket, assigns)

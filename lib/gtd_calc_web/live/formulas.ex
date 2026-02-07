@@ -5,13 +5,13 @@ defmodule GtdCalcWeb.Formulas do
         :t_v =>
           "T_{\\text{в}} = T_{\\text{ос}} \\cdot \\left( 1 + \\frac{k - 1}{k} \\cdot M^2 \\right)",
 
-        :t_k =>
+        :tk =>
           "T_{\\text{к}} = T_{\\text{в}} \\cdot \\left( 1 + \\frac{Пк^\\frac{k-1}{k}}{ηкомп} \\right)",
 
-        :n_g =>
+        :ng =>
           "ηг = 1 - 0.8 \\cdot Kv^2",
 
-        :w_k =>
+        :wk =>
           "Wк = \\sqrt{ Rв \\cdot Tк \\cdot \\frac{2 \\cdot k}{k + 1} \\cdot λк}",
 
         :p_k =>

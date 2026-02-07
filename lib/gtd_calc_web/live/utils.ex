@@ -1,4 +1,5 @@
 defmodule Utils do
+  # def to_float(nil), do: nil
   def to_float(str) when is_binary(str) do
     case Float.parse(str) do
       {num, _rest} -> num
