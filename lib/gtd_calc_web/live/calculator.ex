@@ -6,7 +6,7 @@ defmodule GtdCalcWeb.Calculator do
     :azg, :kvzg, :srt, :qh, :a1, :a2, :a3, :a4, :a5, :lks,
     :deltap, :n, :kf, :u, :bk, :dkz, :nf2, :vb, :beta,
     :alpha_zg, :gohl, :lg_div_hg,  :zzg, :zzs, :wsp,
-    :dvkz, :mp, :pb, :rp, :beta_kr
+    :dvkz, :mp, :pb, :rp, :beta_kr, :prnzg, :prst, :lambdavzg
   ]
   @calcs  [
             :t_v, :tk, :ng, :wk, :p_k, :srvtg, :srvtk, :ntg, :nrb, :qt, :ak1, :ak2, :ak, :gtc, :vg, :kv2, :pv,
@@ -52,7 +52,8 @@ defmodule GtdCalcWeb.Calculator do
             :pg, :dee, :ro_g,
             :b2, :botn, :lrc, :lopz1, :loopz, :lozs, :dd, :fkz, :fc1, :efc,
             :fc2, :dtdc, :u1, :pkr, :vkr,
-            :omega_kr, :fsf, :u2, :omega, :fsfvih, :dvih
+            :omega_kr, :fsf, :u2, :omega, :fsfvih, :dvih,
+            :nuvzg, :alphakzg
           ]
 
   def mount(_params, _session, socket) do
@@ -112,7 +113,8 @@ defmodule GtdCalcWeb.Calculator do
       lg_div_hg: 3.891, zzg: 2, zzs: 2,
       wsp: 30,
       dvkz: 0.026, mp: 3, pb: 1600000, rp: 518,
-      beta_kr: 0.487
+      beta_kr: 0.487,
+      prnzg: 0.72, prst: 0.1, lambdavzg: 9.15e-2
     }
 
     socket = assign(socket, Map.new(assigns))
@@ -968,6 +970,32 @@ defmodule GtdCalcWeb.Calculator do
             <br><br>
             Тепловой расчет стенки жаровой трубы
 
+            <div>
+              <label class="block text-sm font-medium">Prnзг:</label>
+              <input type="number" name="calc[prnzg]" value={@prnzg} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium">Prст:</label>
+              <input type="number" name="calc[prst]" value={@prst} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+
+            <br>
+
+            Число Нуссельта
+
+            {@formulas.nuvzg}
+
+            Коэффициент теплоотдачи
+
+            <div>
+              <label class="block text-sm font-medium">λвзг (Вт/м*К):</label>
+              <input type="number" name="calc[lambdavzg]" value={@lambdavzg} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+
+            {@formulas.alphakzg}
+
+            Число Нуйсельда
 
           </div>
 

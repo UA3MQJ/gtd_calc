@@ -878,6 +878,15 @@ defmodule GtdCalcWeb.Calculates do
       (:math.pi() / 4)
     )
   end
+  def calculate(:nuvzg, a) do
+    0.021 * :math.pow(a.re, 0.8) *
+      :math.pow(a.prnzg, 0.43) *
+      :math.pow((a.prnzg/a.prst), 0.25)
+  end
+  def calculate(:alphakzg, a) do
+    (a.nuvzg * a.lambdavzg)
+    / (a.dgvn)
+  end
 
   def calculate(_, a) do
     nil

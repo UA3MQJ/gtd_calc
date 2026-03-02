@@ -428,7 +428,11 @@ defmodule GtdCalcWeb.Formulas do
         :fsfvih =>
           "Fсфвых = \\frac{Gф \\cdot u2}{ω}",
         :dvih =>
-          "dв = \\sqrt{\\frac{Fсфвых}{\\frac{π}{4}}}"
+          "dв = \\sqrt{\\frac{Fсфвых}{\\frac{π}{4}}}",
+        :nuvzg =>
+          "Nuвзг = 0.021 \\cdot Re ^ {0.8} \\cdot Prnзг ^ {0.43} \\cdot \\left( \\frac{Prnзг}{Prст} \\right) ^ {0.25}",
+        :alphakzg =>
+          "αкзг = \\frac{Nuвзг \\cdot λвзг}{dжвн}"
       }
   end
 
