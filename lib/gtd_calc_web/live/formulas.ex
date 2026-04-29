@@ -432,7 +432,15 @@ defmodule GtdCalcWeb.Formulas do
         :nuvzg =>
           "Nuвзг = 0.021 \\cdot Re ^ {0.8} \\cdot Prnзг ^ {0.43} \\cdot \\left( \\frac{Prnзг}{Prст} \\right) ^ {0.25}",
         :alphakzg =>
-          "αкзг = \\frac{Nuвзг \\cdot λвзг}{dжвн}"
+          "αкзг = \\frac{Nuвзг \\cdot λвзг}{dжвн}",
+        :nuvkk =>
+          "Nuвкк = 0.021 \\cdot Reвкк ^ {0.8} \\cdot Prnзг ^ {0.43} \\cdot \\left( \\frac{Prnзг}{Prст} \\right) ^ {0.25}",
+        :akohl =>
+          "αохл = \\frac{Nuвкк \\cdot λвзг}{dжвн}",
+        :lv =>
+          "lв = 0.6 \\cdot Dр",
+        :csigma =>
+          "Cσ = 5.67 \\cdot 10 ^ {-8} \\frac{Вт}{м^2 \\cdot К^4}"
       }
   end
 

@@ -53,7 +53,7 @@ defmodule GtdCalcWeb.Calculator do
             :b2, :botn, :lrc, :lopz1, :loopz, :lozs, :dd, :fkz, :fc1, :efc,
             :fc2, :dtdc, :u1, :pkr, :vkr,
             :omega_kr, :fsf, :u2, :omega, :fsfvih, :dvih,
-            :nuvzg, :alphakzg
+            :nuvzg, :alphakzg, :nuvkk, :akohl, :lv, :csigma
           ]
 
   def mount(_params, _session, socket) do
@@ -996,6 +996,20 @@ defmodule GtdCalcWeb.Calculator do
             {@formulas.alphakzg}
 
             Число Нуйсельда
+
+            {@formulas.nuvkk}
+
+            Коэффициент теплоотдачи
+
+            {@formulas.akohl}
+
+            Длина пути луча
+
+            {@formulas.lv}
+
+            Постоянная Стефана-Больцмана
+
+            {@formulas.csigma}
 
           </div>
 
