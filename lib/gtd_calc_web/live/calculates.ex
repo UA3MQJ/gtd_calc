@@ -896,12 +896,10 @@ defmodule GtdCalcWeb.Calculates do
     (a.nuvkk * a.lambdavzg) / (a.dgvn)
   end
   def calculate(:lv, a) do
-    0.06 * a.dp
+    0.6 * a.dp
   end
-  # "Cσ = 5.67 \\cdot 10 ^ {-8} \\frac{Вт}{м^2 \\cdot К^4}"
-  def calculate(:csigma, a) do
-    # 5.67 * :math.pow(10, -8) * (a.w / (:math.pow(a.k, 2) * :math.pow(a.k, 4)))
-    -1
+  def calculate(:epsilon_g, a) do
+    1 - :math.exp(-290 * a.p_k * a.lsvt * :math.pow((0.0653 * a.alpha_zg * a.lv), 0.5) * a.tg)
   end
 
   def calculate(_, a) do

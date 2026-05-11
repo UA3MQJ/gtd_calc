@@ -53,7 +53,8 @@ defmodule GtdCalcWeb.Calculator do
             :b2, :botn, :lrc, :lopz1, :loopz, :lozs, :dd, :fkz, :fc1, :efc,
             :fc2, :dtdc, :u1, :pkr, :vkr,
             :omega_kr, :fsf, :u2, :omega, :fsfvih, :dvih,
-            :nuvzg, :alphakzg, :nuvkk, :akohl, :lv, :csigma
+            :nuvzg, :alphakzg, :nuvkk, :akohl, :lv,
+            :epsilon_g
           ]
 
   def mount(_params, _session, socket) do
@@ -114,7 +115,16 @@ defmodule GtdCalcWeb.Calculator do
       wsp: 30,
       dvkz: 0.026, mp: 3, pb: 1600000, rp: 518,
       beta_kr: 0.487,
-      prnzg: 0.72, prst: 0.1, lambdavzg: 9.15e-2
+      prnzg: 0.72, prst: 0.1, lambdavzg: 9.15e-2,
+      csigma: 5.67e-8,
+      lsvt: 0.4,
+      lambda_g: 0.157,
+      mu_g: 7.05e-5,
+      lambda_v: 0.0553,
+      mu_v: 3.89e-10,
+      tw1: 1050,
+      tw2: 1050
+
     }
 
     socket = assign(socket, Map.new(assigns))
@@ -1009,7 +1019,59 @@ defmodule GtdCalcWeb.Calculator do
 
             Постоянная Стефана-Больцмана
 
-            {@formulas.csigma}
+            <div>
+              <label class="block text-sm font-medium">σ (Вт/м^2*К^4):</label>
+              <input type="number" name="calc[csigma]" value={@csigma} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+
+            Излучательная способность пламени
+
+            <div>
+              <label class="block text-sm font-medium">Lсвт:</label>
+              <input type="number" name="calc[lsvt]" value={@lsvt} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+
+            {@formulas.epsilon_g}
+
+
+            <div>
+              <label class="block text-sm font-medium">λг (Вт/м*К):</label>
+              <input type="number" name="calc[lambda_g]" value={@lambda_g} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium">μг (Па*с):</label>
+              <input type="number" name="calc[mu_g]" value={@mu_g} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+
+
+            Конвективный тепловой поток от ЖТ
+
+            <div>
+              <label class="block text-sm font-medium">λв (Вт/м*К):</label>
+              <input type="number" name="calc[lambda_v]" value={@lambda_v} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium">μв (Па*с):</label>
+              <input type="number" name="calc[mu_v]" value={@mu_v} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+
+            Система уравнений, для получения температуры на внутренней и внешней поверхности стенки ЖТ
+
+            <div>
+              <label class="block text-sm font-medium">Tw1</label>
+              <input type="number" name="calc[tw1]" value={@tw1} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium">Tw2</label>
+              <input type="number" name="calc[tw2]" value={@tw2} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            </div>
+
+            Given
+
+
 
           </div>
 

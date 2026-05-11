@@ -440,7 +440,9 @@ defmodule GtdCalcWeb.Formulas do
         :lv =>
           "lв = 0.6 \\cdot Dр",
         :csigma =>
-          "Cσ = 5.67 \\cdot 10 ^ {-8} \\frac{Вт}{м^2 \\cdot К^4}"
+          "Cσ = 5.67 \\cdot 10 ^ {-8} \\frac{Вт}{м^2 \\cdot К^4}",
+        :epsilon_g =>
+          "εг = 1 - exp \\left[ -290 \\cdot Pк \\cdot Lсвт \\cdot ( 0.0653 \\cdot αзг \\cdot lв ) ^{0.5} \\cdot Tг \\right]"
       }
   end
 
