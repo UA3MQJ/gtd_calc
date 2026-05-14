@@ -54,7 +54,9 @@ defmodule GtdCalcWeb.Calculator do
             :fc2, :dtdc, :u1, :pkr, :vkr,
             :omega_kr, :fsf, :u2, :omega, :fsfvih, :dvih,
             :nuvzg, :alphakzg, :nuvkk, :akohl, :lv,
-            :epsilon_g
+            :epsilon_g,
+            :tw1, :tw2,
+            :wall_c1, :wall_c2, :wall_r1, :wall_r2, :wall_k12
           ]
 
   def mount(_params, _session, socket) do
@@ -122,6 +124,7 @@ defmodule GtdCalcWeb.Calculator do
       mu_g: 7.05e-5,
       lambda_v: 0.0553,
       mu_v: 3.89e-10,
+      # Tw1/Tw2 — из системы уравнений стенки (после расчёта εг, srt и т.д.)
       tw1: 1050,
       tw2: 1050
 
@@ -1059,17 +1062,33 @@ defmodule GtdCalcWeb.Calculator do
 
             Система уравнений, для получения температуры на внутренней и внешней поверхности стенки ЖТ
 
-            <div>
-              <label class="block text-sm font-medium">Tw1</label>
-              <input type="number" name="calc[tw1]" value={@tw1} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            <div class="mt-2 mb-4 overflow-x-auto text-sm">
+              {Phoenix.HTML.raw(@formulas.wall_tw_system)}
             </div>
 
-            <div>
-              <label class="block text-sm font-medium">Tw2</label>
-              <input type="number" name="calc[tw2]" value={@tw2} step="any" required class="mt-1 block w-full border-gray-300 rounded" />
+            <div class="mt-2 p-2 bg-gray-50 rounded text-sm">
+              <span class="font-medium">Tw1 (К)</span> — по расчёту: {Float.round(@tw1 * 1.0, 2)}
+            </div>
+            <div class="mt-2 p-2 bg-gray-50 rounded text-sm">
+              <span class="font-medium">Tw2 (К)</span> — по расчёту: {Float.round(@tw2 * 1.0, 2)}
             </div>
 
-            Given
+            <br>
+            Тепловые потоки по стенке ЖТ (после нахождения Tw1, Tw2)
+            <br>
+            Конвективные составляющие
+            <br>{@formulas.wall_c1}
+            <br>{@formulas.wall_c2}
+
+            <br>
+            Лучистые составляющие
+            <br>{@formulas.wall_r1}
+            <br>{@formulas.wall_r2}
+
+            <br>
+            Удельный тепловой поток за счёт теплопроводности стенки
+            <br>{@formulas.wall_k12}
+
 
 
 
@@ -1092,6 +1111,9 @@ defmodule GtdCalcWeb.Calculator do
       result = GtdCalcWeb.Formulas.get(key, socket.assigns)
       Map.merge(formulas, %{key => result})
     end)
+
+    formulas =
+      Map.put(formulas, :wall_tw_system, GtdCalcWeb.Formulas.wall_tw_system_latex())
 
     assign(socket, formulas: formulas)
   end

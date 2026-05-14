@@ -902,7 +902,156 @@ defmodule GtdCalcWeb.Calculates do
     1 - :math.exp(-290 * a.p_k * a.lsvt * :math.pow((0.0653 * a.alpha_zg * a.lv), 0.5) * a.tg)
   end
 
+  def calculate(:tw1, a) do
+    case wall_conduction_k(a) do
+      {:ok, k} ->
+        case find_tw1_bracket_and_solve(a, k) do
+          {:ok, t1} -> t1
+          :error -> fallback_tw1(a)
+        end
+
+      :error ->
+        fallback_tw1(a)
+    end
+  end
+
+  def calculate(:tw2, a) do
+    case wall_conduction_k(a) do
+      {:ok, k} ->
+        t1 = a.tw1
+        lhs1 = lhs1_wall(a, t1)
+        t1 - lhs1 / k
+
+      :error ->
+        fallback_tw2(a)
+    end
+  end
+
+  def calculate(:wall_c1, a) do
+    a.alphakzg * a.gw * (a.tzg - a.tw1)
+  end
+
+  def calculate(:wall_c2, a) do
+    a.akohl * a.gohl * (a.tw2 - a.tk)
+  end
+
+  def calculate(:wall_r1, a) do
+    abs(wall_rad1_naked(a, a.tw1))
+  end
+
+  def calculate(:wall_r2, a) do
+    wall_rad2_radiation(a, a.tw2)
+  end
+
+  def calculate(:wall_k12, a) do
+    case wall_conduction_k(a) do
+      {:ok, k} -> k * (a.tw1 - a.tw2)
+      :error -> 0.0
+    end
+  end
+
   def calculate(_, a) do
     nil
   end
+
+  defp wall_conduction_k(a) do
+    d = a.deltatepl
+
+    if is_number(d) and abs(d) > 1.0e-20 do
+      {:ok, 26 / d}
+    else
+      :error
+    end
+  end
+
+  defp wall_rad1_naked(a, tw1) do
+    tr = a.tg
+    er = 1.0
+
+    0.5 * a.csigma * 1.7 * er *
+      :math.pow(tr, 1.5) *
+      (:math.pow(tr, 2.5) - :math.pow(tw1, 2.5))
+  end
+
+  defp wall_rad2_geometry_factor(a) do
+    dkcp = a.dksr
+    dp = a.dp
+    ratio = if dkcp != 0, do: dp / dkcp, else: 0.0
+    denom = 0.1 + 0.7 * 0.9 * ratio
+    if denom != 0, do: 0.07 / denom, else: 0.0
+  end
+
+  defp wall_rad2_radiation(a, tw2) do
+    wall_rad2_geometry_factor(a) * a.csigma * (:math.pow(tw2, 4) - :math.pow(a.tk, 4))
+  end
+
+  defp lhs1_wall(a, tw1) do
+    wall_rad1_naked(a, tw1) + a.alphakzg * a.gw * (a.tzg - tw1)
+  end
+
+  defp lhs2_wall(a, tw2) do
+    wall_rad2_radiation(a, tw2) + a.akohl * a.gohl * (tw2 - a.tk)
+  end
+
+  defp residual_tw1(a, tw1, k) do
+    lhs1 = lhs1_wall(a, tw1)
+    tw2 = tw1 - lhs1 / k
+    lhs2_wall(a, tw2) - lhs1
+  end
+
+  defp find_tw1_bracket_and_solve(a, k) do
+    f = fn t1 -> residual_tw1(a, t1, k) end
+    lo = 300.0
+    hi = 3200.0
+    n = 160
+
+    xs = for i <- 0..n, do: lo + i * (hi - lo) / n
+
+    bracket =
+      xs
+      |> Enum.chunk_every(2, 1, :discard)
+      |> Enum.find_value(fn [xa, xb] ->
+        fa = f.(xa)
+        fb = f.(xb)
+
+        if is_number(fa) and is_number(fb) and fa * fb <= 0 and (fa != 0.0 or fb != 0.0) do
+          {xa, xb}
+        else
+          nil
+        end
+      end)
+
+    case bracket do
+      {a0, b0} -> {:ok, bisection_zero(f, a0, b0, 80)}
+      nil -> :error
+    end
+  end
+
+  defp bisection_zero(_f, left, right, 0), do: (left + right) / 2
+
+  defp bisection_zero(f, left, right, iter) do
+    mid = (left + right) / 2
+    fm = f.(mid)
+    fl = f.(left)
+
+    cond do
+      abs(fm) < 1.0e-4 ->
+        mid
+
+      abs(right - left) < 1.0e-6 ->
+        mid
+
+      fl * fm <= 0 ->
+        bisection_zero(f, left, mid, iter - 1)
+
+      true ->
+        bisection_zero(f, mid, right, iter - 1)
+    end
+  end
+
+  defp fallback_tw1(a), do: num(Map.get(a, :tw1, 1050.0))
+  defp fallback_tw2(a), do: num(Map.get(a, :tw2, 1050.0))
+
+  defp num(x) when is_number(x), do: x * 1.0
+  defp num(_), do: 1050.0
 end

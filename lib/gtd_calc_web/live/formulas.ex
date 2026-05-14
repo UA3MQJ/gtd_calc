@@ -442,8 +442,36 @@ defmodule GtdCalcWeb.Formulas do
         :csigma =>
           "Cσ = 5.67 \\cdot 10 ^ {-8} \\frac{Вт}{м^2 \\cdot К^4}",
         :epsilon_g =>
-          "εг = 1 - exp \\left[ -290 \\cdot Pк \\cdot Lсвт \\cdot ( 0.0653 \\cdot αзг \\cdot lв ) ^{0.5} \\cdot Tг \\right]"
+          "εг = 1 - exp \\left[ -290 \\cdot Pк \\cdot Lсвт \\cdot ( 0.0653 \\cdot αзг \\cdot lв ) ^{0.5} \\cdot Tг \\right]",
+        :tw1 =>
+          "T_{w1} \\text{ — численное решение системы (Mathcad Given/Find)}",
+        :tw2 =>
+          "T_{w2} \\text{ — численное решение системы (Mathcad Given/Find)}",
+        :wall_c1 =>
+          "C_1 = \\alpha_{\\text{кзг}} \\cdot G_{\\text{в}} \\cdot (T_{\\text{зг}} - T_{w1})",
+        :wall_c2 =>
+          "C_2 = \\alpha_{\\text{кохл}} \\cdot G_{\\text{охл}} \\cdot (T_{w2} - T_{\\text{к}})",
+        :wall_r1 =>
+          "R_1 = \\left| 0.5 \\cdot \\sigma \\cdot (1 + 0.7) \\cdot \\varepsilon_{\\Gamma} \\cdot T_{\\Gamma}^{1.5} \\cdot \\left( T_{\\Gamma}^{2.5} - T_{w1}^{2.5} \\right) \\right|",
+        :wall_r2 =>
+          "R_2 = \\left[ \\frac{0.7 \\cdot 0.1}{0.1 + 0.7 \\cdot (1 - 0.1) \\cdot \\left( \\frac{D_{\\text{р}}}{D_{\\text{кср}}} \\right)} \\right] \\cdot \\sigma \\cdot (T_{w2}^4 - T_{\\text{к}}^4)",
+        :wall_k12 =>
+          "K_{12} = \\frac{26}{\\delta_{\\text{тепл}}} \\cdot (T_{w1} - T_{w2})"
       }
+  end
+
+  @doc """
+  Две строки системы для Tw1, Tw2 (как в Mathcad Given): только LaTeX в `\\[ … \\]`,
+  без подстановки численного результата — для вывода рядом с остальными формулами.
+  """
+  def wall_tw_system_latex do
+    eq1 =
+      "\\left[ 0.5 \\cdot \\sigma \\cdot (1 + 0.7) \\cdot \\varepsilon_{\\Gamma} \\cdot T_{\\Gamma}^{1.5} \\cdot \\left( T_{\\Gamma}^{2.5} - T_{w1}^{2.5} \\right) \\right] + \\left[ \\alpha_{\\text{кзг}} \\cdot G_{\\text{в}} \\cdot (T_{\\text{зг}} - T_{w1}) \\right] = \\frac{26}{\\delta_{\\text{тепл}}} \\cdot (T_{w1} - T_{w2})"
+
+    eq2 =
+      "\\left[ \\frac{0.7 \\cdot 0.1}{0.1 + 0.7 \\cdot (1 - 0.1) \\cdot \\left( \\frac{D_{\\text{р}}}{D_{\\text{кср}}} \\right)} \\cdot \\sigma \\cdot (T_{w2}^4 - T_{\\text{к}}^4) \\right] + \\left[ \\alpha_{\\text{кохл}} \\cdot G_{\\text{охл}} \\cdot (T_{w2} - T_{\\text{к}}) \\right] = \\frac{26}{\\delta_{\\text{тепл}}} \\cdot (T_{w1} - T_{w2})"
+
+    "\\[" <> eq1 <> "\\]<br><br>\\[" <> eq2 <> "\\]"
   end
 
   def get(key, a) do
